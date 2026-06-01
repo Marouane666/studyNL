@@ -1,13 +1,9 @@
 import Link from "next/link";
 
 const NAVY = "#03294f";
-const ORANGE = "#fd7933";
-const ICON_BG = "#e8eafb";
-const TAG_BG = "#ffe7d6";
 
 type Topic = {
   href: string;
-  tag: string;
   title: string;
   blurb: string;
   icon: React.ReactNode;
@@ -16,48 +12,43 @@ type Topic = {
 const TOPICS: Topic[] = [
   {
     href: "/guides/study-route",
-    tag: "Study Route",
     title: "Study in the Netherlands",
     blurb:
-      "Bachelor, master, applied vs research universities — pick the path that fits.",
+      "Understand the Dutch university system, degrees, admissions and timelines.",
     icon: <GraduationCapIcon />,
   },
   {
     href: "/guides/working-while-studying",
-    tag: "Work Rules",
     title: "Working While Studying",
     blurb:
-      "Hour limits, contracts, taxes and what EU vs non-EU students can do.",
+      "Work hours, BSN, taxes, contracts and what students should avoid.",
     icon: <BriefcaseIcon />,
   },
   {
     href: "/guides/scholarships",
-    tag: "Money",
     title: "Scholarships & Funding",
     blurb:
-      "Holland Scholarship, Erasmus+, DUO loans and uni-specific awards.",
+      "Find grants, tuition support, budgeting routes and scholarship deadlines.",
     icon: <WalletIcon />,
   },
   {
     href: "/guides/arrival-checklist",
-    tag: "Arrival",
     title: "Arrival Checklist",
-    blurb: "30 days to BSN, bank, insurance, registration and a working SIM.",
-    icon: <ClockIcon />,
+    blurb: "Step-by-step tasks for your first 30 days after landing.",
+    icon: <CalendarCheckIcon />,
   },
   {
     href: "/guides/accommodation",
-    tag: "Housing",
     title: "Accommodation",
-    blurb: "How to find a room without losing your deposit to a scam.",
+    blurb:
+      "Housing platforms, red flags, contracts and verified partner options.",
     icon: <HomeIcon />,
   },
   {
     href: "/guides/open-days",
-    tag: "Enrolment",
     title: "Open Days & Enrolling",
     blurb:
-      "Studielink, numerus fixus deadlines and what to bring to matching.",
+      "Visit days, application documents, Studielink and enrolment milestones.",
     icon: <BookIcon />,
   },
 ];
@@ -66,32 +57,32 @@ export function PopularTopics() {
   return (
     <section className="bg-white">
       <div className="mx-auto max-w-7xl px-6 py-20">
-        <div className="flex flex-wrap items-end justify-between gap-4">
+        <div className="grid items-start gap-8 lg:grid-cols-2">
           <div>
-            <p
-              className="text-xs font-semibold uppercase tracking-[0.18em]"
-              style={{ color: ORANGE }}
-            >
-              Popular topics
-            </p>
-            <h2
-              className="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl"
+            <span
+              className="inline-flex items-center rounded-full bg-white px-4 py-1.5 text-xs font-medium ring-1 ring-[#03294f]/10"
               style={{ color: NAVY }}
             >
-              Start where most students get stuck.
+              Most visited decisions
+            </span>
+            <h2
+              className="mt-5 text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl"
+              style={{ color: NAVY }}
+            >
+              Our Most Popular <br/>Topics
             </h2>
           </div>
-          <Link
-            href="/guides"
-            className="inline-flex items-center gap-1.5 text-sm font-semibold hover:opacity-80"
-            style={{ color: NAVY }}
+          <p
+            className="text-sm leading-relaxed lg:mt-2"
+            style={{ color: `${NAVY}80` }}
           >
-            All guides
-            <ArrowRightIcon />
-          </Link>
+            Explore the topics students need most before moving to the
+            Netherlands. Each topic opens a direct guide with the steps,
+            deadlines and checks students usually search for first.
+          </p>
         </div>
 
-        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {TOPICS.map((t) => (
             <TopicCard key={t.href} topic={t} />
           ))}
@@ -105,46 +96,24 @@ function TopicCard({ topic }: { topic: Topic }) {
   return (
     <Link
       href={topic.href}
-      className="group flex flex-col rounded-2xl bg-white p-5 ring-1 ring-black/[0.06] shadow-[0_2px_8px_rgba(15,23,42,0.04)] transition hover:shadow-[0_10px_24px_rgba(15,23,42,0.08)] hover:ring-black/10"
+      className="group relative flex min-h-[210px] flex-col justify-between rounded-2xl bg-[#eef1f6] p-6 transition-colors duration-200 hover:bg-[#03294f] hover:shadow-[0_10px_24px_rgba(3,41,79,0.15)]"
     >
-      <div className="flex items-start justify-between gap-3">
-        <span
-          className="inline-flex size-10 items-center justify-center rounded-full"
-          style={{ backgroundColor: ICON_BG, color: NAVY }}
-        >
+      <div className="flex items-start justify-between">
+        <span className="inline-flex size-10 items-center justify-center rounded-xl bg-white text-[#03294f] transition-colors duration-200 group-hover:bg-[#0e3a63] group-hover:text-white">
           {topic.icon}
         </span>
-        <span
-          className="rounded-md px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider"
-          style={{ backgroundColor: TAG_BG, color: ORANGE }}
-        >
-          {topic.tag}
+        <span className="inline-flex size-9 items-center justify-center rounded-full bg-white text-[#03294f] transition-colors duration-200 group-hover:bg-[#fd7933] group-hover:text-white">
+          <ArrowRightIcon />
         </span>
       </div>
 
-      <h3 className="mt-6 text-lg font-bold" style={{ color: NAVY }}>
-        {topic.title}
-      </h3>
-      <p
-        className="mt-1.5 text-sm leading-relaxed"
-        style={{ color: `${NAVY}99` }}
-      >
-        {topic.blurb}
-      </p>
-
-      <div
-        className="mt-5 flex items-center justify-between border-t pt-3"
-        style={{ borderColor: `${NAVY}14` }}
-      >
-        <span
-          className="text-sm font-semibold"
-          style={{ color: NAVY }}
-        >
-          Open guide
-        </span>
-        <span style={{ color: ORANGE }}>
-          <ArrowUpRightIcon />
-        </span>
+      <div className="mt-10">
+        <h3 className="text-lg font-bold text-[#03294f] transition-colors duration-200 group-hover:text-white">
+          {topic.title}
+        </h3>
+        <p className="mt-2 text-sm leading-relaxed text-[#03294f]/50 transition-colors duration-200 group-hover:text-white/70">
+          {topic.blurb}
+        </p>
       </div>
     </Link>
   );
@@ -193,11 +162,14 @@ function WalletIcon() {
     </Svg>
   );
 }
-function ClockIcon() {
+function CalendarCheckIcon() {
   return (
     <Svg>
-      <circle cx="12" cy="12" r="9" />
-      <path d="M12 7v5l3 2" />
+      <rect x="3" y="5" width="18" height="16" rx="2" />
+      <path d="M16 3v4" />
+      <path d="M8 3v4" />
+      <path d="M3 11h18" />
+      <path d="m9 16 2 2 4-4" />
     </Svg>
   );
 }
@@ -222,14 +194,6 @@ function ArrowRightIcon() {
     <Svg width={16} height={16}>
       <path d="M5 12h14" />
       <path d="m13 5 7 7-7 7" />
-    </Svg>
-  );
-}
-function ArrowUpRightIcon() {
-  return (
-    <Svg width={16} height={16}>
-      <path d="M7 17 17 7" />
-      <path d="M8 7h9v9" />
     </Svg>
   );
 }

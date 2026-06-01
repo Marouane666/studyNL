@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -20,23 +19,19 @@ export function Navbar() {
   const pathname = usePathname();
 
   return (
-    <header className="w-full border-b border-[#f4d8c8] bg-[#fffaef]">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-6">
-        <Link href="/" className="flex items-center gap-2 shrink-0">
-          <Image
-            src="/logo.svg"
-            alt="StudyNL"
-            width={32}
-            height={32}
-            priority
-          />
-          <span className="text-xl font-semibold tracking-tight">
+    <header className="w-full bg-[#eaf2fa]">
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-6 px-6">
+        <Link href="/" className="flex flex-col shrink-0 leading-none">
+          <span className="text-2xl font-bold tracking-tight">
             <span className="text-[#03294f]">Study</span>
             <span className="text-[#fd7933]">NL</span>
           </span>
+          <span className="mt-1 text-[10px] font-medium tracking-[0.15em] text-[#03294f]/60">
+            POWERED BY GRADUATE HELP STUDENTS
+          </span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-1">
+        <nav className="hidden md:flex items-center gap-2">
           {NAV_ITEMS.map((item) => {
             const isActive =
               item.href === "/"
@@ -47,10 +42,10 @@ export function Navbar() {
                 key={item.href}
                 href={item.href}
                 aria-current={isActive ? "page" : undefined}
-                className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                className={`rounded-full px-4 py-2 text-sm font-semibold text-[#03294f] transition-shadow ${
                   isActive
-                    ? "bg-[#e8eafb] text-[#03294f]"
-                    : "text-[#03294f]/80 hover:text-[#03294f] hover:bg-[#e8eafb]/60"
+                    ? "bg-white shadow-[0_2px_8px_rgba(3,41,79,0.08)]"
+                    : "bg-white shadow-[0_1px_3px_rgba(3,41,79,0.06)] hover:shadow-[0_2px_8px_rgba(3,41,79,0.1)]"
                 }`}
               >
                 {item.label}
@@ -59,14 +54,13 @@ export function Navbar() {
           })}
         </nav>
 
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="flex items-center gap-2 shrink-0">
           <button
             type="button"
-            className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-[#03294f]/15 px-3 py-1.5 text-sm font-medium text-[#03294f] hover:bg-[#03294f]/5 transition-colors"
+            className="hidden sm:inline-flex items-center rounded-full bg-white px-4 py-2 text-sm font-semibold text-[#03294f] shadow-[0_1px_3px_rgba(3,41,79,0.06)] hover:shadow-[0_2px_8px_rgba(3,41,79,0.1)] transition-shadow"
             aria-label="Change language"
           >
-            <GlobeIcon />
-            EN
+            English
           </button>
           <Link
             href="/start"
@@ -77,25 +71,5 @@ export function Navbar() {
         </div>
       </div>
     </header>
-  );
-}
-
-function GlobeIcon() {
-  return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.75"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <circle cx="12" cy="12" r="9" />
-      <path d="M3 12h18" />
-      <path d="M12 3a13.5 13.5 0 0 1 0 18a13.5 13.5 0 0 1 0-18z" />
-    </svg>
   );
 }

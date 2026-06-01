@@ -2,8 +2,6 @@ import Link from "next/link";
 
 const NAVY = "#03294f";
 const ORANGE = "#fd7933";
-const STEP_BG = "#0a3866";
-const STEP_BORDER = "#13476f";
 
 type Step = {
   number: string;
@@ -13,106 +11,162 @@ type Step = {
 
 const STEPS: Step[] = [
   {
-    number: "01",
-    title: "Choose your study route",
-    blurb: "Research vs applied uni, English-taught programmes, numerus fixus.",
+    number: "1",
+    title: "Study route",
+    blurb:
+      "Choose the right degree type, university path and application window before comparing cities.",
   },
   {
-    number: "02",
-    title: "Check money & deadlines",
-    blurb: "Tuition tiers, scholarships, DUO loans, monthly budget per city.",
+    number: "2",
+    title: "Money & deadlines",
+    blurb:
+      "Plan tuition, scholarships, monthly costs and the dates that can block your move.",
   },
   {
-    number: "03",
-    title: "Secure housing safely",
-    blurb: "Verified routes, contracts, deposit rules — and red flags.",
+    number: "3",
+    title: "Housing safety",
+    blurb:
+      "Check rental red flags, deposits, contracts and safe next steps before you pay.",
   },
   {
-    number: "04",
-    title: "Prepare documents",
-    blurb: "Diplomas, visa/MVV, insurance, translations and apostilles.",
-  },
-  {
-    number: "05",
-    title: "Land and settle in",
-    blurb: "BSN, bank, GP, gemeente registration, OV-chipkaart, SIM.",
+    number: "4",
+    title: "Documents",
+    blurb:
+      "Prepare enrolment, visa, BSN, insurance and arrival documents in the right order.",
   },
 ];
 
 export function MovePlan() {
   return (
     <section className="bg-white">
-      <div className="mx-auto max-w-7xl px-6 py-16">
-        <div
-          className="rounded-3xl px-6 py-12 sm:px-10 sm:py-14 lg:px-16 lg:py-20"
-          style={{ backgroundColor: NAVY }}
-        >
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16">
-            <div>
-              <span
-                className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white/85"
-                style={{ backgroundColor: "rgba(255,255,255,0.08)" }}
+      <div className="mx-auto max-w-7xl px-6 py-20">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-14">
+          <div
+            className="rounded-[2.5rem] px-4 py-8 sm:px-5 sm:py-10"
+            style={{
+              background:
+                "linear-gradient(135deg, #fde0d0 0%, #f5e6f0 50%, #d8e0f5 100%)",
+            }}
+          >
+            <div className="flex h-full flex-col rounded-[2rem] bg-white p-8 sm:p-10">
+              <div className="flex items-start justify-between">
+                <span
+                  className="inline-flex size-12 items-center justify-center rounded-full text-white"
+                  style={{ backgroundColor: NAVY }}
+                >
+                  <ArrowUpRightIcon />
+                </span>
+                <div className="flex items-center gap-2">
+                  <span
+                    className="inline-flex items-center rounded-full bg-white px-3 py-1.5 text-xs font-semibold ring-1 ring-[#03294f]/10"
+                    style={{ color: NAVY }}
+                  >
+                    Move plan
+                  </span>
+                  <span
+                    className="inline-flex items-center rounded-full bg-white px-3 py-1.5 text-xs font-semibold ring-1 ring-[#03294f]/10"
+                    style={{ color: NAVY }}
+                  >
+                    2025
+                  </span>
+                </div>
+              </div>
+
+              <h3
+                className="mt-16 text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl"
+                style={{ color: NAVY }}
               >
-                <CompassIcon />
-                The Move Plan
-              </span>
-
-              <h2 className="mt-6 text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl">
-                A guided path,
+                5 steps to
                 <br />
-                not a pile of links.
-              </h2>
+                arrive ready
+              </h3>
 
-              <p className="mt-5 max-w-md text-base leading-relaxed text-white/70">
-                Each step unlocks the next. Skip ahead and you&apos;ll trip on
-                a deadline, a deposit, or a document you didn&apos;t know you
-                needed.
+              <p
+                className="mt-5 max-w-sm text-sm leading-relaxed"
+                style={{ color: `${NAVY}80` }}
+              >
+                We organize every important student decision into one clear
+                path, from choosing a study route to settling in safely.
               </p>
 
               <Link
                 href="/plan"
-                className="mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
-                style={{ backgroundColor: ORANGE }}
+                className="mt-8 inline-flex w-fit items-center rounded-full px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+                style={{ backgroundColor: NAVY }}
               >
-                Build my plan
-                <ArrowRightIcon />
+                Build my checklist
               </Link>
             </div>
+          </div>
 
-            <ol className="flex flex-col gap-3">
+          <div className="flex flex-col">
+            <span
+              className="inline-flex w-fit items-center rounded-full bg-white px-4 py-1.5 text-xs font-medium ring-1 ring-[#03294f]/10"
+              style={{ color: NAVY }}
+            >
+              Guided path
+            </span>
+
+            <div className="mt-5 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:items-start">
+              <h2
+                className="text-3xl font-extrabold leading-[1.1] tracking-tight sm:text-4xl"
+                style={{ color: NAVY }}
+              >
+                A guided path,
+                <br />
+                not a pile of links.
+              </h2>
+              <p
+                className="text-sm leading-relaxed"
+                style={{ color: `${NAVY}80` }}
+              >
+                Students usually arrive with anxiety: which university, where
+                to live, how much money, what documents and what to do first.
+                This turns the website into a sequence.
+              </p>
+            </div>
+
+            <ol className="mt-6 flex flex-col gap-3">
               {STEPS.map((s) => (
-                <li
-                  key={s.number}
-                  className="flex items-center gap-5 rounded-2xl px-5 py-4"
-                  style={{
-                    backgroundColor: STEP_BG,
-                    boxShadow: `inset 0 0 0 1px ${STEP_BORDER}`,
-                  }}
-                >
-                  <span
-                    className="text-xl font-bold tabular-nums"
-                    style={{ color: ORANGE }}
-                  >
-                    {s.number}
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <h3 className="text-sm font-semibold text-white sm:text-base">
-                      {s.title}
-                    </h3>
-                    <p className="mt-0.5 text-xs leading-relaxed text-white/60 sm:text-sm">
-                      {s.blurb}
-                    </p>
-                  </div>
-                  <span className="shrink-0 text-white/40">
-                    <CheckCircleIcon />
-                  </span>
-                </li>
+                <StepRow key={s.number} step={s} />
               ))}
             </ol>
           </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function StepRow({ step }: { step: Step }) {
+  return (
+    <li className="group flex items-center gap-5 rounded-2xl border border-[#03294f]/10 bg-white px-5 py-4 transition-colors duration-200 hover:border-[#fd7933]/30 hover:bg-[#fff4ec]">
+      <span
+        className="inline-flex size-8 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white"
+        style={{ backgroundColor: ORANGE }}
+      >
+        {step.number}
+      </span>
+      <div className="min-w-0 flex-1 grid gap-1 sm:grid-cols-[minmax(0,0.55fr)_minmax(0,1fr)] sm:items-center sm:gap-6">
+        <h3
+          className="text-sm font-bold sm:text-base"
+          style={{ color: NAVY }}
+        >
+          {step.title}
+        </h3>
+        <p
+          className="text-xs leading-relaxed sm:text-sm"
+          style={{ color: `${NAVY}80` }}
+        >
+          {step.blurb}
+        </p>
+      </div>
+      <span
+        className="shrink-0 text-[#03294f]/40 transition-colors duration-200 group-hover:text-[#fd7933]"
+      >
+        <ArrowRightIcon />
+      </span>
+    </li>
   );
 }
 
@@ -124,7 +178,7 @@ function Svg(props: React.SVGProps<SVGSVGElement>) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.75"
+      strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
@@ -133,27 +187,20 @@ function Svg(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-function CompassIcon() {
-  return (
-    <Svg width={14} height={14}>
-      <circle cx="12" cy="12" r="9" />
-      <path d="m15.5 8.5-2 5-5 2 2-5 5-2Z" />
-    </Svg>
-  );
-}
 function ArrowRightIcon() {
   return (
-    <Svg width={16} height={16}>
+    <Svg width={18} height={18}>
       <path d="M5 12h14" />
       <path d="m13 5 7 7-7 7" />
     </Svg>
   );
 }
-function CheckCircleIcon() {
+
+function ArrowUpRightIcon() {
   return (
     <Svg width={20} height={20}>
-      <circle cx="12" cy="12" r="9" />
-      <path d="m9 12 2 2 4-4" />
+      <path d="M7 17 17 7" />
+      <path d="M8 7h9v9" />
     </Svg>
   );
 }
