@@ -1,62 +1,50 @@
+"use client";
+
+import { useT } from "../i18n/I18nProvider";
+
 const NAVY = "#092A4D";
 const ORANGE = "#fd7933";
 
 type Stage = {
   step: number;
-  title: string;
-  blurb: string;
+  titleKey: string;
+  blurbKey: string;
 };
 
 const STAGES: Stage[] = [
-  {
-    step: 1,
-    title: "I'm exploring programs",
-    blurb: "Understand routes, universities and application windows.",
-  },
-  {
-    step: 2,
-    title: "I'm applying now",
-    blurb: "Plan documents, Studielink and enrolment deadlines.",
-  },
-  {
-    step: 3,
-    title: "I've been accepted",
-    blurb: "Handle housing, money, visa and insurance tasks.",
-  },
-  {
-    step: 4,
-    title: "I'm arriving soon",
-    blurb: "Prepare BSN, city registration and arrival week.",
-  },
+  { step: 1, titleKey: "start.s1.title", blurbKey: "start.s1.blurb" },
+  { step: 2, titleKey: "start.s2.title", blurbKey: "start.s2.blurb" },
+  { step: 3, titleKey: "start.s3.title", blurbKey: "start.s3.blurb" },
+  { step: 4, titleKey: "start.s4.title", blurbKey: "start.s4.blurb" },
 ];
 
 export default function StartHerePage() {
+  const t = useT();
   return (
     <section className="bg-white" style={{ color: NAVY }}>
-      <div className="mx-auto max-w-7xl px-6 py-20">
+      <div className="mx-auto max-w-7xl px-6 py-10">
         <span
           className="inline-flex items-center rounded-full bg-white px-4 py-1.5 text-xs font-semibold ring-1 ring-[#092A4D]/10"
           style={{ color: NAVY }}
         >
-          Start Here
+          {t("start.badge")}
         </span>
 
         <h1
-          className="mt-8 max-w-4xl text-5xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl"
+          className="mt-8 max-w-4xl break-words text-[clamp(2rem,5vw,3.75rem)] font-extrabold leading-[1.05] tracking-tight"
           style={{ color: NAVY }}
         >
-          Get your personal move plan.
+          {t("start.title")}
         </h1>
 
         <p
           className="mt-8 max-w-xl text-base leading-relaxed"
           style={{ color: `${NAVY}99` }}
         >
-          Choose where you are in the process and get the right checklist,
-          deadlines and guides.
+          {t("start.subtitle")}
         </p>
 
-        <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {STAGES.map((stage) => (
             <StageCard key={stage.step} stage={stage} />
           ))}
@@ -67,6 +55,7 @@ export default function StartHerePage() {
 }
 
 function StageCard({ stage }: { stage: Stage }) {
+  const t = useT();
   return (
     <div className="flex min-h-[230px] flex-col rounded-2xl bg-[#f6f8fb] px-6 py-6 ring-1 ring-[#092A4D]/5">
       <span
@@ -80,14 +69,14 @@ function StageCard({ stage }: { stage: Stage }) {
         className="mt-12 text-lg font-bold leading-snug"
         style={{ color: NAVY }}
       >
-        {stage.title}
+        {t(stage.titleKey)}
       </h3>
 
       <p
         className="mt-3 text-sm leading-relaxed"
         style={{ color: `${NAVY}99` }}
       >
-        {stage.blurb}
+        {t(stage.blurbKey)}
       </p>
     </div>
   );

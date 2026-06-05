@@ -1,43 +1,47 @@
+"use client";
+
 import Link from "next/link";
+import { useT } from "../i18n/I18nProvider";
 
 const NAVY = "#03294f";
 
-type LinkItem = { href: string; label: string };
+type LinkItem = { href: string; tKey: string };
 
 const COLUMNS: LinkItem[][] = [
   [
-    { href: "/guides/study-route", label: "Study in the Netherlands" },
-    { href: "/guides/scholarships", label: "Scholarships & Funding" },
-    { href: "/guides/cost-of-living", label: "Cost of living" },
-    { href: "/guides/working-while-studying", label: "Working while studying" },
+    { href: "/guides/study-route", tKey: "footer.l.studyNL" },
+    { href: "/guides/scholarships", tKey: "footer.l.scholarships" },
+    { href: "/guides/cost-of-living", tKey: "footer.l.cost" },
+    { href: "/guides/working-while-studying", tKey: "footer.l.work" },
   ],
   [
-    { href: "/guides/arrival-checklist", label: "Arrival checklist" },
-    { href: "/guides/dutch-enrolment", label: "Enrolment" },
-    { href: "/hub-plus", label: "Hub Plus" },
-    { href: "/forum", label: "Forum" },
+    { href: "/guides/arrival-checklist", tKey: "footer.l.arrival" },
+    { href: "/guides/dutch-enrolment", tKey: "footer.l.enrolment" },
+    { href: "/hub-plus", tKey: "footer.l.hubPlus" },
+    { href: "/forum", tKey: "footer.l.forum" },
   ],
   [
-    { href: "/universities", label: "Universities" },
-    { href: "/fraternities", label: "Fraternities" },
-    { href: "/guides/visa-residency", label: "Visa & residency" },
-    { href: "/guides/housing-scams", label: "Avoid scams" },
+    { href: "/universities", tKey: "footer.l.universities" },
+    { href: "/fraternities", tKey: "footer.l.fraternities" },
+    { href: "/guides/visa-residency", tKey: "footer.l.visa" },
+    { href: "/guides/housing-scams", tKey: "footer.l.scams" },
   ],
   [
-    { href: "/guides/cities", label: "City guides" },
-    { href: "/guides/finance", label: "Finance & loans" },
-    { href: "/guides/accommodation", label: "Accommodation" },
-    { href: "/partners", label: "Partner with us" },
+    { href: "/guides/cities", tKey: "footer.l.cities" },
+    { href: "/guides/finance", tKey: "footer.l.finance" },
+    { href: "/guides/accommodation", tKey: "footer.l.accommodation" },
+    { href: "/partners", tKey: "footer.l.partners" },
   ],
   [
-    { href: "/about", label: "About" },
-    { href: "/contact", label: "Contact" },
-    { href: "/legal", label: "Legal" },
-    { href: "/help-centre", label: "Help centre" },
+    { href: "/about", tKey: "footer.l.about" },
+    { href: "/contact", tKey: "footer.l.contact" },
+    { href: "/legal", tKey: "footer.l.legal" },
+    { href: "/help-centre", tKey: "footer.l.help" },
   ],
 ];
 
 export function Footer() {
+  const t = useT();
   return (
     <footer
       style={{
@@ -57,7 +61,7 @@ export function Footer() {
                 className="mt-1.5 text-[10px] font-medium tracking-[0.15em]"
                 style={{ color: `${NAVY}80` }}
               >
-                POWERED BY GRADUATE HELP STUDENTS
+                {t("nav.tagline.prefix")} <span className="font-bold">{t("nav.tagline.suffix")}</span>
               </span>
             </Link>
           </div>
@@ -71,7 +75,7 @@ export function Footer() {
                     className="text-sm font-bold transition-opacity hover:opacity-70"
                     style={{ color: NAVY }}
                   >
-                    {item.label}
+                    {t(item.tKey)}
                   </Link>
                 </li>
               ))}
@@ -83,7 +87,7 @@ export function Footer() {
           className="mt-14 text-xs"
           style={{ color: `${NAVY}80` }}
         >
-          © 2035 StudyNL. Static HTML redesign preview.
+          {t("footer.copyright")}
         </p>
       </div>
     </footer>

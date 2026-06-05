@@ -30,7 +30,7 @@ body {
   }
 
   .marquee-track {
-    animation: marquee-x 18s linear infinite;
+    animation: marquee-x 28s linear infinite;
     will-change: transform;
   }
 

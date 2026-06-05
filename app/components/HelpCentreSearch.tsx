@@ -1,21 +1,25 @@
+"use client";
+
 import Link from "next/link";
+import { useT } from "../i18n/I18nProvider";
 
 const NAVY = "#03294f";
 
 const QUICK_TAGS = [
-  "Visa deadline",
-  "Cheap housing",
-  "Can I work?",
-  "Monthly budget",
-  "Studielink",
-  "BSN",
-  "Rent deposit",
+  "help.tag1",
+  "help.tag2",
+  "help.tag3",
+  "help.tag4",
+  "help.tag5",
+  "help.tag6",
+  "help.tag7",
 ];
 
 export function HelpCentreSearch() {
+  const t = useT();
   return (
     <section className="bg-white">
-      <div className="mx-auto max-w-7xl px-6 py-16">
+      <div className="mx-auto max-w-7xl px-6 py-8">
         <div
           className="rounded-[2rem] px-6 py-12 sm:px-12 sm:py-14 lg:px-16"
           style={{
@@ -29,22 +33,21 @@ export function HelpCentreSearch() {
                 className="inline-flex items-center rounded-full bg-white px-4 py-1.5 text-xs font-medium ring-1 ring-[#03294f]/10"
                 style={{ color: NAVY }}
               >
-                Find answers faster
+                {t("help.badge")}
               </span>
 
               <h2
-                className="mt-5 text-3xl font-extrabold leading-[1.1] tracking-tight sm:text-4xl lg:text-5xl"
+                className="mt-5 break-words text-[clamp(1.625rem,3.6vw,3rem)] font-extrabold leading-[1.1] tracking-tight"
                 style={{ color: NAVY }}
               >
-                Search by topic, city or question
+                {t("help.title")}
               </h2>
 
               <p
                 className="mt-5 max-w-lg text-sm leading-relaxed"
                 style={{ color: `${NAVY}80` }}
               >
-                Students do not only browse categories. They search things like
-                BSN, rent deposit, DUO, visa, September intake and city names.
+                {t("help.subtitle")}
               </p>
             </div>
 
@@ -60,24 +63,27 @@ export function HelpCentreSearch() {
                 <input
                   type="search"
                   name="q"
-                  placeholder="Try: housing contract before arrival"
-                  aria-label="Search the help centre"
+                  placeholder={t("help.placeholder")}
+                  aria-label={t("help.title")}
                   className="min-w-0 flex-1 bg-transparent text-sm font-medium outline-none placeholder:text-[#03294f]/40"
                   style={{ color: NAVY }}
                 />
               </form>
 
               <div className="mt-4 flex flex-wrap gap-2">
-                {QUICK_TAGS.map((tag) => (
-                  <Link
-                    key={tag}
-                    href={`/help-centre?q=${encodeURIComponent(tag)}`}
-                    className="rounded-xl bg-[#eaf2fa] px-3.5 py-2 text-xs font-bold transition-colors hover:bg-[#dce8f5] sm:text-sm"
-                    style={{ color: NAVY }}
-                  >
-                    {tag}
-                  </Link>
-                ))}
+                {QUICK_TAGS.map((key) => {
+                  const label = t(key);
+                  return (
+                    <Link
+                      key={key}
+                      href={`/help-centre?q=${encodeURIComponent(label)}`}
+                      className="whitespace-nowrap rounded-xl bg-[#eaf2fa] px-3.5 py-2 text-xs font-bold transition-colors hover:bg-[#dce8f5] sm:text-sm"
+                      style={{ color: NAVY }}
+                    >
+                      {label}
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           </div>

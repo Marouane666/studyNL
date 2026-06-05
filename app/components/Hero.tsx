@@ -1,12 +1,16 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useT } from "../i18n/I18nProvider";
 
 const NAVY = "#03294f";
 const ORANGE = "#fd7933";
 
 export function Hero() {
+  const t = useT();
   return (
-    <section className="bg-white px-4 pb-12 pt-4 sm:px-6 lg:px-8">
+    <section className="bg-white px-4 pb-6 pt-4 sm:px-6 lg:px-8">
       <div
         className="mx-auto max-w-7xl overflow-hidden rounded-[2rem] px-6 py-12 sm:px-10 sm:py-16 lg:px-14 lg:py-20"
         style={{
@@ -20,22 +24,21 @@ export function Hero() {
               className="inline-flex items-center rounded-full bg-white px-4 py-1.5 text-xs font-medium shadow-[0_1px_3px_rgba(3,41,79,0.06)]"
               style={{ color: NAVY }}
             >
-              + Your guide to studying in NL
+              {t("hero.badge")}
             </span>
 
             <h1
-              className="mt-6 text-[clamp(2.25rem,5vw,3.75rem)] font-extrabold leading-[1.05] tracking-tight"
+              className="mt-6 break-words text-[clamp(2rem,4.5vw,3.5rem)] font-extrabold leading-[1.05] tracking-tight"
               style={{ color: NAVY }}
             >
-              Your clear route to studying in the Netherlands.
+              {t("hero.title")}
             </h1>
 
             <p
               className="mt-6 max-w-xl text-base leading-relaxed"
               style={{ color: `${NAVY}99` }}
             >
-              Make the big decisions in the right order: study route,
-              enrolment, housing, money, work rules and arrival tasks.
+              {t("hero.subtitle")}
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -44,7 +47,7 @@ export function Hero() {
                 className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#e96a25]"
                 style={{ backgroundColor: ORANGE }}
               >
-                Start your move
+                {t("hero.cta_primary")}
                 <ArrowRightIcon />
               </Link>
               <Link
@@ -52,7 +55,7 @@ export function Hero() {
                 className="inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-semibold shadow-[0_1px_3px_rgba(3,41,79,0.06)] transition-shadow hover:shadow-[0_2px_8px_rgba(3,41,79,0.1)]"
                 style={{ color: NAVY }}
               >
-                Browse guides
+                {t("hero.cta_secondary")}
               </Link>
             </div>
 
@@ -62,15 +65,15 @@ export function Hero() {
             >
               <span className="inline-flex items-center gap-1.5">
                 <CheckIcon />
-                Enrolment explained
+                {t("hero.chip_enrolment")}
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <CheckIcon />
-                Housing safety
+                {t("hero.chip_housing")}
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <CheckIcon />
-                Arrival planning
+                {t("hero.chip_arrival")}
               </span>
             </div>
           </div>
@@ -89,25 +92,25 @@ export function Hero() {
 
             <FloatingCard
               className="absolute left-4 top-6 sm:left-6 sm:top-8"
-              label="Scholarship deadlines"
-              value="12 open"
+              label={t("hero.card1_label")}
+              value={t("hero.card1_value")}
             />
             <FloatingCard
               className="absolute right-2 top-1/3 sm:right-4"
-              label="Housing scam check"
-              value="Safe first"
+              label={t("hero.card2_label")}
+              value={t("hero.card2_value")}
             />
             <FloatingCard
               className="absolute bottom-6 left-4 sm:bottom-8 sm:left-6"
-              label="Arrival checklist"
-              value="30 days"
+              label={t("hero.card3_label")}
+              value={t("hero.card3_value")}
             />
 
             <span
-              className="absolute bottom-6 right-4 inline-flex items-center rounded-full px-4 py-2 text-sm font-semibold text-white shadow-md sm:bottom-8 sm:right-6"
+              className="absolute bottom-6 right-4 inline-flex items-center whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold text-white shadow-md sm:bottom-8 sm:right-6"
               style={{ backgroundColor: ORANGE }}
             >
-              Start-ready
+              {t("hero.tag_startready")}
             </span>
           </div>
         </div>
@@ -127,12 +130,12 @@ function FloatingCard({
 }) {
   return (
     <div
-      className={`rounded-2xl bg-white px-4 py-2.5 shadow-[0_4px_14px_rgba(3,41,79,0.12)] ${className ?? ""}`}
+      className={`max-w-[60%] rounded-2xl bg-white px-4 py-2.5 shadow-[0_4px_14px_rgba(3,41,79,0.12)] sm:max-w-[45%] ${className ?? ""}`}
     >
-      <div className="text-[10px] font-medium tracking-wide text-[#03294f]/60">
+      <div className="text-[10px] font-medium leading-tight tracking-wide text-[#03294f]/60">
         {label}
       </div>
-      <div className="text-sm font-bold text-[#03294f]">{value}</div>
+      <div className="text-sm font-bold leading-tight text-[#03294f]">{value}</div>
     </div>
   );
 }

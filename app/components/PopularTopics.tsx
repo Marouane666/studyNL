@@ -1,90 +1,87 @@
+"use client";
+
 import Link from "next/link";
+import { useT } from "../i18n/I18nProvider";
 
 const NAVY = "#03294f";
 
 type Topic = {
   href: string;
-  title: string;
-  blurb: string;
+  titleKey: string;
+  blurbKey: string;
   icon: React.ReactNode;
 };
 
 const TOPICS: Topic[] = [
   {
     href: "/guides/study-route",
-    title: "Study in the Netherlands",
-    blurb:
-      "Understand the Dutch university system, degrees, admissions and timelines.",
+    titleKey: "popular.t1.title",
+    blurbKey: "popular.t1.blurb",
     icon: <GraduationCapIcon />,
   },
   {
     href: "/guides/working-while-studying",
-    title: "Working While Studying",
-    blurb:
-      "Work hours, BSN, taxes, contracts and what students should avoid.",
+    titleKey: "popular.t2.title",
+    blurbKey: "popular.t2.blurb",
     icon: <BriefcaseIcon />,
   },
   {
     href: "/guides/scholarships",
-    title: "Scholarships & Funding",
-    blurb:
-      "Find grants, tuition support, budgeting routes and scholarship deadlines.",
+    titleKey: "popular.t3.title",
+    blurbKey: "popular.t3.blurb",
     icon: <WalletIcon />,
   },
   {
     href: "/guides/arrival-checklist",
-    title: "Arrival Checklist",
-    blurb: "Step-by-step tasks for your first 30 days after landing.",
+    titleKey: "popular.t4.title",
+    blurbKey: "popular.t4.blurb",
     icon: <CalendarCheckIcon />,
   },
   {
     href: "/guides/accommodation",
-    title: "Accommodation",
-    blurb:
-      "Housing platforms, red flags, contracts and verified partner options.",
+    titleKey: "popular.t5.title",
+    blurbKey: "popular.t5.blurb",
     icon: <HomeIcon />,
   },
   {
     href: "/guides/open-days",
-    title: "Open Days & Enrolling",
-    blurb:
-      "Visit days, application documents, Studielink and enrolment milestones.",
+    titleKey: "popular.t6.title",
+    blurbKey: "popular.t6.blurb",
     icon: <BookIcon />,
   },
 ];
 
 export function PopularTopics() {
+  const t = useT();
   return (
     <section className="bg-white">
-      <div className="mx-auto max-w-7xl px-6 py-20">
+      <div className="mx-auto max-w-7xl px-6 py-10">
         <div className="grid items-start gap-8 lg:grid-cols-2">
           <div>
             <span
               className="inline-flex items-center rounded-full bg-white px-4 py-1.5 text-xs font-medium ring-1 ring-[#03294f]/10"
               style={{ color: NAVY }}
             >
-              Most visited decisions
+              {t("popular.badge")}
             </span>
             <h2
-              className="mt-5 text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl"
+              className="mt-5 break-words text-[clamp(1.875rem,4vw,3rem)] font-extrabold leading-[1.1] tracking-tight"
               style={{ color: NAVY }}
             >
-              Our Most Popular <br/>Topics
+              {t("popular.title_line1")} {t("popular.title_line2")}
             </h2>
           </div>
           <p
             className="text-sm leading-relaxed lg:mt-2"
             style={{ color: `${NAVY}80` }}
           >
-            Explore the topics students need most before moving to the
-            Netherlands. Each topic opens a direct guide with the steps,
-            deadlines and checks students usually search for first.
+            {t("popular.subtitle")}
           </p>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {TOPICS.map((t) => (
-            <TopicCard key={t.href} topic={t} />
+        <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {TOPICS.map((topic) => (
+            <TopicCard key={topic.href} topic={topic} />
           ))}
         </div>
       </div>
@@ -93,6 +90,7 @@ export function PopularTopics() {
 }
 
 function TopicCard({ topic }: { topic: Topic }) {
+  const t = useT();
   return (
     <Link
       href={topic.href}
@@ -108,11 +106,11 @@ function TopicCard({ topic }: { topic: Topic }) {
       </div>
 
       <div className="mt-10">
-        <h3 className="text-lg font-bold text-[#03294f] transition-colors duration-200 group-hover:text-white">
-          {topic.title}
+        <h3 className="break-words text-lg font-bold leading-snug text-[#03294f] transition-colors duration-200 group-hover:text-white">
+          {t(topic.titleKey)}
         </h3>
-        <p className="mt-2 text-sm leading-relaxed text-[#03294f]/50 transition-colors duration-200 group-hover:text-white/70">
-          {topic.blurb}
+        <p className="mt-2 break-words text-sm leading-relaxed text-[#03294f]/50 transition-colors duration-200 group-hover:text-white/70">
+          {t(topic.blurbKey)}
         </p>
       </div>
     </Link>

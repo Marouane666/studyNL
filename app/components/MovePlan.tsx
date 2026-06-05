@@ -1,45 +1,29 @@
+"use client";
+
 import Link from "next/link";
+import { useT } from "../i18n/I18nProvider";
 
 const NAVY = "#03294f";
 const ORANGE = "#fd7933";
 
 type Step = {
   number: string;
-  title: string;
-  blurb: string;
+  titleKey: string;
+  blurbKey: string;
 };
 
 const STEPS: Step[] = [
-  {
-    number: "1",
-    title: "Study route",
-    blurb:
-      "Choose the right degree type, university path and application window before comparing cities.",
-  },
-  {
-    number: "2",
-    title: "Money & deadlines",
-    blurb:
-      "Plan tuition, scholarships, monthly costs and the dates that can block your move.",
-  },
-  {
-    number: "3",
-    title: "Housing safety",
-    blurb:
-      "Check rental red flags, deposits, contracts and safe next steps before you pay.",
-  },
-  {
-    number: "4",
-    title: "Documents",
-    blurb:
-      "Prepare enrolment, visa, BSN, insurance and arrival documents in the right order.",
-  },
+  { number: "1", titleKey: "moveplan.s1.title", blurbKey: "moveplan.s1.blurb" },
+  { number: "2", titleKey: "moveplan.s2.title", blurbKey: "moveplan.s2.blurb" },
+  { number: "3", titleKey: "moveplan.s3.title", blurbKey: "moveplan.s3.blurb" },
+  { number: "4", titleKey: "moveplan.s4.title", blurbKey: "moveplan.s4.blurb" },
 ];
 
 export function MovePlan() {
+  const t = useT();
   return (
     <section className="bg-white">
-      <div className="mx-auto max-w-7xl px-6 py-20">
+      <div className="mx-auto max-w-7xl px-6 py-10">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-14">
           <div
             className="rounded-[2.5rem] px-4 py-8 sm:px-5 sm:py-10"
@@ -61,7 +45,7 @@ export function MovePlan() {
                     className="inline-flex items-center rounded-full bg-white px-3 py-1.5 text-xs font-semibold ring-1 ring-[#03294f]/10"
                     style={{ color: NAVY }}
                   >
-                    Move plan
+                    {t("moveplan.tag1")}
                   </span>
                   <span
                     className="inline-flex items-center rounded-full bg-white px-3 py-1.5 text-xs font-semibold ring-1 ring-[#03294f]/10"
@@ -73,20 +57,17 @@ export function MovePlan() {
               </div>
 
               <h3
-                className="mt-16 text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl"
+                className="mt-16 break-words text-[clamp(1.875rem,4vw,3rem)] font-extrabold leading-[1.05] tracking-tight"
                 style={{ color: NAVY }}
               >
-                5 steps to
-                <br />
-                arrive ready
+                {t("moveplan.title")}
               </h3>
 
               <p
                 className="mt-5 max-w-sm text-sm leading-relaxed"
                 style={{ color: `${NAVY}80` }}
               >
-                We organize every important student decision into one clear
-                path, from choosing a study route to settling in safely.
+                {t("moveplan.subtitle")}
               </p>
 
               <Link
@@ -94,7 +75,7 @@ export function MovePlan() {
                 className="mt-8 inline-flex w-fit items-center rounded-full px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
                 style={{ backgroundColor: NAVY }}
               >
-                Build my checklist
+                {t("moveplan.cta")}
               </Link>
             </div>
           </div>
@@ -104,25 +85,21 @@ export function MovePlan() {
               className="inline-flex w-fit items-center rounded-full bg-white px-4 py-1.5 text-xs font-medium ring-1 ring-[#03294f]/10"
               style={{ color: NAVY }}
             >
-              Guided path
+              {t("moveplan.badge")}
             </span>
 
             <div className="mt-5 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:items-start">
               <h2
-                className="text-3xl font-extrabold leading-[1.1] tracking-tight sm:text-4xl"
+                className="break-words text-[clamp(1.5rem,3.2vw,2.25rem)] font-extrabold leading-[1.1] tracking-tight"
                 style={{ color: NAVY }}
               >
-                A guided path,
-                <br />
-                not a pile of links.
+                {t("moveplan.heading")}
               </h2>
               <p
                 className="text-sm leading-relaxed"
                 style={{ color: `${NAVY}80` }}
               >
-                Students usually arrive with anxiety: which university, where
-                to live, how much money, what documents and what to do first.
-                This turns the website into a sequence.
+                {t("moveplan.heading_blurb")}
               </p>
             </div>
 
@@ -139,6 +116,7 @@ export function MovePlan() {
 }
 
 function StepRow({ step }: { step: Step }) {
+  const t = useT();
   return (
     <li className="group flex items-center gap-5 rounded-2xl border border-[#03294f]/10 bg-white px-5 py-4 transition-colors duration-200 hover:border-[#fd7933]/30 hover:bg-[#fff4ec]">
       <span
@@ -152,13 +130,13 @@ function StepRow({ step }: { step: Step }) {
           className="text-sm font-bold sm:text-base"
           style={{ color: NAVY }}
         >
-          {step.title}
+          {t(step.titleKey)}
         </h3>
         <p
           className="text-xs leading-relaxed sm:text-sm"
           style={{ color: `${NAVY}80` }}
         >
-          {step.blurb}
+          {t(step.blurbKey)}
         </p>
       </div>
       <span
