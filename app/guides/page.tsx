@@ -3,17 +3,10 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useT } from "../i18n/I18nProvider";
+import { GUIDES, Guide } from "./guides";
 
 const BG = "#EAF6FF";
 const TEXT = "#092A4D";
-
-type Guide = {
-  href: string;
-  catKey: string;
-  titleKey: string;
-  blurbKey: string;
-  tabKey: string;
-};
 
 const TAB_KEYS = [
   "guides.tab1",
@@ -23,18 +16,6 @@ const TAB_KEYS = [
   "guides.tab5",
   "guides.tab6",
 ] as const;
-
-const GUIDES: Guide[] = [
-  { href: "/guides/study-route", catKey: "guides.g1.cat", titleKey: "guides.g1.title", blurbKey: "guides.g1.blurb", tabKey: "guides.tab1" },
-  { href: "/guides/scholarships", catKey: "guides.g2.cat", titleKey: "guides.g2.title", blurbKey: "guides.g2.blurb", tabKey: "guides.tab2" },
-  { href: "/guides/cost-of-living", catKey: "guides.g3.cat", titleKey: "guides.g3.title", blurbKey: "guides.g3.blurb", tabKey: "guides.tab2" },
-  { href: "/guides/working-while-studying", catKey: "guides.g4.cat", titleKey: "guides.g4.title", blurbKey: "guides.g4.blurb", tabKey: "guides.tab6" },
-  { href: "/guides/arrival-checklist", catKey: "guides.g5.cat", titleKey: "guides.g5.title", blurbKey: "guides.g5.blurb", tabKey: "guides.tab5" },
-  { href: "/guides/enrolment", catKey: "guides.g6.cat", titleKey: "guides.g6.title", blurbKey: "guides.g6.blurb", tabKey: "guides.tab1" },
-  { href: "/guides/accommodation", catKey: "guides.g7.cat", titleKey: "guides.g7.title", blurbKey: "guides.g7.blurb", tabKey: "guides.tab3" },
-  { href: "/guides/visa-residency", catKey: "guides.g8.cat", titleKey: "guides.g8.title", blurbKey: "guides.g8.blurb", tabKey: "guides.tab4" },
-  { href: "/guides/avoid-scams", catKey: "guides.g9.cat", titleKey: "guides.g9.title", blurbKey: "guides.g9.blurb", tabKey: "guides.tab3" },
-];
 
 export default function GuidesPage() {
   const t = useT();
@@ -98,7 +79,7 @@ export default function GuidesPage() {
 
         <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {visibleGuides.map((guide) => (
-            <GuideCard key={guide.href} guide={guide} />
+            <GuideCard key={guide.slug} guide={guide} />
           ))}
         </div>
       </div>
@@ -110,7 +91,7 @@ function GuideCard({ guide }: { guide: Guide }) {
   const t = useT();
   return (
     <Link
-      href={guide.href}
+      href={`/guides/${guide.slug}`}
       className="group flex min-h-[180px] flex-col rounded-2xl bg-white p-6 shadow-[0_1px_2px_rgba(9,42,77,0.04)] transition-shadow duration-200 hover:shadow-[0_10px_28px_rgba(9,42,77,0.12)]"
     >
       <span

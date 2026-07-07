@@ -39,6 +39,32 @@ const en: Dict = {
   "nav.changeLanguage": "Change language",
   "nav.menu": "Menu",
   "nav.close": "Close",
+
+  "search.trigger": "Search",
+  "search.placeholder": "Search guides, help topics and pages…",
+  "search.hint": "Start typing to search StudyNL.",
+  "search.empty": "No results found.",
+
+  "notfound.badge": "404",
+  "notfound.title": "We can't find that page.",
+  "notfound.subtitle":
+    "The page you're looking for may have moved, or doesn't exist yet.",
+  "notfound.home": "Back to home",
+  "notfound.guides": "Browse guides",
+
+  "forum.badge": "Community",
+  "forum.title": "Ask students who've already made the move.",
+  "forum.subtitle":
+    "Get answers on housing, enrolment, money and arrival from students who've been there.",
+  "forum.note":
+    "The forum is launching soon. In the meantime, our guides and help centre cover the most common questions.",
+  "forum.cta": "Explore guides",
+
+  "guide.back": "All guides",
+  "guide.note":
+    "We're expanding this guide with detailed steps, deadlines and checks. Explore related guides below or build your personalised move plan.",
+  "guide.related": "Related guides",
+  "guide.cta": "Build my move plan",
   "nav.tagline.prefix": "POWERED BY GRADUATES",
   "nav.tagline.suffix": "FOR STUDENTS",
 
@@ -249,6 +275,32 @@ const de: Dict = {
   "nav.changeLanguage": "Sprache ändern",
   "nav.menu": "Menü",
   "nav.close": "Schließen",
+
+  "search.trigger": "Suchen",
+  "search.placeholder": "Leitfäden, Hilfethemen und Seiten durchsuchen…",
+  "search.hint": "Tippe, um StudyNL zu durchsuchen.",
+  "search.empty": "Keine Ergebnisse gefunden.",
+
+  "notfound.badge": "404",
+  "notfound.title": "Diese Seite finden wir nicht.",
+  "notfound.subtitle":
+    "Die gesuchte Seite wurde vielleicht verschoben oder existiert noch nicht.",
+  "notfound.home": "Zurück zur Startseite",
+  "notfound.guides": "Leitfäden ansehen",
+
+  "forum.badge": "Community",
+  "forum.title": "Frag Studierende, die den Umzug schon gemacht haben.",
+  "forum.subtitle":
+    "Antworten zu Wohnen, Einschreibung, Geld und Ankunft von Studierenden mit Erfahrung.",
+  "forum.note":
+    "Das Forum startet bald. In der Zwischenzeit beantworten unsere Leitfäden und das Hilfecenter die häufigsten Fragen.",
+  "forum.cta": "Leitfäden entdecken",
+
+  "guide.back": "Alle Leitfäden",
+  "guide.note":
+    "Wir erweitern diesen Leitfaden mit Schritten, Fristen und Checks. Sieh dir unten verwandte Leitfäden an oder erstelle deinen persönlichen Umzugsplan.",
+  "guide.related": "Verwandte Leitfäden",
+  "guide.cta": "Meinen Umzugsplan erstellen",
   "nav.tagline.prefix": "BEREITGESTELLT VON ABSOLVENTEN",
   "nav.tagline.suffix": "FÜR STUDIERENDE",
 
@@ -470,6 +522,32 @@ const fr: Dict = {
   "nav.changeLanguage": "Changer de langue",
   "nav.menu": "Menu",
   "nav.close": "Fermer",
+
+  "search.trigger": "Rechercher",
+  "search.placeholder": "Rechercher des guides, sujets d'aide et pages…",
+  "search.hint": "Commencez à taper pour rechercher sur StudyNL.",
+  "search.empty": "Aucun résultat trouvé.",
+
+  "notfound.badge": "404",
+  "notfound.title": "Nous ne trouvons pas cette page.",
+  "notfound.subtitle":
+    "La page recherchée a peut-être été déplacée ou n'existe pas encore.",
+  "notfound.home": "Retour à l'accueil",
+  "notfound.guides": "Voir les guides",
+
+  "forum.badge": "Communauté",
+  "forum.title": "Posez vos questions aux étudiants déjà installés.",
+  "forum.subtitle":
+    "Des réponses sur le logement, l'inscription, l'argent et l'arrivée par ceux qui l'ont vécu.",
+  "forum.note":
+    "Le forum arrive bientôt. En attendant, nos guides et le centre d'aide couvrent les questions les plus fréquentes.",
+  "forum.cta": "Explorer les guides",
+
+  "guide.back": "Tous les guides",
+  "guide.note":
+    "Nous enrichissons ce guide avec des étapes, des échéances et des vérifications. Découvrez les guides liés ci-dessous ou créez votre plan de déménagement personnalisé.",
+  "guide.related": "Guides liés",
+  "guide.cta": "Créer mon plan",
   "nav.tagline.prefix": "PROPULSÉ PAR DES DIPLÔMÉS",
   "nav.tagline.suffix": "POUR LES ÉTUDIANTS",
 
@@ -693,6 +771,32 @@ const it: Dict = {
   "nav.changeLanguage": "Cambia lingua",
   "nav.menu": "Menu",
   "nav.close": "Chiudi",
+
+  "search.trigger": "Cerca",
+  "search.placeholder": "Cerca guide, argomenti di aiuto e pagine…",
+  "search.hint": "Inizia a digitare per cercare in StudyNL.",
+  "search.empty": "Nessun risultato trovato.",
+
+  "notfound.badge": "404",
+  "notfound.title": "Non troviamo questa pagina.",
+  "notfound.subtitle":
+    "La pagina che cerchi potrebbe essere stata spostata o non esistere ancora.",
+  "notfound.home": "Torna alla home",
+  "notfound.guides": "Sfoglia le guide",
+
+  "forum.badge": "Comunità",
+  "forum.title": "Chiedi agli studenti che si sono già trasferiti.",
+  "forum.subtitle":
+    "Risposte su alloggio, iscrizione, soldi e arrivo da chi c'è già passato.",
+  "forum.note":
+    "Il forum arriverà presto. Nel frattempo, le nostre guide e il centro assistenza coprono le domande più comuni.",
+  "forum.cta": "Esplora le guide",
+
+  "guide.back": "Tutte le guide",
+  "guide.note":
+    "Stiamo ampliando questa guida con passaggi, scadenze e controlli. Esplora le guide correlate qui sotto o crea il tuo piano di trasferimento.",
+  "guide.related": "Guide correlate",
+  "guide.cta": "Crea il mio piano",
   "nav.tagline.prefix": "REALIZZATO DA LAUREATI",
   "nav.tagline.suffix": "PER GLI STUDENTI",
 
@@ -918,6 +1022,32 @@ const nl: Dict = {
   "nav.changeLanguage": "Taal wijzigen",
   "nav.menu": "Menu",
   "nav.close": "Sluiten",
+
+  "search.trigger": "Zoeken",
+  "search.placeholder": "Zoek gidsen, hulponderwerpen en pagina's…",
+  "search.hint": "Begin te typen om StudyNL te doorzoeken.",
+  "search.empty": "Geen resultaten gevonden.",
+
+  "notfound.badge": "404",
+  "notfound.title": "We kunnen die pagina niet vinden.",
+  "notfound.subtitle":
+    "De pagina die je zoekt is misschien verplaatst of bestaat nog niet.",
+  "notfound.home": "Terug naar home",
+  "notfound.guides": "Bekijk gidsen",
+
+  "forum.badge": "Community",
+  "forum.title": "Vraag studenten die de stap al hebben gezet.",
+  "forum.subtitle":
+    "Antwoorden over huisvesting, inschrijving, geld en aankomst van studenten met ervaring.",
+  "forum.note":
+    "Het forum komt binnenkort. Ondertussen behandelen onze gidsen en het helpcentrum de meestgestelde vragen.",
+  "forum.cta": "Ontdek gidsen",
+
+  "guide.back": "Alle gidsen",
+  "guide.note":
+    "We breiden deze gids uit met stappen, deadlines en checks. Bekijk hieronder gerelateerde gidsen of stel je persoonlijke verhuisplan samen.",
+  "guide.related": "Gerelateerde gidsen",
+  "guide.cta": "Mijn verhuisplan maken",
   "nav.tagline.prefix": "GEMAAKT DOOR AFGESTUDEERDEN",
   "nav.tagline.suffix": "VOOR STUDENTEN",
 
@@ -1142,6 +1272,32 @@ const ro: Dict = {
   "nav.changeLanguage": "Schimbă limba",
   "nav.menu": "Meniu",
   "nav.close": "Închide",
+
+  "search.trigger": "Caută",
+  "search.placeholder": "Caută ghiduri, subiecte de ajutor și pagini…",
+  "search.hint": "Începe să scrii pentru a căuta pe StudyNL.",
+  "search.empty": "Niciun rezultat găsit.",
+
+  "notfound.badge": "404",
+  "notfound.title": "Nu găsim această pagină.",
+  "notfound.subtitle":
+    "Pagina căutată poate a fost mutată sau nu există încă.",
+  "notfound.home": "Înapoi la pagina principală",
+  "notfound.guides": "Vezi ghidurile",
+
+  "forum.badge": "Comunitate",
+  "forum.title": "Întreabă studenții care s-au mutat deja.",
+  "forum.subtitle":
+    "Răspunsuri despre cazare, înscriere, bani și sosire de la cei care au trecut prin asta.",
+  "forum.note":
+    "Forumul se lansează în curând. Între timp, ghidurile și centrul de ajutor acoperă cele mai frecvente întrebări.",
+  "forum.cta": "Explorează ghidurile",
+
+  "guide.back": "Toate ghidurile",
+  "guide.note":
+    "Extindem acest ghid cu pași, termene și verificări. Explorează ghidurile similare de mai jos sau creează-ți planul personalizat de mutare.",
+  "guide.related": "Ghiduri similare",
+  "guide.cta": "Creează-mi planul",
   "nav.tagline.prefix": "REALIZAT DE ABSOLVENȚI",
   "nav.tagline.suffix": "PENTRU STUDENȚI",
 
@@ -1364,6 +1520,32 @@ const tr: Dict = {
   "nav.changeLanguage": "Dili değiştir",
   "nav.menu": "Menü",
   "nav.close": "Kapat",
+
+  "search.trigger": "Ara",
+  "search.placeholder": "Rehberlerde, yardım konularında ve sayfalarda ara…",
+  "search.hint": "StudyNL'de aramak için yazmaya başla.",
+  "search.empty": "Sonuç bulunamadı.",
+
+  "notfound.badge": "404",
+  "notfound.title": "Bu sayfayı bulamıyoruz.",
+  "notfound.subtitle":
+    "Aradığınız sayfa taşınmış olabilir veya henüz mevcut değil.",
+  "notfound.home": "Ana sayfaya dön",
+  "notfound.guides": "Rehberlere göz at",
+
+  "forum.badge": "Topluluk",
+  "forum.title": "Taşınmayı çoktan yapmış öğrencilere sor.",
+  "forum.subtitle":
+    "Konaklama, kayıt, para ve varış hakkında deneyimli öğrencilerden yanıtlar.",
+  "forum.note":
+    "Forum yakında açılıyor. Bu arada rehberlerimiz ve yardım merkezimiz en sık sorulan soruları kapsıyor.",
+  "forum.cta": "Rehberleri keşfet",
+
+  "guide.back": "Tüm rehberler",
+  "guide.note":
+    "Bu rehberi ayrıntılı adımlar, son tarihler ve kontrollerle genişletiyoruz. Aşağıdaki ilgili rehberlere göz atın veya kişisel taşınma planınızı oluşturun.",
+  "guide.related": "İlgili rehberler",
+  "guide.cta": "Taşınma planımı oluştur",
   "nav.tagline.prefix": "MEZUNLAR TARAFINDAN",
   "nav.tagline.suffix": "ÖĞRENCİLER İÇİN",
 
@@ -1586,6 +1768,30 @@ const zh: Dict = {
   "nav.changeLanguage": "切换语言",
   "nav.menu": "菜单",
   "nav.close": "关闭",
+
+  "search.trigger": "搜索",
+  "search.placeholder": "搜索指南、帮助主题和页面…",
+  "search.hint": "开始输入以搜索 StudyNL。",
+  "search.empty": "未找到结果。",
+
+  "notfound.badge": "404",
+  "notfound.title": "找不到该页面。",
+  "notfound.subtitle": "您查找的页面可能已移动，或尚不存在。",
+  "notfound.home": "返回首页",
+  "notfound.guides": "浏览指南",
+
+  "forum.badge": "社区",
+  "forum.title": "向已经完成搬迁的学生提问。",
+  "forum.subtitle": "从过来人那里获得关于住宿、注册、资金和到达的解答。",
+  "forum.note":
+    "论坛即将上线。在此期间，我们的指南和帮助中心涵盖了最常见的问题。",
+  "forum.cta": "探索指南",
+
+  "guide.back": "所有指南",
+  "guide.note":
+    "我们正在为本指南补充详细步骤、截止日期和检查清单。请浏览下方的相关指南，或制定您的个性化搬迁计划。",
+  "guide.related": "相关指南",
+  "guide.cta": "制定我的搬迁计划",
   "nav.tagline.prefix": "由毕业生打造",
   "nav.tagline.suffix": "服务学生",
 
@@ -1781,6 +1987,32 @@ const ar: Dict = {
   "nav.changeLanguage": "تغيير اللغة",
   "nav.menu": "القائمة",
   "nav.close": "إغلاق",
+
+  "search.trigger": "بحث",
+  "search.placeholder": "ابحث في الأدلة ومواضيع المساعدة والصفحات…",
+  "search.hint": "ابدأ الكتابة للبحث في StudyNL.",
+  "search.empty": "لا توجد نتائج.",
+
+  "notfound.badge": "404",
+  "notfound.title": "لا يمكننا العثور على هذه الصفحة.",
+  "notfound.subtitle":
+    "قد تكون الصفحة التي تبحث عنها قد نُقلت أو لم تُنشأ بعد.",
+  "notfound.home": "العودة إلى الرئيسية",
+  "notfound.guides": "تصفّح الأدلة",
+
+  "forum.badge": "المجتمع",
+  "forum.title": "اسأل الطلاب الذين انتقلوا بالفعل.",
+  "forum.subtitle":
+    "احصل على إجابات حول السكن والتسجيل والمال والوصول ممن مرّوا بالتجربة.",
+  "forum.note":
+    "المنتدى قيد الإطلاق قريبًا. في هذه الأثناء، تغطي أدلتنا ومركز المساعدة أكثر الأسئلة شيوعًا.",
+  "forum.cta": "استكشف الأدلة",
+
+  "guide.back": "كل الأدلة",
+  "guide.note":
+    "نعمل على توسيع هذا الدليل بخطوات ومواعيد وقوائم تحقق. تصفّح الأدلة ذات الصلة أدناه أو أنشئ خطة انتقالك الشخصية.",
+  "guide.related": "أدلة ذات صلة",
+  "guide.cta": "أنشئ خطة انتقالي",
   "nav.tagline.prefix": "من إعداد الخريجين",
   "nav.tagline.suffix": "للطلاب",
 

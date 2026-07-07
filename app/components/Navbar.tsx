@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { LANGUAGES } from "../i18n/dictionary";
 import { useI18n } from "../i18n/I18nProvider";
+import { GlobalSearch } from "./GlobalSearch";
 
 type NavItem = { href: string; tKey: string };
 
@@ -86,6 +87,8 @@ export function Navbar() {
           </nav>
 
           <div className="flex shrink-0 items-center gap-2">
+            <GlobalSearch />
+
             <Link
               href="/start"
               className="hidden whitespace-nowrap items-center rounded-full bg-[#fd7933] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#e96a25] sm:inline-flex"
