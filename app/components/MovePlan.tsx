@@ -71,7 +71,7 @@ export function MovePlan() {
               </p>
 
               <Link
-                href="/plan"
+                href="/start"
                 className="mt-8 inline-flex w-fit items-center rounded-full px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
                 style={{ backgroundColor: NAVY }}
               >

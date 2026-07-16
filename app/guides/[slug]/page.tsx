@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { use } from "react";
 import { useT } from "../../i18n/I18nProvider";
 import { getGuide, GUIDES } from "../guides";
+import type { GuideSection, GuideSource } from "../guides";
 
 const BG = "#EAF6FF";
 const NAVY = "#092A4D";
@@ -55,13 +56,41 @@ export default function GuideDetailPage({
           {t(guide.blurbKey)}
         </p>
 
-        <div className="mt-8 rounded-2xl bg-white p-6 shadow-[0_2px_10px_rgba(9,42,77,0.05)] sm:p-8">
-          <p className="text-base leading-relaxed" style={{ color: `${NAVY}CC` }}>
-            {t("guide.note")}
+        <div
+          className="mt-8 rounded-2xl border-l-4 bg-white p-6 shadow-[0_2px_10px_rgba(9,42,77,0.05)] sm:p-7"
+          style={{ borderColor: ORANGE }}
+        >
+          <p className="text-xs font-bold uppercase tracking-wide" style={{ color: ORANGE }}>
+            {t("guide.answer.label")}
           </p>
+          <p className="mt-2 text-base leading-relaxed" style={{ color: NAVY }}>
+            {t(guide.answerKey)}
+          </p>
+        </div>
+
+        <div className="mt-10 flex flex-col gap-10">
+          {guide.sections.map((sec) => (
+            <GuideSectionBlock key={sec.headingKey} section={sec} />
+          ))}
+        </div>
+
+        {guide.sources.length > 0 && (
+          <div className="mt-10 rounded-2xl bg-white p-6 shadow-[0_1px_2px_rgba(9,42,77,0.04)] sm:p-7">
+            <p className="text-xs font-bold uppercase tracking-wide" style={{ color: `${NAVY}80` }}>
+              {t("guide.sources.label")}
+            </p>
+            <ul className="mt-3 flex flex-col gap-2">
+              {guide.sources.map((source) => (
+                <SourceLink key={source.href} source={source} />
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <div className="mt-10 rounded-2xl bg-white p-6 shadow-[0_2px_10px_rgba(9,42,77,0.05)] sm:p-8">
           <Link
             href="/start"
-            className="mt-6 inline-flex items-center rounded-full px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors"
+            className="inline-flex items-center rounded-full px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:opacity-90"
             style={{ backgroundColor: ORANGE }}
           >
             {t("guide.cta")}
@@ -96,6 +125,56 @@ export default function GuideDetailPage({
   );
 }
 
+function GuideSectionBlock({ section }: { section: GuideSection }) {
+  const t = useT();
+  return (
+    <div>
+      <h2 className="text-xl font-bold" style={{ color: NAVY }}>
+        {t(section.headingKey)}
+      </h2>
+      {section.bodyKey && (
+        <p className="mt-3 max-w-2xl text-base leading-relaxed" style={{ color: `${NAVY}CC` }}>
+          {t(section.bodyKey)}
+        </p>
+      )}
+      {section.bulletKeys && section.bulletKeys.length > 0 && (
+        <ul className="mt-3 flex max-w-2xl flex-col gap-2.5">
+          {section.bulletKeys.map((key) => (
+            <li key={key} className="flex items-start gap-2.5 text-base leading-relaxed" style={{ color: `${NAVY}CC` }}>
+              <span
+                className="mt-2.5 size-1.5 shrink-0 rounded-full"
+                style={{ backgroundColor: ORANGE }}
+                aria-hidden="true"
+              />
+              {t(key)}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+function SourceLink({ source }: { source: GuideSource }) {
+  return (
+    <li>
+      <a
+        href={source.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-1.5 text-sm font-semibold hover:underline"
+        style={{ color: NAVY }}
+      >
+        {source.label}
+        <ExternalIcon />
+      </a>
+      <span className="ml-1.5 text-xs" style={{ color: `${NAVY}80` }}>
+        · {source.org}
+      </span>
+    </li>
+  );
+}
+
 function BackIcon() {
   return (
     <svg
@@ -110,6 +189,25 @@ function BackIcon() {
       aria-hidden="true"
     >
       <path d="m15 18-6-6 6-6" />
+    </svg>
+  );
+}
+
+function ExternalIcon() {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M7 17 17 7" />
+      <path d="M8 7h9v9" />
     </svg>
   );
 }

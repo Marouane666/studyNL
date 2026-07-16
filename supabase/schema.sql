@@ -134,3 +134,17 @@ as $$
   where post_id = any(post_ids) and status = 'visible'
   group by post_id;
 $$;
+
+-- Public contact form submissions (app/contact). No auth required to submit;
+-- only ever read/written via the service role, same as everything above.
+create table if not exists public.contact_messages (
+  id uuid primary key default gen_random_uuid(),
+  name text not null check (char_length(name) between 1 and 200),
+  email text not null check (char_length(email) between 3 and 320),
+  message text not null check (char_length(message) between 1 and 4000),
+  created_at timestamptz not null default now()
+);
+
+create index if not exists contact_messages_created_at_idx on public.contact_messages (created_at desc);
+
+alter table public.contact_messages enable row level security;
