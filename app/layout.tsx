@@ -4,6 +4,7 @@ import "./globals.css";
 import { Footer } from "./components/Footer";
 import { Navbar } from "./components/Navbar";
 import { I18nProvider } from "./i18n/I18nProvider";
+import { AuthProvider } from "./auth/AuthProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,12 +30,15 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">
         <I18nProvider>
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
+          <AuthProvider>
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </AuthProvider>
         </I18nProvider>
       </body>
     </html>
