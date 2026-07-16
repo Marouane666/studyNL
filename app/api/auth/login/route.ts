@@ -1,4 +1,4 @@
-import { supabaseAdmin } from "@/lib/supabase/admin";
+import { supabaseAdmin, createEphemeralAuthClient } from "@/lib/supabase/admin";
 import { setSessionCookies } from "@/lib/auth/session";
 import { isValidEmail, jsonError } from "@/lib/http";
 
@@ -11,7 +11,13 @@ export async function POST(request: Request) {
     return jsonError("Invalid email or password.", 401);
   }
 
-  const { data, error } = await supabaseAdmin.auth.signInWithPassword({ email, password });
+  // A fresh client, not supabaseAdmin: signInWithPassword establishes an
+  // in-memory session on whichever client calls it, and every later query on
+  // that same client would then run as this user instead of the service role.
+  const { data, error } = await createEphemeralAuthClient().auth.signInWithPassword({
+    email,
+    password,
+  });
   if (error || !data.session || !data.user) {
     return jsonError("Invalid email or password.", 401);
   }

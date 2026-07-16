@@ -1,6 +1,6 @@
 import "server-only";
 import { cookies } from "next/headers";
-import { supabaseAdmin } from "@/lib/supabase/admin";
+import { supabaseAdmin, createEphemeralAuthClient } from "@/lib/supabase/admin";
 
 const ACCESS_COOKIE = "sb_at";
 const REFRESH_COOKIE = "sb_rt";
@@ -50,7 +50,9 @@ export async function getAccessTokenForSignOut(): Promise<string | undefined> {
   const refreshToken = store.get(REFRESH_COOKIE)?.value;
   if (!refreshToken) return undefined;
 
-  const { data, error } = await supabaseAdmin.auth.refreshSession({ refresh_token: refreshToken });
+  const { data, error } = await createEphemeralAuthClient().auth.refreshSession({
+    refresh_token: refreshToken,
+  });
   return error || !data.session ? undefined : data.session.access_token;
 }
 
@@ -90,7 +92,7 @@ export async function getCurrentUser(): Promise<CurrentUser | null> {
 
   if (!refreshToken) return null;
 
-  const { data, error } = await supabaseAdmin.auth.refreshSession({
+  const { data, error } = await createEphemeralAuthClient().auth.refreshSession({
     refresh_token: refreshToken,
   });
   if (error || !data.session) {

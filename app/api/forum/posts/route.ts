@@ -42,7 +42,10 @@ export async function POST(request: Request) {
     .select("id, author_id, body, image_url, created_at")
     .single();
 
-  if (error || !data) return jsonError("Couldn't publish that post.", 500);
+  if (error || !data) {
+    console.error("POST /api/forum/posts insert failed:", error);
+    return jsonError("Couldn't publish that post.", 500);
+  }
 
   const [post] = await enrichPosts([data], user.id);
   return Response.json({ post });

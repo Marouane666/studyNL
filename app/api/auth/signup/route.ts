@@ -1,4 +1,4 @@
-import { supabaseAdmin } from "@/lib/supabase/admin";
+import { supabaseAdmin, createEphemeralAuthClient } from "@/lib/supabase/admin";
 import { setSessionCookies } from "@/lib/auth/session";
 import { isValidEmail, jsonError } from "@/lib/http";
 
@@ -21,6 +21,7 @@ export async function POST(request: Request) {
   });
 
   if (createError || !created.user) {
+    console.error("signup createUser failed:", createError);
     const alreadyExists = createError?.code === "email_exists" || createError?.status === 422;
     return jsonError(
       alreadyExists ? "An account with that email already exists." : "Something went wrong. Please try again.",
@@ -33,11 +34,15 @@ export async function POST(request: Request) {
     .insert({ id: created.user.id, display_name: name });
 
   if (profileError) {
+    console.error("signup profile insert failed:", profileError);
     await supabaseAdmin.auth.admin.deleteUser(created.user.id);
     return jsonError("Something went wrong. Please try again.", 500);
   }
 
-  const { data: signIn, error: signInError } = await supabaseAdmin.auth.signInWithPassword({
+  // A fresh client, not supabaseAdmin: signInWithPassword establishes an
+  // in-memory session on whichever client calls it, and every later query on
+  // that same client would then run as this user instead of the service role.
+  const { data: signIn, error: signInError } = await createEphemeralAuthClient().auth.signInWithPassword({
     email,
     password,
   });
