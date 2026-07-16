@@ -9,7 +9,13 @@ const ORANGE = "#fd7933";
 
 type Mode = "login" | "signup";
 
-export function AuthPanel() {
+export function AuthPanel({
+  loginSubtitle,
+  signupSubtitle,
+}: {
+  loginSubtitle?: string;
+  signupSubtitle?: string;
+}) {
   const t = useT();
   const { login, signup } = useAuth();
   const [mode, setMode] = useState<Mode>("login");
@@ -36,7 +42,7 @@ export function AuthPanel() {
         {isLogin ? t("auth.login.title") : t("auth.signup.title")}
       </h2>
       <p className="mt-1 text-sm" style={{ color: `${NAVY}99` }}>
-        {isLogin ? t("auth.login.subtitle") : t("auth.signup.subtitle")}
+        {isLogin ? (loginSubtitle ?? t("auth.login.subtitle")) : (signupSubtitle ?? t("auth.signup.subtitle"))}
       </p>
 
       <form onSubmit={onSubmit} className="mt-6 flex flex-col gap-4">

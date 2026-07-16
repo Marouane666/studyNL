@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useAuth } from "../auth/AuthProvider";
 import { useT } from "../i18n/I18nProvider";
+import { AuthPanel } from "../forum/components/AuthPanel";
 
 const BG = "#EAF6FF";
 const NAVY = "#092A4D";
@@ -71,10 +73,13 @@ const STEP_KEYS = ["startPlan.step1", "startPlan.step2", "startPlan.step3", "sta
 
 export default function StartPage() {
   const t = useT();
+  const { user, loading: authLoading } = useAuth();
   const [step, setStep] = useState(1);
   const [answers, setAnswers] = useState<Answers>(EMPTY_ANSWERS);
   const [done, setDone] = useState<Record<string, boolean>>({});
   const [hydrated, setHydrated] = useState(false);
+  const [remoteReady, setRemoteReady] = useState(false);
+  const [showAuth, setShowAuth] = useState(false);
 
   useEffect(() => {
     try {
@@ -103,6 +108,57 @@ export default function StartPage() {
     }
   }, [answers, done, hydrated]);
 
+  // On login, prefer whatever plan is already saved on the account; if the
+  // account has no plan yet, seed it from whatever was built locally so
+  // progress made before signing in isn't lost.
+  useEffect(() => {
+    if (!hydrated || authLoading) return;
+    if (!user) {
+      setRemoteReady(false);
+      return;
+    }
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch("/api/plan");
+        const data = await res.json().catch(() => null);
+        if (cancelled) return;
+        const remoteAnswers = data?.plan?.answers;
+        if (remoteAnswers && Object.keys(remoteAnswers).length > 0) {
+          const merged = { ...EMPTY_ANSWERS, ...remoteAnswers };
+          setAnswers(merged);
+          setDone(data.plan.done ?? {});
+          if (merged.stage && merged.status && merged.level && merged.city) setStep(5);
+        } else if (answers.stage || answers.status || answers.level || answers.city) {
+          await fetch("/api/plan", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ answers, done }),
+          }).catch(() => {});
+        }
+      } finally {
+        if (!cancelled) setRemoteReady(true);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+    // Deliberately only re-runs on login state changes — answers/done are
+    // read once at the moment of login, not tracked as reactive deps here.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, hydrated, authLoading]);
+
+  // Once the initial login merge above has settled, keep the account copy in
+  // sync with every subsequent local change.
+  useEffect(() => {
+    if (!user || !remoteReady) return;
+    fetch("/api/plan", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ answers, done }),
+    }).catch(() => {});
+  }, [answers, done, user, remoteReady]);
+
   function select<K extends keyof Answers>(key: K, value: Answers[K]) {
     setAnswers((prev) => ({ ...prev, [key]: value }));
     setStep((s) => s + 1);
@@ -120,6 +176,7 @@ export default function StartPage() {
 
   const isResult = step === 5 && answers.stage && answers.status && answers.level && answers.city;
   const tasks = answers.stage ? TASKS_BY_STAGE[answers.stage] : [];
+  const allTasksDone = tasks.length > 0 && tasks.every((id) => done[id]);
 
   return (
     <section style={{ backgroundColor: BG, color: NAVY }}>
@@ -141,6 +198,36 @@ export default function StartPage() {
         <p className="mt-5 max-w-xl text-base leading-relaxed" style={{ color: `${NAVY}B3` }}>
           {t("startPlan.subtitle")}
         </p>
+
+        {!authLoading && !user && (
+          <div className="mt-6 rounded-2xl bg-white p-5 shadow-[0_1px_3px_rgba(9,42,77,0.05)] sm:flex sm:items-center sm:justify-between sm:gap-4">
+            <div>
+              <p className="text-sm font-bold" style={{ color: NAVY }}>
+                {t("startPlan.auth.banner.title")}
+              </p>
+              <p className="mt-1 text-sm" style={{ color: `${NAVY}99` }}>
+                {t("startPlan.auth.banner.subtitle")}
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setShowAuth((s) => !s)}
+              className="mt-3 inline-flex shrink-0 items-center rounded-full px-5 py-2.5 text-sm font-bold text-white shadow-sm hover:opacity-90 sm:mt-0"
+              style={{ backgroundColor: ORANGE }}
+            >
+              {t("startPlan.auth.banner.cta")}
+            </button>
+          </div>
+        )}
+
+        {!authLoading && !user && showAuth && (
+          <div className="mt-4">
+            <AuthPanel
+              loginSubtitle={t("startPlan.auth.login.subtitle")}
+              signupSubtitle={t("startPlan.auth.signup.subtitle")}
+            />
+          </div>
+        )}
 
         {!isResult ? (
           <div className="mt-8 rounded-2xl bg-white p-6 shadow-[0_2px_10px_rgba(9,42,77,0.05)] sm:p-8">
@@ -235,8 +322,32 @@ export default function StartPage() {
               ))}
             </ol>
 
+            {allTasksDone && (
+              <div className="mt-5 rounded-2xl p-6 text-center sm:p-8" style={{ backgroundColor: NAVY }}>
+                <h2 className="text-lg font-bold text-white">{t("startPlan.complete.title")}</h2>
+                <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-white/70">
+                  {t("startPlan.complete.subtitle")}
+                </p>
+                <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
+                  <Link
+                    href="/hub-plus"
+                    className="inline-flex items-center rounded-full px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:opacity-90"
+                    style={{ backgroundColor: ORANGE }}
+                  >
+                    {t("startPlan.complete.hubPlusButton")}
+                  </Link>
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center rounded-full bg-white/10 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/20"
+                  >
+                    {t("startPlan.complete.contactButton")}
+                  </Link>
+                </div>
+              </div>
+            )}
+
             <p className="mt-5 text-xs leading-relaxed" style={{ color: `${NAVY}80` }}>
-              {t("startPlan.result.privacyNote")}
+              {user ? t("startPlan.sync.saved") : t("startPlan.result.privacyNote")}
             </p>
 
             <button

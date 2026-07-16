@@ -92,7 +92,7 @@ export function PostComposer({ onCreated }: { onCreated: (post: ForumPost) => vo
       {imageUrl && (
         <div className="relative mt-3 w-fit">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={imageUrl} alt="" className="max-h-56 rounded-xl object-cover" />
+          <img src={imageUrl} alt={t("forum.compose.imagePreviewAlt")} className="max-h-56 rounded-xl object-cover" />
           <button
             type="button"
             onClick={() => setImageUrl(null)}

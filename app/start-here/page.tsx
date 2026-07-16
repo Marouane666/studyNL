@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useT } from "../i18n/I18nProvider";
 
 const NAVY = "#092A4D";
@@ -48,6 +49,22 @@ export default function StartHerePage() {
           {STAGES.map((stage) => (
             <StageCard key={stage.step} stage={stage} />
           ))}
+        </div>
+
+        <div className="mt-8 rounded-2xl bg-[#f6f8fb] p-8 text-center sm:p-10">
+          <h2 className="text-lg font-bold" style={{ color: NAVY }}>
+            {t("startHere.cta.title")}
+          </h2>
+          <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed" style={{ color: `${NAVY}99` }}>
+            {t("startHere.cta.subtitle")}
+          </p>
+          <Link
+            href="/start"
+            className="mt-6 inline-flex items-center rounded-full px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:opacity-90"
+            style={{ backgroundColor: ORANGE }}
+          >
+            {t("startHere.cta.button")}
+          </Link>
         </div>
       </div>
     </section>

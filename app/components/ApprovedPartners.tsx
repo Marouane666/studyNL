@@ -1,24 +1,15 @@
 "use client";
 
+import Link from "next/link";
 import { useT } from "../i18n/I18nProvider";
+import { PARTNERS } from "../../lib/partners";
 
 const NAVY = "#03294f";
-
-type Partner = { name: string; src: string };
-
-const PARTNERS: Partner[] = [
-  { name: "Utility Direct", src: "/logos/utility.svg" },
-  { name: "Studielink", src: "/logos/studielink.svg" },
-  { name: "Feather", src: "/logos/feather.svg" },
-  { name: "Hays", src: "/logos/hays.svg" },
-  { name: "Babbel", src: "/logos/babbel.svg" },
-  { name: "Revolut", src: "/logos/revolut.svg" },
-];
 
 // Duplicated track so the CSS keyframe (0 → -50%) loops seamlessly.
 const TRACK = [...PARTNERS, ...PARTNERS];
 
-export function ApprovedPartners() {
+export function PartnersTeaser() {
   const t = useT();
   return (
     <section className="bg-white">
@@ -51,6 +42,14 @@ export function ApprovedPartners() {
               >
                 {t("partners.subtitle")}
               </p>
+              <Link
+                href="/partners"
+                className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold hover:underline"
+                style={{ color: "#fd7933" }}
+              >
+                {t("partners.viewAll")}
+                <span aria-hidden="true">→</span>
+              </Link>
             </div>
 
             <div
@@ -72,7 +71,7 @@ export function ApprovedPartners() {
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={partner.src}
+                      src={partner.logoSrc}
                       alt={partner.name}
                       className="h-8 w-auto max-w-[140px] object-contain opacity-80 transition-opacity duration-200 hover:opacity-100 sm:h-9"
                       loading="lazy"

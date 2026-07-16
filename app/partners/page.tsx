@@ -2,21 +2,11 @@
 
 import Link from "next/link";
 import { useT } from "../i18n/I18nProvider";
+import { PARTNERS } from "../../lib/partners";
 
 const BG = "#EAF6FF";
 const NAVY = "#092A4D";
 const ORANGE = "#fd7933";
-
-type Partner = { name: string; categoryKey: string; descriptionKey: string };
-
-const PARTNERS: Partner[] = [
-  { name: "Studielink", categoryKey: "partnersPage.studielink.cat", descriptionKey: "partnersPage.studielink.desc" },
-  { name: "Feather", categoryKey: "partnersPage.feather.cat", descriptionKey: "partnersPage.feather.desc" },
-  { name: "Hays", categoryKey: "partnersPage.hays.cat", descriptionKey: "partnersPage.hays.desc" },
-  { name: "Babbel", categoryKey: "partnersPage.babbel.cat", descriptionKey: "partnersPage.babbel.desc" },
-  { name: "Revolut", categoryKey: "partnersPage.revolut.cat", descriptionKey: "partnersPage.revolut.desc" },
-  { name: "Utility Direct", categoryKey: "partnersPage.utility.cat", descriptionKey: "partnersPage.utility.desc" },
-];
 
 export default function PartnersPage() {
   const t = useT();
@@ -45,13 +35,21 @@ export default function PartnersPage() {
         <ul className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
           {PARTNERS.map((partner) => (
             <li
-              key={partner.name}
+              key={partner.slug}
               className="rounded-2xl bg-white p-6 shadow-[0_1px_2px_rgba(9,42,77,0.04)]"
             >
               <div className="flex items-center justify-between gap-3">
-                <h3 className="text-base font-bold" style={{ color: NAVY }}>
-                  {partner.name}
-                </h3>
+                <div className="flex items-center gap-3">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={partner.logoSrc}
+                    alt=""
+                    className="h-6 w-auto max-w-22.5 object-contain"
+                  />
+                  <h3 className="text-base font-bold" style={{ color: NAVY }}>
+                    {partner.name}
+                  </h3>
+                </div>
                 <span
                   className="inline-flex items-center rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide ring-1 ring-[#092A4D]/10"
                   style={{ color: `${NAVY}99` }}

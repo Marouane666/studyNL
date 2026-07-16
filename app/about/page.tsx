@@ -1,8 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { useT } from "../i18n/I18nProvider";
 
 const NAVY = "#092A4D";
+const ORANGE = "#fd7933";
 
 type Value = {
   catKey: string;
@@ -46,6 +48,23 @@ export default function AboutPage() {
           {VALUES.map((v) => (
             <ValueCard key={v.catKey} value={v} />
           ))}
+        </div>
+
+        <div className="mt-10 flex flex-wrap items-center gap-3">
+          <Link
+            href="/guides"
+            className="inline-flex items-center rounded-full px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:opacity-90"
+            style={{ backgroundColor: ORANGE }}
+          >
+            {t("about.cta.guides")}
+          </Link>
+          <Link
+            href="/contact"
+            className="inline-flex items-center rounded-full bg-[#f6f8fb] px-6 py-3 text-sm font-semibold transition-colors hover:bg-[#eef1f6]"
+            style={{ color: NAVY }}
+          >
+            {t("about.cta.contact")}
+          </Link>
         </div>
       </div>
     </section>

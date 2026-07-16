@@ -148,3 +148,15 @@ create table if not exists public.contact_messages (
 create index if not exists contact_messages_created_at_idx on public.contact_messages (created_at desc);
 
 alter table public.contact_messages enable row level security;
+
+-- Personal move plan (app/start) — one row per user, holding their journey
+-- answers and per-task completion state so the plan follows them across
+-- devices instead of living only in browser localStorage.
+create table if not exists public.move_plans (
+  user_id uuid primary key references auth.users (id) on delete cascade,
+  answers jsonb not null default '{}'::jsonb,
+  done jsonb not null default '{}'::jsonb,
+  updated_at timestamptz not null default now()
+);
+
+alter table public.move_plans enable row level security;

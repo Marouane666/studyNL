@@ -1,4 +1,4 @@
-import { ApprovedPartners } from "./components/ApprovedPartners";
+import { PartnersTeaser } from "./components/ApprovedPartners";
 import { HelpCentreSearch } from "./components/HelpCentreSearch";
 import { Hero } from "./components/Hero";
 import { MovePlan } from "./components/MovePlan";
@@ -10,7 +10,7 @@ export default function Home() {
       <Hero />
       <PopularTopics />
       <MovePlan />
-      <ApprovedPartners />
+      <PartnersTeaser />
       <HelpCentreSearch />
     </>
   );

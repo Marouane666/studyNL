@@ -10,13 +10,14 @@ type Step = {
   number: string;
   titleKey: string;
   blurbKey: string;
+  href: string;
 };
 
 const STEPS: Step[] = [
-  { number: "1", titleKey: "moveplan.s1.title", blurbKey: "moveplan.s1.blurb" },
-  { number: "2", titleKey: "moveplan.s2.title", blurbKey: "moveplan.s2.blurb" },
-  { number: "3", titleKey: "moveplan.s3.title", blurbKey: "moveplan.s3.blurb" },
-  { number: "4", titleKey: "moveplan.s4.title", blurbKey: "moveplan.s4.blurb" },
+  { number: "1", titleKey: "moveplan.s1.title", blurbKey: "moveplan.s1.blurb", href: "/guides/study-route" },
+  { number: "2", titleKey: "moveplan.s2.title", blurbKey: "moveplan.s2.blurb", href: "/guides/scholarships" },
+  { number: "3", titleKey: "moveplan.s3.title", blurbKey: "moveplan.s3.blurb", href: "/guides/avoid-scams" },
+  { number: "4", titleKey: "moveplan.s4.title", blurbKey: "moveplan.s4.blurb", href: "/guides/enrolment" },
 ];
 
 export function MovePlan() {
@@ -118,32 +119,37 @@ export function MovePlan() {
 function StepRow({ step }: { step: Step }) {
   const t = useT();
   return (
-    <li className="group flex items-center gap-5 rounded-2xl border border-[#03294f]/10 bg-white px-5 py-4 transition-colors duration-200 hover:border-[#fd7933]/30 hover:bg-[#fff4ec]">
-      <span
-        className="inline-flex size-8 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white"
-        style={{ backgroundColor: ORANGE }}
+    <li>
+      <Link
+        href={step.href}
+        className="group flex items-center gap-5 rounded-2xl border border-[#03294f]/10 bg-white px-5 py-4 transition-colors duration-200 hover:border-[#fd7933]/30 hover:bg-[#fff4ec]"
       >
-        {step.number}
-      </span>
-      <div className="min-w-0 flex-1 grid gap-1 sm:grid-cols-[minmax(0,0.55fr)_minmax(0,1fr)] sm:items-center sm:gap-6">
-        <h3
-          className="text-sm font-bold sm:text-base"
-          style={{ color: NAVY }}
+        <span
+          className="inline-flex size-8 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white"
+          style={{ backgroundColor: ORANGE }}
         >
-          {t(step.titleKey)}
-        </h3>
-        <p
-          className="text-xs leading-relaxed sm:text-sm"
-          style={{ color: `${NAVY}80` }}
+          {step.number}
+        </span>
+        <div className="min-w-0 flex-1 grid gap-1 sm:grid-cols-[minmax(0,0.55fr)_minmax(0,1fr)] sm:items-center sm:gap-6">
+          <h3
+            className="text-sm font-bold sm:text-base"
+            style={{ color: NAVY }}
+          >
+            {t(step.titleKey)}
+          </h3>
+          <p
+            className="text-xs leading-relaxed sm:text-sm"
+            style={{ color: `${NAVY}80` }}
+          >
+            {t(step.blurbKey)}
+          </p>
+        </div>
+        <span
+          className="shrink-0 text-[#03294f]/40 transition-colors duration-200 group-hover:text-[#fd7933]"
         >
-          {t(step.blurbKey)}
-        </p>
-      </div>
-      <span
-        className="shrink-0 text-[#03294f]/40 transition-colors duration-200 group-hover:text-[#fd7933]"
-      >
-        <ArrowRightIcon />
-      </span>
+          <ArrowRightIcon />
+        </span>
+      </Link>
     </li>
   );
 }
