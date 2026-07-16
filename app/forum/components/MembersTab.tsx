@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useT } from "../../i18n/I18nProvider";
 import { formatDate } from "@/lib/format";
 import { Avatar } from "./Avatar";
+import { RoleBadge } from "./RoleBadge";
 import type { ForumMember } from "./types";
 
 const NAVY = "#092A4D";
@@ -60,6 +61,7 @@ export function MembersTab() {
           <div className="min-w-0">
             <p className="truncate text-sm font-bold" style={{ color: NAVY }}>
               {m.displayName}
+              <RoleBadge role={m.role} />
             </p>
             <p className="text-xs" style={{ color: `${NAVY}80` }}>
               {t("forum.members.since")} {formatDate(m.joinedAt)}

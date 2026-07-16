@@ -4,19 +4,30 @@ import { FormEvent, useEffect, useState } from "react";
 import { useAuth } from "../../auth/AuthProvider";
 import { useT } from "../../i18n/I18nProvider";
 import { formatDate } from "@/lib/format";
+import { isModeratorRole } from "@/lib/roles";
 import { Avatar } from "./Avatar";
-import type { ForumComment, ForumPost } from "./types";
+import { RoleBadge } from "./RoleBadge";
+import type { ContentStatus, ForumComment, ForumPost } from "./types";
 
 const NAVY = "#092A4D";
 const ORANGE = "#fd7933";
 
-export function PostCard({ post }: { post: ForumPost }) {
+export function PostCard({
+  post,
+  onDeleted,
+}: {
+  post: ForumPost;
+  onDeleted?: (id: string) => void;
+}) {
   const t = useT();
   const { user } = useAuth();
   const [liked, setLiked] = useState(post.likedByMe);
   const [likeCount, setLikeCount] = useState(post.likeCount);
   const [viewCount, setViewCount] = useState(post.viewCount);
+  const [status, setStatus] = useState<ContentStatus>(post.status);
   const [showComments, setShowComments] = useState(false);
+  const canModerate = isModeratorRole(user?.role);
+  const hidden = status === "hidden";
 
   useEffect(() => {
     if (!user) return;
@@ -40,13 +51,39 @@ export function PostCard({ post }: { post: ForumPost }) {
     }
   }
 
+  async function toggleStatus() {
+    const next: ContentStatus = hidden ? "visible" : "hidden";
+    const res = await fetch(`/api/forum/posts/${post.id}/status`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status: next }),
+    });
+    if (res.ok) setStatus(next);
+  }
+
+  async function deletePost() {
+    if (!window.confirm(t("forum.moderation.confirmDeletePost"))) return;
+    const res = await fetch(`/api/forum/posts/${post.id}`, { method: "DELETE" });
+    if (res.ok) onDeleted?.(post.id);
+  }
+
   return (
-    <article className="rounded-2xl bg-white p-5 shadow-[0_2px_10px_rgba(9,42,77,0.05)] sm:p-6">
+    <article
+      className={`rounded-2xl bg-white p-5 shadow-[0_2px_10px_rgba(9,42,77,0.05)] sm:p-6 ${
+        hidden ? "ring-2 ring-red-200" : ""
+      }`}
+    >
       <div className="flex items-start gap-3">
         <Avatar name={post.author.displayName} />
-        <div className="min-w-0">
-          <p className="text-sm font-bold" style={{ color: NAVY }}>
+        <div className="min-w-0 flex-1">
+          <p className="flex flex-wrap items-center text-sm font-bold" style={{ color: NAVY }}>
             {post.author.displayName}
+            <RoleBadge role={post.author.role} />
+            {hidden && (
+              <span className="ml-2 inline-flex items-center rounded-full bg-red-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-red-700">
+                {t("forum.moderation.hiddenBadge")}
+              </span>
+            )}
           </p>
           <p className="text-xs" style={{ color: `${NAVY}80` }}>
             {formatDate(post.createdAt)}
@@ -97,6 +134,20 @@ export function PostCard({ post }: { post: ForumPost }) {
         </span>
       </div>
 
+      {canModerate && (
+        <div
+          className="mt-2 flex items-center gap-3 border-t border-[#092A4D]/10 pt-2 text-[11px] font-bold"
+          style={{ color: `${NAVY}80` }}
+        >
+          <button type="button" onClick={toggleStatus} className="hover:underline">
+            {hidden ? t("forum.moderation.approve") : t("forum.moderation.hide")}
+          </button>
+          <button type="button" onClick={deletePost} className="text-red-600 hover:underline">
+            {t("forum.moderation.delete")}
+          </button>
+        </div>
+      )}
+
       {showComments && <CommentsSection postId={post.id} />}
     </article>
   );
@@ -108,6 +159,7 @@ function CommentsSection({ postId }: { postId: string }) {
   const [comments, setComments] = useState<ForumComment[] | null>(null);
   const [draft, setDraft] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const canModerate = isModeratorRole(user?.role);
 
   useEffect(() => {
     let cancelled = false;
@@ -144,6 +196,26 @@ function CommentsSection({ postId }: { postId: string }) {
     }
   }
 
+  async function toggleCommentStatus(commentId: string, current: ContentStatus) {
+    const next: ContentStatus = current === "hidden" ? "visible" : "hidden";
+    const res = await fetch(`/api/forum/comments/${commentId}/status`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status: next }),
+    });
+    if (res.ok) {
+      setComments((prev) => prev?.map((c) => (c.id === commentId ? { ...c, status: next } : c)) ?? null);
+    }
+  }
+
+  async function deleteComment(commentId: string) {
+    if (!window.confirm(t("forum.moderation.confirmDeleteComment"))) return;
+    const res = await fetch(`/api/forum/comments/${commentId}`, { method: "DELETE" });
+    if (res.ok) {
+      setComments((prev) => prev?.filter((c) => c.id !== commentId) ?? null);
+    }
+  }
+
   return (
     <div className="mt-4 border-t border-[#092A4D]/10 pt-4">
       {comments === null ? (
@@ -156,19 +228,53 @@ function CommentsSection({ postId }: { postId: string }) {
         </p>
       ) : (
         <ul className="flex flex-col gap-3">
-          {comments.map((c) => (
-            <li key={c.id} className="flex items-start gap-2.5">
-              <Avatar name={c.author.displayName} small />
-              <div className="min-w-0 rounded-2xl bg-[#f6f8fb] px-3.5 py-2">
-                <p className="text-xs font-bold" style={{ color: NAVY }}>
-                  {c.author.displayName}
-                </p>
-                <p className="whitespace-pre-wrap break-words text-sm" style={{ color: NAVY }}>
-                  {c.body}
-                </p>
-              </div>
-            </li>
-          ))}
+          {comments.map((c) => {
+            const commentHidden = c.status === "hidden";
+            return (
+              <li key={c.id} className="flex items-start gap-2.5">
+                <Avatar name={c.author.displayName} small />
+                <div
+                  className={`min-w-0 flex-1 rounded-2xl bg-[#f6f8fb] px-3.5 py-2 ${
+                    commentHidden ? "ring-2 ring-red-200" : ""
+                  }`}
+                >
+                  <p className="flex flex-wrap items-center text-xs font-bold" style={{ color: NAVY }}>
+                    {c.author.displayName}
+                    <RoleBadge role={c.author.role} />
+                    {commentHidden && (
+                      <span className="ml-2 inline-flex items-center rounded-full bg-red-100 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-red-700">
+                        {t("forum.moderation.hiddenBadge")}
+                      </span>
+                    )}
+                  </p>
+                  <p className="whitespace-pre-wrap break-words text-sm" style={{ color: NAVY }}>
+                    {c.body}
+                  </p>
+                  {canModerate && (
+                    <div
+                      className="mt-1.5 flex items-center gap-3 text-[11px] font-bold"
+                      style={{ color: `${NAVY}80` }}
+                    >
+                      <button
+                        type="button"
+                        onClick={() => toggleCommentStatus(c.id, c.status)}
+                        className="hover:underline"
+                      >
+                        {commentHidden ? t("forum.moderation.approve") : t("forum.moderation.hide")}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => deleteComment(c.id)}
+                        className="text-red-600 hover:underline"
+                      >
+                        {t("forum.moderation.delete")}
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </li>
+            );
+          })}
         </ul>
       )}
 

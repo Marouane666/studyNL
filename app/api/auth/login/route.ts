@@ -22,19 +22,25 @@ export async function POST(request: Request) {
     return jsonError("Invalid email or password.", 401);
   }
 
-  await setSessionCookies(data.session);
-
   const { data: profile } = await supabaseAdmin
     .from("profiles")
-    .select("display_name")
+    .select("display_name, role, status")
     .eq("id", data.user.id)
     .maybeSingle();
+
+  if (profile?.status === "suspended") {
+    await supabaseAdmin.auth.admin.signOut(data.session.access_token, "global").catch(() => {});
+    return jsonError("This account has been suspended.", 403);
+  }
+
+  await setSessionCookies(data.session);
 
   return Response.json({
     user: {
       id: data.user.id,
       email: data.user.email ?? email,
       displayName: profile?.display_name || email,
+      role: profile?.role ?? "member",
     },
   });
 }

@@ -31,7 +31,7 @@ export async function POST(request: Request) {
 
   const { error: profileError } = await supabaseAdmin
     .from("profiles")
-    .insert({ id: created.user.id, display_name: name });
+    .insert({ id: created.user.id, display_name: name, email });
 
   if (profileError) {
     console.error("signup profile insert failed:", profileError);
@@ -57,6 +57,6 @@ export async function POST(request: Request) {
   await setSessionCookies(signIn.session);
 
   return Response.json({
-    user: { id: created.user.id, email, displayName: name },
+    user: { id: created.user.id, email, displayName: name, role: "member" },
   });
 }

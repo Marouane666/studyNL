@@ -1,8 +1,10 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import type { Role } from "@/lib/roles";
 
-export type AuthUser = { id: string; email: string; displayName: string };
+export type { Role };
+export type AuthUser = { id: string; email: string; displayName: string; role: Role };
 
 type AuthResult = { error?: string };
 

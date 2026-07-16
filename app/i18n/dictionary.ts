@@ -63,6 +63,18 @@ const en: Dict = {
   "forum.tabs.discussion": "Discussion",
   "forum.tabs.members": "Members",
   "forum.tabs.about": "About",
+  "forum.tabs.admin": "Admin",
+
+  "forum.role.member": "Member",
+  "forum.role.moderator": "Moderator",
+  "forum.role.admin": "Admin",
+
+  "forum.moderation.hide": "Hide",
+  "forum.moderation.approve": "Approve",
+  "forum.moderation.delete": "Delete",
+  "forum.moderation.hiddenBadge": "Hidden",
+  "forum.moderation.confirmDeletePost": "Delete this post permanently? This can't be undone.",
+  "forum.moderation.confirmDeleteComment": "Delete this comment permanently? This can't be undone.",
 
   "forum.compose.placeholder": "Share something…",
   "forum.compose.button": "Create a Post",
@@ -116,6 +128,18 @@ const en: Dict = {
   "auth.field.password": "Password",
   "auth.logout": "Log out",
   "auth.loggedInAs": "Logged in as",
+
+  "admin.users.role": "Role",
+  "admin.users.status": "Status",
+  "admin.users.joined": "Joined",
+  "admin.users.you": "(you)",
+  "admin.users.statusActive": "Active",
+  "admin.users.statusSuspended": "Suspended",
+  "admin.users.suspend": "Suspend",
+  "admin.users.reactivate": "Reactivate",
+  "admin.users.delete": "Delete",
+  "admin.users.confirmDelete": "Delete this member and everything they've posted? This can't be undone.",
+  "admin.users.loadError": "Couldn't load members.",
 
   "guide.back": "All guides",
   "guide.note":
@@ -356,6 +380,18 @@ const de: Dict = {
   "forum.tabs.discussion": "Diskussion",
   "forum.tabs.members": "Mitglieder",
   "forum.tabs.about": "Über",
+  "forum.tabs.admin": "Admin",
+
+  "forum.role.member": "Mitglied",
+  "forum.role.moderator": "Moderator",
+  "forum.role.admin": "Admin",
+
+  "forum.moderation.hide": "Verbergen",
+  "forum.moderation.approve": "Freigeben",
+  "forum.moderation.delete": "Löschen",
+  "forum.moderation.hiddenBadge": "Verborgen",
+  "forum.moderation.confirmDeletePost": "Diesen Beitrag endgültig löschen? Das kann nicht rückgängig gemacht werden.",
+  "forum.moderation.confirmDeleteComment": "Diesen Kommentar endgültig löschen? Das kann nicht rückgängig gemacht werden.",
 
   "forum.compose.placeholder": "Teile etwas…",
   "forum.compose.button": "Beitrag erstellen",
@@ -409,6 +445,18 @@ const de: Dict = {
   "auth.field.password": "Passwort",
   "auth.logout": "Abmelden",
   "auth.loggedInAs": "Angemeldet als",
+
+  "admin.users.role": "Rolle",
+  "admin.users.status": "Status",
+  "admin.users.joined": "Beigetreten",
+  "admin.users.you": "(du)",
+  "admin.users.statusActive": "Aktiv",
+  "admin.users.statusSuspended": "Gesperrt",
+  "admin.users.suspend": "Sperren",
+  "admin.users.reactivate": "Entsperren",
+  "admin.users.delete": "Löschen",
+  "admin.users.confirmDelete": "Dieses Mitglied und alle seine Beiträge löschen? Das kann nicht rückgängig gemacht werden.",
+  "admin.users.loadError": "Mitglieder konnten nicht geladen werden.",
 
   "guide.back": "Alle Leitfäden",
   "guide.note":
@@ -660,6 +708,18 @@ const fr: Dict = {
   "forum.tabs.discussion": "Discussion",
   "forum.tabs.members": "Membres",
   "forum.tabs.about": "À propos",
+  "forum.tabs.admin": "Admin",
+
+  "forum.role.member": "Membre",
+  "forum.role.moderator": "Modérateur",
+  "forum.role.admin": "Admin",
+
+  "forum.moderation.hide": "Masquer",
+  "forum.moderation.approve": "Approuver",
+  "forum.moderation.delete": "Supprimer",
+  "forum.moderation.hiddenBadge": "Masqué",
+  "forum.moderation.confirmDeletePost": "Supprimer définitivement cette publication ? Cette action est irréversible.",
+  "forum.moderation.confirmDeleteComment": "Supprimer définitivement ce commentaire ? Cette action est irréversible.",
 
   "forum.compose.placeholder": "Partagez quelque chose…",
   "forum.compose.button": "Créer une publication",
@@ -713,6 +773,18 @@ const fr: Dict = {
   "auth.field.password": "Mot de passe",
   "auth.logout": "Déconnexion",
   "auth.loggedInAs": "Connecté en tant que",
+
+  "admin.users.role": "Rôle",
+  "admin.users.status": "Statut",
+  "admin.users.joined": "Inscrit",
+  "admin.users.you": "(vous)",
+  "admin.users.statusActive": "Actif",
+  "admin.users.statusSuspended": "Suspendu",
+  "admin.users.suspend": "Suspendre",
+  "admin.users.reactivate": "Réactiver",
+  "admin.users.delete": "Supprimer",
+  "admin.users.confirmDelete": "Supprimer ce membre et tout ce qu'il a publié ? Cette action est irréversible.",
+  "admin.users.loadError": "Impossible de charger les membres.",
 
   "guide.back": "Tous les guides",
   "guide.note":
@@ -966,6 +1038,18 @@ const it: Dict = {
   "forum.tabs.discussion": "Discussioni",
   "forum.tabs.members": "Membri",
   "forum.tabs.about": "Informazioni",
+  "forum.tabs.admin": "Admin",
+
+  "forum.role.member": "Membro",
+  "forum.role.moderator": "Moderatore",
+  "forum.role.admin": "Admin",
+
+  "forum.moderation.hide": "Nascondi",
+  "forum.moderation.approve": "Approva",
+  "forum.moderation.delete": "Elimina",
+  "forum.moderation.hiddenBadge": "Nascosto",
+  "forum.moderation.confirmDeletePost": "Eliminare definitivamente questo post? Questa azione non può essere annullata.",
+  "forum.moderation.confirmDeleteComment": "Eliminare definitivamente questo commento? Questa azione non può essere annullata.",
 
   "forum.compose.placeholder": "Condividi qualcosa…",
   "forum.compose.button": "Crea un post",
@@ -1019,6 +1103,18 @@ const it: Dict = {
   "auth.field.password": "Password",
   "auth.logout": "Esci",
   "auth.loggedInAs": "Accesso effettuato come",
+
+  "admin.users.role": "Ruolo",
+  "admin.users.status": "Stato",
+  "admin.users.joined": "Iscritto il",
+  "admin.users.you": "(tu)",
+  "admin.users.statusActive": "Attivo",
+  "admin.users.statusSuspended": "Sospeso",
+  "admin.users.suspend": "Sospendi",
+  "admin.users.reactivate": "Riattiva",
+  "admin.users.delete": "Elimina",
+  "admin.users.confirmDelete": "Eliminare questo membro e tutto ciò che ha pubblicato? Questa azione non può essere annullata.",
+  "admin.users.loadError": "Non è stato possibile caricare i membri.",
 
   "guide.back": "Tutte le guide",
   "guide.note":
@@ -1274,6 +1370,18 @@ const nl: Dict = {
   "forum.tabs.discussion": "Discussie",
   "forum.tabs.members": "Leden",
   "forum.tabs.about": "Over",
+  "forum.tabs.admin": "Beheer",
+
+  "forum.role.member": "Lid",
+  "forum.role.moderator": "Moderator",
+  "forum.role.admin": "Beheerder",
+
+  "forum.moderation.hide": "Verbergen",
+  "forum.moderation.approve": "Goedkeuren",
+  "forum.moderation.delete": "Verwijderen",
+  "forum.moderation.hiddenBadge": "Verborgen",
+  "forum.moderation.confirmDeletePost": "Dit bericht definitief verwijderen? Dit kan niet ongedaan worden gemaakt.",
+  "forum.moderation.confirmDeleteComment": "Deze reactie definitief verwijderen? Dit kan niet ongedaan worden gemaakt.",
 
   "forum.compose.placeholder": "Deel iets…",
   "forum.compose.button": "Bericht plaatsen",
@@ -1327,6 +1435,18 @@ const nl: Dict = {
   "auth.field.password": "Wachtwoord",
   "auth.logout": "Uitloggen",
   "auth.loggedInAs": "Ingelogd als",
+
+  "admin.users.role": "Rol",
+  "admin.users.status": "Status",
+  "admin.users.joined": "Lid sinds",
+  "admin.users.you": "(jij)",
+  "admin.users.statusActive": "Actief",
+  "admin.users.statusSuspended": "Geschorst",
+  "admin.users.suspend": "Schorsen",
+  "admin.users.reactivate": "Herstellen",
+  "admin.users.delete": "Verwijderen",
+  "admin.users.confirmDelete": "Dit lid en alles wat diegene heeft geplaatst verwijderen? Dit kan niet ongedaan worden gemaakt.",
+  "admin.users.loadError": "Leden laden lukte niet.",
 
   "guide.back": "Alle gidsen",
   "guide.note":
@@ -1581,6 +1701,18 @@ const ro: Dict = {
   "forum.tabs.discussion": "Discuții",
   "forum.tabs.members": "Membri",
   "forum.tabs.about": "Despre",
+  "forum.tabs.admin": "Admin",
+
+  "forum.role.member": "Membru",
+  "forum.role.moderator": "Moderator",
+  "forum.role.admin": "Admin",
+
+  "forum.moderation.hide": "Ascunde",
+  "forum.moderation.approve": "Aprobă",
+  "forum.moderation.delete": "Șterge",
+  "forum.moderation.hiddenBadge": "Ascuns",
+  "forum.moderation.confirmDeletePost": "Ștergi definitiv această postare? Această acțiune nu poate fi anulată.",
+  "forum.moderation.confirmDeleteComment": "Ștergi definitiv acest comentariu? Această acțiune nu poate fi anulată.",
 
   "forum.compose.placeholder": "Distribuie ceva…",
   "forum.compose.button": "Creează o postare",
@@ -1634,6 +1766,18 @@ const ro: Dict = {
   "auth.field.password": "Parolă",
   "auth.logout": "Deconectare",
   "auth.loggedInAs": "Conectat ca",
+
+  "admin.users.role": "Rol",
+  "admin.users.status": "Stare",
+  "admin.users.joined": "Membru din",
+  "admin.users.you": "(tu)",
+  "admin.users.statusActive": "Activ",
+  "admin.users.statusSuspended": "Suspendat",
+  "admin.users.suspend": "Suspendă",
+  "admin.users.reactivate": "Reactivează",
+  "admin.users.delete": "Șterge",
+  "admin.users.confirmDelete": "Ștergi acest membru și tot ce a postat? Această acțiune nu poate fi anulată.",
+  "admin.users.loadError": "Nu am putut încărca membrii.",
 
   "guide.back": "Toate ghidurile",
   "guide.note":
@@ -1886,6 +2030,18 @@ const tr: Dict = {
   "forum.tabs.discussion": "Tartışma",
   "forum.tabs.members": "Üyeler",
   "forum.tabs.about": "Hakkında",
+  "forum.tabs.admin": "Yönetim",
+
+  "forum.role.member": "Üye",
+  "forum.role.moderator": "Moderatör",
+  "forum.role.admin": "Yönetici",
+
+  "forum.moderation.hide": "Gizle",
+  "forum.moderation.approve": "Onayla",
+  "forum.moderation.delete": "Sil",
+  "forum.moderation.hiddenBadge": "Gizli",
+  "forum.moderation.confirmDeletePost": "Bu gönderi kalıcı olarak silinsin mi? Bu işlem geri alınamaz.",
+  "forum.moderation.confirmDeleteComment": "Bu yorum kalıcı olarak silinsin mi? Bu işlem geri alınamaz.",
 
   "forum.compose.placeholder": "Bir şeyler paylaş…",
   "forum.compose.button": "Gönderi Oluştur",
@@ -1939,6 +2095,18 @@ const tr: Dict = {
   "auth.field.password": "Şifre",
   "auth.logout": "Çıkış yap",
   "auth.loggedInAs": "Giriş yapan",
+
+  "admin.users.role": "Rol",
+  "admin.users.status": "Durum",
+  "admin.users.joined": "Katılma tarihi",
+  "admin.users.you": "(sen)",
+  "admin.users.statusActive": "Aktif",
+  "admin.users.statusSuspended": "Askıya alındı",
+  "admin.users.suspend": "Askıya al",
+  "admin.users.reactivate": "Yeniden etkinleştir",
+  "admin.users.delete": "Sil",
+  "admin.users.confirmDelete": "Bu üye ve paylaştığı her şey silinsin mi? Bu işlem geri alınamaz.",
+  "admin.users.loadError": "Üyeler yüklenemedi.",
 
   "guide.back": "Tüm rehberler",
   "guide.note":
@@ -2189,6 +2357,18 @@ const zh: Dict = {
   "forum.tabs.discussion": "讨论",
   "forum.tabs.members": "成员",
   "forum.tabs.about": "关于",
+  "forum.tabs.admin": "管理",
+
+  "forum.role.member": "成员",
+  "forum.role.moderator": "版主",
+  "forum.role.admin": "管理员",
+
+  "forum.moderation.hide": "隐藏",
+  "forum.moderation.approve": "通过",
+  "forum.moderation.delete": "删除",
+  "forum.moderation.hiddenBadge": "已隐藏",
+  "forum.moderation.confirmDeletePost": "确定要永久删除这条帖子吗？此操作无法撤销。",
+  "forum.moderation.confirmDeleteComment": "确定要永久删除这条评论吗？此操作无法撤销。",
 
   "forum.compose.placeholder": "分享点什么…",
   "forum.compose.button": "发帖",
@@ -2241,6 +2421,18 @@ const zh: Dict = {
   "auth.field.password": "密码",
   "auth.logout": "退出登录",
   "auth.loggedInAs": "已登录为",
+
+  "admin.users.role": "角色",
+  "admin.users.status": "状态",
+  "admin.users.joined": "加入时间",
+  "admin.users.you": "（你）",
+  "admin.users.statusActive": "正常",
+  "admin.users.statusSuspended": "已封禁",
+  "admin.users.suspend": "封禁",
+  "admin.users.reactivate": "解封",
+  "admin.users.delete": "删除",
+  "admin.users.confirmDelete": "删除该成员及其发布的所有内容？此操作无法撤销。",
+  "admin.users.loadError": "成员加载失败。",
 
   "guide.back": "所有指南",
   "guide.note":
@@ -2466,6 +2658,18 @@ const ar: Dict = {
   "forum.tabs.discussion": "النقاش",
   "forum.tabs.members": "الأعضاء",
   "forum.tabs.about": "نبذة",
+  "forum.tabs.admin": "الإدارة",
+
+  "forum.role.member": "عضو",
+  "forum.role.moderator": "مشرف",
+  "forum.role.admin": "مسؤول",
+
+  "forum.moderation.hide": "إخفاء",
+  "forum.moderation.approve": "الموافقة",
+  "forum.moderation.delete": "حذف",
+  "forum.moderation.hiddenBadge": "مخفي",
+  "forum.moderation.confirmDeletePost": "هل تريد حذف هذا المنشور نهائيًا؟ لا يمكن التراجع عن هذا الإجراء.",
+  "forum.moderation.confirmDeleteComment": "هل تريد حذف هذا التعليق نهائيًا؟ لا يمكن التراجع عن هذا الإجراء.",
 
   "forum.compose.placeholder": "شارك شيئًا…",
   "forum.compose.button": "إنشاء منشور",
@@ -2519,6 +2723,18 @@ const ar: Dict = {
   "auth.field.password": "كلمة المرور",
   "auth.logout": "تسجيل الخروج",
   "auth.loggedInAs": "مسجّل الدخول باسم",
+
+  "admin.users.role": "الدور",
+  "admin.users.status": "الحالة",
+  "admin.users.joined": "تاريخ الانضمام",
+  "admin.users.you": "(أنت)",
+  "admin.users.statusActive": "نشط",
+  "admin.users.statusSuspended": "موقوف",
+  "admin.users.suspend": "إيقاف",
+  "admin.users.reactivate": "إعادة التفعيل",
+  "admin.users.delete": "حذف",
+  "admin.users.confirmDelete": "هل تريد حذف هذا العضو وكل ما نشره؟ لا يمكن التراجع عن هذا الإجراء.",
+  "admin.users.loadError": "تعذّر تحميل الأعضاء.",
 
   "guide.back": "كل الأدلة",
   "guide.note":

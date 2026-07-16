@@ -1,6 +1,9 @@
 import "server-only";
 import { cookies } from "next/headers";
 import { supabaseAdmin, createEphemeralAuthClient } from "@/lib/supabase/admin";
+import { type Role, isAdminRole, isModeratorRole } from "@/lib/roles";
+
+export type { Role };
 
 const ACCESS_COOKIE = "sb_at";
 const REFRESH_COOKIE = "sb_rt";
@@ -60,7 +63,16 @@ export type CurrentUser = {
   id: string;
   email: string;
   displayName: string;
+  role: Role;
 };
+
+export function isModerator(user: CurrentUser | null): boolean {
+  return isModeratorRole(user?.role);
+}
+
+export function isAdmin(user: CurrentUser | null): boolean {
+  return isAdminRole(user?.role);
+}
 
 async function loadUser(accessToken: string): Promise<CurrentUser | null> {
   const { data, error } = await supabaseAdmin.auth.getUser(accessToken);
@@ -68,14 +80,19 @@ async function loadUser(accessToken: string): Promise<CurrentUser | null> {
 
   const { data: profile } = await supabaseAdmin
     .from("profiles")
-    .select("display_name")
+    .select("display_name, role, status")
     .eq("id", data.user.id)
     .maybeSingle();
+
+  // Suspended accounts are treated as logged out everywhere — this is the
+  // single enforcement point, so no individual route needs its own check.
+  if (profile?.status === "suspended") return null;
 
   return {
     id: data.user.id,
     email: data.user.email ?? "",
     displayName: profile?.display_name || data.user.email || "Member",
+    role: (profile?.role as Role) ?? "member",
   };
 }
 

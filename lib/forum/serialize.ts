@@ -1,12 +1,14 @@
 import "server-only";
 import { supabaseAdmin } from "@/lib/supabase/admin";
+import type { Role } from "@/lib/roles";
 
 export type ForumPost = {
   id: string;
   body: string;
   imageUrl: string | null;
+  status: "visible" | "hidden";
   createdAt: string;
-  author: { id: string; displayName: string };
+  author: { id: string; displayName: string; role: Role };
   likeCount: number;
   likedByMe: boolean;
   commentCount: number;
@@ -18,6 +20,7 @@ type RawPost = {
   author_id: string;
   body: string;
   image_url: string | null;
+  status: string;
   created_at: string;
 };
 
@@ -37,7 +40,7 @@ export async function enrichPosts(
   // undercount. "likedByMe" stays a plain select: it's scoped to one user, so
   // it can return at most postIds.length rows regardless of total like volume.
   const [profilesRes, likeCountsRes, commentCountsRes, viewCountsRes, myLikesRes] = await Promise.all([
-    supabaseAdmin.from("profiles").select("id, display_name").in("id", authorIds),
+    supabaseAdmin.from("profiles").select("id, display_name, role").in("id", authorIds),
     supabaseAdmin.rpc("forum_like_counts", { post_ids: postIds }),
     supabaseAdmin.rpc("forum_comment_counts", { post_ids: postIds }),
     supabaseAdmin.rpc("forum_view_counts", { post_ids: postIds }),
@@ -48,6 +51,9 @@ export async function enrichPosts(
 
   const displayNameById = new Map(
     (profilesRes.data ?? []).map((p) => [p.id as string, p.display_name as string]),
+  );
+  const roleById = new Map(
+    (profilesRes.data ?? []).map((p) => [p.id as string, (p.role as Role) ?? "member"]),
   );
 
   const likeCountByPost = new Map<string, number>(
@@ -65,8 +71,13 @@ export async function enrichPosts(
     id: p.id,
     body: p.body,
     imageUrl: p.image_url,
+    status: p.status === "hidden" ? "hidden" : "visible",
     createdAt: p.created_at,
-    author: { id: p.author_id, displayName: displayNameById.get(p.author_id) || "Member" },
+    author: {
+      id: p.author_id,
+      displayName: displayNameById.get(p.author_id) || "Member",
+      role: roleById.get(p.author_id) ?? "member",
+    },
     likeCount: likeCountByPost.get(p.id) ?? 0,
     likedByMe: likedByMeSet.has(p.id),
     commentCount: commentCountByPost.get(p.id) ?? 0,

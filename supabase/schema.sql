@@ -90,3 +90,47 @@ stable
 as $$
   select post_id, count(*) from public.forum_post_views where post_id = any(post_ids) group by post_id;
 $$;
+
+-- Roles + moderation (added after initial launch) — safe to re-run: every
+-- statement below is idempotent against the tables/functions created above.
+
+-- Denormalized copy of auth.users.email so the admin user list is a single
+-- query against profiles instead of an admin-API round trip per row.
+alter table public.profiles add column if not exists email text;
+alter table public.profiles add column if not exists role text not null default 'member';
+alter table public.profiles add column if not exists status text not null default 'active';
+
+do $$ begin
+  if not exists (select 1 from pg_constraint where conname = 'profiles_role_check') then
+    alter table public.profiles add constraint profiles_role_check check (role in ('member', 'moderator', 'admin'));
+  end if;
+  if not exists (select 1 from pg_constraint where conname = 'profiles_status_check') then
+    alter table public.profiles add constraint profiles_status_check check (status in ('active', 'suspended'));
+  end if;
+end $$;
+
+-- 'hidden' = removed from the public feed by a moderator/admin, but kept
+-- (not deleted) so it can be restored ("approved") instead of losing it for good.
+alter table public.forum_posts add column if not exists status text not null default 'visible';
+alter table public.forum_comments add column if not exists status text not null default 'visible';
+
+do $$ begin
+  if not exists (select 1 from pg_constraint where conname = 'forum_posts_status_check') then
+    alter table public.forum_posts add constraint forum_posts_status_check check (status in ('visible', 'hidden'));
+  end if;
+  if not exists (select 1 from pg_constraint where conname = 'forum_comments_status_check') then
+    alter table public.forum_comments add constraint forum_comments_status_check check (status in ('visible', 'hidden'));
+  end if;
+end $$;
+
+-- Public comment counts only include visible comments, so the number shown
+-- always matches what a regular member can actually see and expand.
+create or replace function public.forum_comment_counts(post_ids uuid[])
+returns table (post_id uuid, count bigint)
+language sql
+stable
+as $$
+  select post_id, count(*) from public.forum_comments
+  where post_id = any(post_ids) and status = 'visible'
+  group by post_id;
+$$;

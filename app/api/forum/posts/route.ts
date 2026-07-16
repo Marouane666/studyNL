@@ -1,5 +1,5 @@
 import { supabaseAdmin } from "@/lib/supabase/admin";
-import { getCurrentUser } from "@/lib/auth/session";
+import { getCurrentUser, isModerator } from "@/lib/auth/session";
 import { jsonError } from "@/lib/http";
 import { enrichPosts } from "@/lib/forum/serialize";
 import { isForumMediaUrl } from "@/lib/forum/media";
@@ -9,11 +9,17 @@ const MAX_BODY_LENGTH = 4000;
 export async function GET() {
   const user = await getCurrentUser();
 
-  const { data, error } = await supabaseAdmin
+  let query = supabaseAdmin
     .from("forum_posts")
-    .select("id, author_id, body, image_url, created_at")
+    .select("id, author_id, body, image_url, status, created_at")
     .order("created_at", { ascending: false })
     .limit(50);
+
+  // Regular members and anonymous visitors never see hidden posts; moderators
+  // and admins see everything (with a "hidden" badge) so they can manage them.
+  if (!isModerator(user)) query = query.eq("status", "visible");
+
+  const { data, error } = await query;
 
   if (error) return jsonError("Couldn't load posts.", 500);
 
@@ -39,7 +45,7 @@ export async function POST(request: Request) {
   const { data, error } = await supabaseAdmin
     .from("forum_posts")
     .insert({ author_id: user.id, body: text, image_url: imageUrl })
-    .select("id, author_id, body, image_url, created_at")
+    .select("id, author_id, body, image_url, status, created_at")
     .single();
 
   if (error || !data) {
