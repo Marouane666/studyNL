@@ -50,9 +50,34 @@ export default function ForumPage() {
     };
   }, [tab, posts]);
 
+  const feedContent = (
+    <>
+      {loadError && <p className="text-sm font-semibold text-red-600">{t("forum.loadError")}</p>}
+
+      {posts && posts.length === 0 && !loadError && (
+        <div className="rounded-2xl bg-white p-10 text-center shadow-[0_1px_2px_rgba(9,42,77,0.04)]">
+          <p className="text-lg font-bold" style={{ color: NAVY }}>
+            {t("forum.empty.title")}
+          </p>
+          <p className="mt-1 text-sm" style={{ color: `${NAVY}80` }}>
+            {t("forum.empty.subtitle")}
+          </p>
+        </div>
+      )}
+
+      {posts?.map((post) => (
+        <PostCard
+          key={post.id}
+          post={post}
+          onDeleted={(id) => setPosts((prev) => prev?.filter((p) => p.id !== id) ?? null)}
+        />
+      ))}
+    </>
+  );
+
   return (
     <section style={{ backgroundColor: BG, color: NAVY }}>
-      <div className="mx-auto max-w-3xl px-6 py-10">
+      <div className="mx-auto max-w-5xl px-6 py-10">
         <span
           className="inline-flex items-center rounded-full bg-white px-4 py-1.5 text-xs font-semibold ring-1 ring-[#092A4D]/10"
           style={{ color: NAVY }}
@@ -111,37 +136,21 @@ export default function ForumPage() {
         </div>
 
         <div className="mt-8">
-          {tab === "discussion" && (
-            <div className="flex flex-col gap-5">
-              {!authLoading &&
-                (user ? (
-                  <PostComposer onCreated={(p) => setPosts((prev) => [p, ...(prev ?? [])])} />
-                ) : (
+          {tab === "discussion" &&
+            !authLoading &&
+            (user ? (
+              <div className="flex flex-col gap-5">
+                <PostComposer onCreated={(p) => setPosts((prev) => [p, ...(prev ?? [])])} />
+                {feedContent}
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px] lg:items-start">
+                <div className="order-2 flex flex-col gap-5 lg:order-1">{feedContent}</div>
+                <div className="order-1 lg:order-2 lg:sticky lg:top-24">
                   <AuthPanel />
-                ))}
-
-              {loadError && <p className="text-sm font-semibold text-red-600">{t("forum.loadError")}</p>}
-
-              {posts && posts.length === 0 && !loadError && (
-                <div className="rounded-2xl bg-white p-10 text-center shadow-[0_1px_2px_rgba(9,42,77,0.04)]">
-                  <p className="text-lg font-bold" style={{ color: NAVY }}>
-                    {t("forum.empty.title")}
-                  </p>
-                  <p className="mt-1 text-sm" style={{ color: `${NAVY}80` }}>
-                    {t("forum.empty.subtitle")}
-                  </p>
                 </div>
-              )}
-
-              {posts?.map((post) => (
-                <PostCard
-                  key={post.id}
-                  post={post}
-                  onDeleted={(id) => setPosts((prev) => prev?.filter((p) => p.id !== id) ?? null)}
-                />
-              ))}
-            </div>
-          )}
+              </div>
+            ))}
 
           {tab === "members" && <MembersTab />}
           {tab === "about" && <AboutTab />}
