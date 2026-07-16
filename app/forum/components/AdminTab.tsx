@@ -5,6 +5,7 @@ import { useAuth } from "../../auth/AuthProvider";
 import { useT } from "../../i18n/I18nProvider";
 import { formatDate } from "@/lib/format";
 import { Avatar } from "./Avatar";
+import { PushNotificationsPanel } from "./PushNotificationsPanel";
 
 const NAVY = "#092A4D";
 
@@ -95,7 +96,9 @@ export function AdminTab() {
   }
 
   return (
-    <div className="overflow-x-auto rounded-2xl bg-white shadow-[0_1px_2px_rgba(9,42,77,0.04)]">
+    <>
+      <PushNotificationsPanel />
+      <div className="overflow-x-auto rounded-2xl bg-white shadow-[0_1px_2px_rgba(9,42,77,0.04)]">
       <table className="w-full min-w-[680px] text-left text-sm">
         <thead>
           <tr
@@ -193,6 +196,7 @@ export function AdminTab() {
           })}
         </tbody>
       </table>
-    </div>
+      </div>
+    </>
   );
 }

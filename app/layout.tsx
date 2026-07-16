@@ -1,10 +1,11 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Footer } from "./components/Footer";
 import { Navbar } from "./components/Navbar";
 import { I18nProvider } from "./i18n/I18nProvider";
 import { AuthProvider } from "./auth/AuthProvider";
+import { PwaBoot } from "./components/PwaBoot";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,6 +20,22 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "StudyNL",
   description: "StudyNL",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "StudyNL",
+  },
+  other: {
+    // Next only emits the modern "mobile-web-app-capable" tag from
+    // appleWebApp.capable; older iOS Safari versions only honor this
+    // Apple-specific name for standalone (no browser chrome) launch.
+    "apple-mobile-web-app-capable": "yes",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#092A4D",
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
@@ -35,6 +52,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <I18nProvider>
           <AuthProvider>
+            <PwaBoot />
             <Navbar />
             <main className="flex-1">{children}</main>
             <Footer />
