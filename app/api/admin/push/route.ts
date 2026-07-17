@@ -30,7 +30,7 @@ export async function POST(request: Request) {
 
   const { data: subscriptions, error } = await supabaseAdmin
     .from("push_subscriptions")
-    .select("id, endpoint, p256dh, auth_key");
+    .select("id, endpoint, p256dh, auth_key, created_at");
 
   if (error) return jsonError("Couldn't load subscribers.", 500);
   if (!subscriptions || subscriptions.length === 0) {
@@ -58,13 +58,19 @@ export async function POST(request: Request) {
         accepted += 1;
       } catch (err: unknown) {
         failed += 1;
-        const statusCode = (err as { statusCode?: number })?.statusCode;
-        // Logged so the actual error code is on record for next time, instead
-        // of only ever branching on 404/410 and losing everything else.
-        console.error(`Push send failed for subscription ${sub.id}: statusCode=${statusCode}`, err);
+        const e = err as { statusCode?: number; body?: string; headers?: Record<string, string> };
+        // Logged in full — statusCode alone can't distinguish "genuinely
+        // expired" from a config problem (e.g. InvalidRegistration,
+        // MismatchSenderId) that a push service can also report as 404/410.
+        // .body/.headers carry that distinction and were previously discarded.
+        console.error(
+          `[push-debug] send failed sub=${sub.id} createdAt=${sub.created_at} ` +
+            `endpoint=...${sub.endpoint.slice(-24)} statusCode=${e?.statusCode} ` +
+            `body=${e?.body} headers=${JSON.stringify(e?.headers)}`,
+        );
         // 404/410 mean the browser unsubscribed or the endpoint expired —
         // keeping those rows around would just fail again on every future send.
-        if (statusCode === 404 || statusCode === 410) staleIds.push(sub.id);
+        if (e?.statusCode === 404 || e?.statusCode === 410) staleIds.push(sub.id);
       }
     }),
   );

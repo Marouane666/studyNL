@@ -44,20 +44,32 @@ function urlBase64ToUint8Array(base64String: string): Uint8Array<ArrayBuffer> {
   return outputArray;
 }
 
-// Permission being "granted" doesn't mean a live subscription still exists —
-// the push service can invalidate/rotate it for reasons outside our control,
-// and without this check there is no other path that would ever notice and
-// re-subscribe (the ask UI only ever shows once, gated by PUSH_ASKED_KEY).
-// This intentionally ignores that gate: it's about keeping an
-// already-granted subscription alive, not about whether to show the prompt.
+// Permission being "granted" doesn't mean the SERVER still has this
+// subscription saved — a subscription object existing locally only proves
+// the browser's side is alive, not that it survived (or ever completed) the
+// round trip to /api/push/subscribe. Re-POSTing unconditionally is a cheap,
+// idempotent upsert, and it's the only thing that reconciles a subscription
+// that's locally present but was never actually saved (or was pruned
+// server-side after a bounced send) — a bare "if already exists, do
+// nothing" check silently leaves that gap unrepaired forever.
 async function revalidateSubscription(): Promise<void> {
   if (typeof Notification === "undefined" || Notification.permission !== "granted") return;
   if (!("serviceWorker" in navigator) || !("PushManager" in window)) return;
   try {
     const registration = await navigator.serviceWorker.ready;
     const existing = await registration.pushManager.getSubscription();
-    if (existing) return;
-  } catch {
+    console.log("[push-debug] revalidate found existing:", existing?.endpoint ?? null);
+    if (existing) {
+      const res = await fetch("/api/push/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(existing),
+      });
+      console.log("[push-debug] revalidate re-POST status:", res.status, existing.endpoint);
+      return;
+    }
+  } catch (err) {
+    console.error("[push-debug] revalidateSubscription failed:", err);
     return;
   }
   subscribeToPush();
@@ -77,11 +89,13 @@ async function subscribeToPush(): Promise<boolean> {
 
     const registration = await navigator.serviceWorker.ready;
     let subscription = await registration.pushManager.getSubscription();
+    console.log("[push-debug] pre-existing:", subscription?.endpoint ?? null);
     if (!subscription) {
       subscription = await registration.pushManager.subscribe({
         userVisibleOnly: true,
         applicationServerKey: urlBase64ToUint8Array(publicKey),
       });
+      console.log("[push-debug] created:", subscription.endpoint);
     }
 
     const res = await fetch("/api/push/subscribe", {
@@ -89,8 +103,10 @@ async function subscribeToPush(): Promise<boolean> {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(subscription),
     });
+    console.log("[push-debug] POST /api/push/subscribe status:", res.status, subscription.endpoint);
     return res.ok;
-  } catch {
+  } catch (err) {
+    console.error("[push-debug] subscribeToPush failed:", err);
     return false;
   }
 }

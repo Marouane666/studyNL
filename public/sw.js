@@ -26,6 +26,7 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("push", (event) => {
+  console.log("[push-debug] push event received, hasData:", !!event.data);
   let payload;
   try {
     payload = event.data ? event.data.json() : null;
@@ -67,21 +68,26 @@ self.addEventListener("notificationclick", (event) => {
 // that dies has no way to ever come back — the site has no other trigger
 // that would notice and re-subscribe.
 self.addEventListener("pushsubscriptionchange", (event) => {
+  console.log("[push-debug] pushsubscriptionchange fired, old:", event.oldSubscription && event.oldSubscription.endpoint);
   event.waitUntil(
     self.registration.pushManager
       .subscribe({
         userVisibleOnly: true,
         applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY),
       })
-      .then((subscription) =>
-        fetch("/api/push/subscribe", {
+      .then((subscription) => {
+        console.log("[push-debug] resubscribed:", subscription.endpoint);
+        return fetch("/api/push/subscribe", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(subscription),
-        }),
-      )
-      .catch(() => {
-        /* best-effort — the next app open's revalidation check will retry */
+        }).then((res) => console.log("[push-debug] resubscribe POST status:", res.status));
+      })
+      .catch((err) => {
+        // Logged (not silently swallowed) — revalidateSubscription() now
+        // unconditionally re-POSTs on every app boot regardless, so this no
+        // longer relies on this comment being true to actually recover.
+        console.error("[push-debug] pushsubscriptionchange resubscribe failed:", err);
       }),
   );
 });
