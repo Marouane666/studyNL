@@ -103,8 +103,11 @@ export function PwaBoot() {
     }
 
     function onAppInstalled() {
+      // Only clear the live prompt — don't permanently mark the banner as
+      // dismissed. If this install is later uninstalled, isStandalone goes
+      // back to false and the browser can offer to install again; a
+      // permanent flag here would hide the banner forever after that.
       setDeferredPrompt(null);
-      persistDismissed();
       // Covers installs triggered from the browser's own UI (e.g. the address-bar
       // icon) rather than our button, which otherwise chains this itself.
       maybeShowPushCard();
@@ -163,7 +166,6 @@ export function PwaBoot() {
     }
     setDeferredPrompt(null);
     setInstalling(false);
-    persistDismissed();
     maybeShowPushCard();
   }
 
