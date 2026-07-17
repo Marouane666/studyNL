@@ -44,6 +44,25 @@ function urlBase64ToUint8Array(base64String: string): Uint8Array<ArrayBuffer> {
   return outputArray;
 }
 
+// Permission being "granted" doesn't mean a live subscription still exists —
+// the push service can invalidate/rotate it for reasons outside our control,
+// and without this check there is no other path that would ever notice and
+// re-subscribe (the ask UI only ever shows once, gated by PUSH_ASKED_KEY).
+// This intentionally ignores that gate: it's about keeping an
+// already-granted subscription alive, not about whether to show the prompt.
+async function revalidateSubscription(): Promise<void> {
+  if (typeof Notification === "undefined" || Notification.permission !== "granted") return;
+  if (!("serviceWorker" in navigator) || !("PushManager" in window)) return;
+  try {
+    const registration = await navigator.serviceWorker.ready;
+    const existing = await registration.pushManager.getSubscription();
+    if (existing) return;
+  } catch {
+    return;
+  }
+  subscribeToPush();
+}
+
 // Returns whether the subscription genuinely ended up saved server-side —
 // every failure mode (permission denied, unsupported browser, subscribe
 // error, network error saving it) is reported back instead of swallowed, so
@@ -96,6 +115,8 @@ export function PwaBoot() {
     } catch {
       setInstallDismissed(false);
     }
+
+    revalidateSubscription();
 
     function onBeforeInstallPrompt(e: Event) {
       e.preventDefault();

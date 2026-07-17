@@ -6,7 +6,7 @@ import { useT } from "../../i18n/I18nProvider";
 const NAVY = "#092A4D";
 const ORANGE = "#fd7933";
 
-type SendResult = { sent: number; failed: number; removed: number };
+type SendResult = { accepted: number; failed: number; removed: number };
 
 export function PushNotificationsPanel() {
   const t = useT();
@@ -121,10 +121,15 @@ export function PushNotificationsPanel() {
 
         {error && <p className="text-sm font-semibold text-red-600">{error}</p>}
         {result && (
-          <p className="text-sm font-semibold" style={{ color: "#15803d" }}>
-            {result.sent} {t("admin.push.result.sent")} · {result.failed} {t("admin.push.result.failed")}
-            {result.removed > 0 && ` · ${result.removed} ${t("admin.push.result.removed")}`}
-          </p>
+          <div>
+            <p className="text-sm font-semibold" style={{ color: "#15803d" }}>
+              {result.accepted} {t("admin.push.result.accepted")} · {result.failed} {t("admin.push.result.failed")}
+              {result.removed > 0 && ` · ${result.removed} ${t("admin.push.result.removed")}`}
+            </p>
+            <p className="mt-1 text-xs" style={{ color: `${NAVY}80` }}>
+              {t("admin.push.result.note")}
+            </p>
+          </div>
         )}
         {subscriberCount === 0 && <p className="text-sm" style={{ color: `${NAVY}80` }}>{t("admin.push.noSubscribers")}</p>}
 

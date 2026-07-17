@@ -728,9 +728,10 @@ const en: Dict = {
   "admin.push.sending": "Sending…",
   "admin.push.error": "Couldn't send that notification.",
   "admin.push.noSubscribers": "No one has enabled notifications yet.",
-  "admin.push.result.sent": "sent",
+  "admin.push.result.accepted": "accepted for delivery",
   "admin.push.result.failed": "failed",
   "admin.push.result.removed": "expired subscriptions removed",
+  "admin.push.result.note": "\"Accepted\" means the push service took the message — it doesn't guarantee it was actually displayed on the device.",
 
   "helpc.badge": "Help Centre",
   "helpc.title": "How can we help?",

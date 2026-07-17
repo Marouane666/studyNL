@@ -34,12 +34,15 @@ export async function POST(request: Request) {
 
   if (error) return jsonError("Couldn't load subscribers.", 500);
   if (!subscriptions || subscriptions.length === 0) {
-    return Response.json({ sent: 0, failed: 0, removed: 0 });
+    return Response.json({ accepted: 0, failed: 0, removed: 0 });
   }
 
   const payload = JSON.stringify({ title, body: message, url });
   const staleIds: string[] = [];
-  let sent = 0;
+  // "Accepted" — the push service (FCM/etc.) took the message for delivery.
+  // This is NOT proof it was ever displayed on a device; that last mile
+  // depends on the OS/browser actually waking the app in the background.
+  let accepted = 0;
   let failed = 0;
 
   await Promise.all(
@@ -52,12 +55,15 @@ export async function POST(request: Request) {
           },
           payload,
         );
-        sent += 1;
+        accepted += 1;
       } catch (err: unknown) {
         failed += 1;
+        const statusCode = (err as { statusCode?: number })?.statusCode;
+        // Logged so the actual error code is on record for next time, instead
+        // of only ever branching on 404/410 and losing everything else.
+        console.error(`Push send failed for subscription ${sub.id}: statusCode=${statusCode}`, err);
         // 404/410 mean the browser unsubscribed or the endpoint expired —
         // keeping those rows around would just fail again on every future send.
-        const statusCode = (err as { statusCode?: number })?.statusCode;
         if (statusCode === 404 || statusCode === 410) staleIds.push(sub.id);
       }
     }),
@@ -67,5 +73,5 @@ export async function POST(request: Request) {
     await supabaseAdmin.from("push_subscriptions").delete().in("id", staleIds);
   }
 
-  return Response.json({ sent, failed, removed: staleIds.length });
+  return Response.json({ accepted, failed, removed: staleIds.length });
 }
