@@ -700,6 +700,16 @@ const en: Dict = {
   "pwa.install.installing": "Installing…",
   "pwa.dismissAriaLabel": "Dismiss",
 
+  "pwa.pushConfirm.title": "One more step",
+  "pwa.pushConfirm.subtitle": "Accept notifications to complete your install and get news and updates from us.",
+  "pwa.pushConfirm.accept": "Accept",
+  "pwa.pushConfirm.accepting": "Requesting…",
+  "pwa.pushConfirm.successTitle": "You're all set",
+  "pwa.pushConfirm.successSubtitle": "You'll now receive updates from StudyNL on this device.",
+  "pwa.pushConfirm.failTitle": "Notifications not enabled",
+  "pwa.pushConfirm.failSubtitle": "You can turn these on later from your browser or device settings.",
+  "pwa.pushConfirm.done": "Done",
+
   "psAdmin.badge": "Admin",
   "psAdmin.title": "StudyNL admin",
   "psAdmin.subtitle": "Manage members, roles and push notifications.",
@@ -1457,6 +1467,16 @@ const de: Dict = {
   "pwa.install.actionIOS": "iOS-App installieren",
   "pwa.install.installing": "Wird installiert…",
   "pwa.dismissAriaLabel": "Schließen",
+
+  "pwa.pushConfirm.title": "Noch ein Schritt",
+  "pwa.pushConfirm.subtitle": "Aktiviere Benachrichtigungen, um deine Installation abzuschließen und Neuigkeiten von uns zu erhalten.",
+  "pwa.pushConfirm.accept": "Zulassen",
+  "pwa.pushConfirm.accepting": "Wird angefragt…",
+  "pwa.pushConfirm.successTitle": "Alles bereit",
+  "pwa.pushConfirm.successSubtitle": "Du erhältst jetzt Updates von StudyNL auf diesem Gerät.",
+  "pwa.pushConfirm.failTitle": "Benachrichtigungen nicht aktiviert",
+  "pwa.pushConfirm.failSubtitle": "Du kannst sie später in den Browser- oder Geräteeinstellungen aktivieren.",
+  "pwa.pushConfirm.done": "Fertig",
 };
 
 const fr: Dict = {
@@ -2122,6 +2142,16 @@ const fr: Dict = {
   "pwa.install.actionIOS": "Installer l'appli iOS",
   "pwa.install.installing": "Installation…",
   "pwa.dismissAriaLabel": "Fermer",
+
+  "pwa.pushConfirm.title": "Encore une étape",
+  "pwa.pushConfirm.subtitle": "Acceptez les notifications pour terminer l'installation et recevoir nos actualités.",
+  "pwa.pushConfirm.accept": "Accepter",
+  "pwa.pushConfirm.accepting": "Demande en cours…",
+  "pwa.pushConfirm.successTitle": "Tout est prêt",
+  "pwa.pushConfirm.successSubtitle": "Vous recevrez désormais les actualités de StudyNL sur cet appareil.",
+  "pwa.pushConfirm.failTitle": "Notifications non activées",
+  "pwa.pushConfirm.failSubtitle": "Vous pourrez les activer plus tard depuis les paramètres de votre navigateur ou appareil.",
+  "pwa.pushConfirm.done": "Terminé",
 };
 
 const it: Dict = {
@@ -2789,6 +2819,16 @@ const it: Dict = {
   "pwa.install.actionIOS": "Installa l'app iOS",
   "pwa.install.installing": "Installazione…",
   "pwa.dismissAriaLabel": "Chiudi",
+
+  "pwa.pushConfirm.title": "Un ultimo passo",
+  "pwa.pushConfirm.subtitle": "Accetta le notifiche per completare l'installazione e ricevere le nostre novità.",
+  "pwa.pushConfirm.accept": "Accetta",
+  "pwa.pushConfirm.accepting": "Richiesta in corso…",
+  "pwa.pushConfirm.successTitle": "Tutto pronto",
+  "pwa.pushConfirm.successSubtitle": "Ora riceverai gli aggiornamenti di StudyNL su questo dispositivo.",
+  "pwa.pushConfirm.failTitle": "Notifiche non attivate",
+  "pwa.pushConfirm.failSubtitle": "Potrai attivarle in seguito dalle impostazioni del browser o del dispositivo.",
+  "pwa.pushConfirm.done": "Fatto",
 };
 
 const nl: Dict = {
@@ -3455,6 +3495,16 @@ const nl: Dict = {
   "pwa.install.actionIOS": "iOS-app installeren",
   "pwa.install.installing": "Bezig met installeren…",
   "pwa.dismissAriaLabel": "Sluiten",
+
+  "pwa.pushConfirm.title": "Nog één stap",
+  "pwa.pushConfirm.subtitle": "Schakel meldingen in om je installatie te voltooien en nieuws en updates van ons te ontvangen.",
+  "pwa.pushConfirm.accept": "Accepteren",
+  "pwa.pushConfirm.accepting": "Bezig met aanvragen…",
+  "pwa.pushConfirm.successTitle": "Helemaal klaar",
+  "pwa.pushConfirm.successSubtitle": "Je ontvangt nu updates van StudyNL op dit apparaat.",
+  "pwa.pushConfirm.failTitle": "Meldingen niet ingeschakeld",
+  "pwa.pushConfirm.failSubtitle": "Je kunt ze later inschakelen via je browser- of apparaatinstellingen.",
+  "pwa.pushConfirm.done": "Klaar",
 };
 
 const ro: Dict = {
@@ -4119,6 +4169,16 @@ const ro: Dict = {
   "pwa.install.actionIOS": "Instalează aplicația iOS",
   "pwa.install.installing": "Se instalează…",
   "pwa.dismissAriaLabel": "Închide",
+
+  "pwa.pushConfirm.title": "Încă un pas",
+  "pwa.pushConfirm.subtitle": "Acceptă notificările pentru a finaliza instalarea și a primi noutăți de la noi.",
+  "pwa.pushConfirm.accept": "Acceptă",
+  "pwa.pushConfirm.accepting": "Se solicită…",
+  "pwa.pushConfirm.successTitle": "Totul este pregătit",
+  "pwa.pushConfirm.successSubtitle": "Vei primi acum actualizări de la StudyNL pe acest dispozitiv.",
+  "pwa.pushConfirm.failTitle": "Notificările nu sunt activate",
+  "pwa.pushConfirm.failSubtitle": "Le poți activa mai târziu din setările browserului sau ale dispozitivului.",
+  "pwa.pushConfirm.done": "Gata",
 };
 
 const tr: Dict = {
@@ -4783,6 +4843,16 @@ const tr: Dict = {
   "pwa.install.actionIOS": "iOS Uygulamasını Yükle",
   "pwa.install.installing": "Yükleniyor…",
   "pwa.dismissAriaLabel": "Kapat",
+
+  "pwa.pushConfirm.title": "Bir adım daha",
+  "pwa.pushConfirm.subtitle": "Kurulumu tamamlamak ve bizden haber ve güncellemeler almak için bildirimleri kabul et.",
+  "pwa.pushConfirm.accept": "Kabul et",
+  "pwa.pushConfirm.accepting": "İsteniyor…",
+  "pwa.pushConfirm.successTitle": "Her şey hazır",
+  "pwa.pushConfirm.successSubtitle": "Artık bu cihazda StudyNL'den güncellemeler alacaksın.",
+  "pwa.pushConfirm.failTitle": "Bildirimler etkinleştirilmedi",
+  "pwa.pushConfirm.failSubtitle": "Bunları daha sonra tarayıcı veya cihaz ayarlarından açabilirsin.",
+  "pwa.pushConfirm.done": "Tamam",
 };
 
 const zh: Dict = {
@@ -5417,6 +5487,16 @@ const zh: Dict = {
   "pwa.install.actionIOS": "安装 iOS 应用",
   "pwa.install.installing": "正在安装…",
   "pwa.dismissAriaLabel": "关闭",
+
+  "pwa.pushConfirm.title": "还差一步",
+  "pwa.pushConfirm.subtitle": "接受通知以完成安装,并接收我们的最新消息。",
+  "pwa.pushConfirm.accept": "接受",
+  "pwa.pushConfirm.accepting": "请求中…",
+  "pwa.pushConfirm.successTitle": "一切就绪",
+  "pwa.pushConfirm.successSubtitle": "你现在将在此设备上收到 StudyNL 的更新。",
+  "pwa.pushConfirm.failTitle": "通知未启用",
+  "pwa.pushConfirm.failSubtitle": "你可以稍后在浏览器或设备设置中开启。",
+  "pwa.pushConfirm.done": "完成",
 };
 
 const ar: Dict = {
@@ -6079,6 +6159,16 @@ const ar: Dict = {
   "pwa.install.actionIOS": "تثبيت تطبيق iOS",
   "pwa.install.installing": "جارٍ التثبيت…",
   "pwa.dismissAriaLabel": "إغلاق",
+
+  "pwa.pushConfirm.title": "خطوة أخيرة",
+  "pwa.pushConfirm.subtitle": "اقبل الإشعارات لإكمال التثبيت وتلقّي الأخبار والتحديثات منا.",
+  "pwa.pushConfirm.accept": "قبول",
+  "pwa.pushConfirm.accepting": "جارٍ الطلب…",
+  "pwa.pushConfirm.successTitle": "كل شيء جاهز",
+  "pwa.pushConfirm.successSubtitle": "ستتلقى الآن تحديثات StudyNL على هذا الجهاز.",
+  "pwa.pushConfirm.failTitle": "الإشعارات غير مفعّلة",
+  "pwa.pushConfirm.failSubtitle": "يمكنك تفعيلها لاحقاً من إعدادات المتصفح أو الجهاز.",
+  "pwa.pushConfirm.done": "تم",
 };
 
 export const TRANSLATIONS: Record<LangCode, Dict> = {

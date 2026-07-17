@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { SiAndroidauto } from "react-icons/si";
-import { FaAppStoreIos } from "react-icons/fa";
+import { FaAppStoreIos, FaBell, FaCheck } from "react-icons/fa";
 import { FaMobileScreen } from "react-icons/fa6";
 import { useT } from "../i18n/I18nProvider";
 
@@ -23,6 +23,8 @@ type Device = {
   isStandalone: boolean;
 };
 
+type PushOutcome = "idle" | "loading" | "success" | "failed";
+
 function detectDevice(): Device {
   const ua = navigator.userAgent;
   const isIOS = /iPad|iPhone|iPod/.test(ua) || (ua.includes("Macintosh") && navigator.maxTouchPoints > 1);
@@ -42,30 +44,36 @@ function urlBase64ToUint8Array(base64String: string): Uint8Array<ArrayBuffer> {
   return outputArray;
 }
 
-// Triggers the browser's own native permission dialog — there is no way to
-// subscribe without it. "Implicit" here just means our UI doesn't show a
-// second custom prompt asking first; we go straight to the OS-level one.
-async function subscribeToPush(): Promise<void> {
+// Returns whether the subscription genuinely ended up saved server-side —
+// every failure mode (permission denied, unsupported browser, subscribe
+// error, network error saving it) is reported back instead of swallowed, so
+// the UI can tell the user the truth instead of silently doing nothing.
+async function subscribeToPush(): Promise<boolean> {
   const publicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
-  if (!publicKey || !("serviceWorker" in navigator) || !("PushManager" in window)) return;
+  if (!publicKey || !("serviceWorker" in navigator) || !("PushManager" in window)) return false;
 
-  const permission = await Notification.requestPermission();
-  if (permission !== "granted") return;
+  try {
+    const permission = await Notification.requestPermission();
+    if (permission !== "granted") return false;
 
-  const registration = await navigator.serviceWorker.ready;
-  let subscription = await registration.pushManager.getSubscription();
-  if (!subscription) {
-    subscription = await registration.pushManager.subscribe({
-      userVisibleOnly: true,
-      applicationServerKey: urlBase64ToUint8Array(publicKey),
+    const registration = await navigator.serviceWorker.ready;
+    let subscription = await registration.pushManager.getSubscription();
+    if (!subscription) {
+      subscription = await registration.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: urlBase64ToUint8Array(publicKey),
+      });
+    }
+
+    const res = await fetch("/api/push/subscribe", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(subscription),
     });
+    return res.ok;
+  } catch {
+    return false;
   }
-
-  await fetch("/api/push/subscribe", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(subscription),
-  }).catch(() => {});
 }
 
 export function PwaBoot() {
@@ -74,6 +82,8 @@ export function PwaBoot() {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [installDismissed, setInstallDismissed] = useState(true);
   const [installing, setInstalling] = useState(false);
+  const [showPushCard, setShowPushCard] = useState(false);
+  const [pushOutcome, setPushOutcome] = useState<PushOutcome>("idle");
 
   useEffect(() => {
     if ("serviceWorker" in navigator) {
@@ -97,15 +107,15 @@ export function PwaBoot() {
       persistDismissed();
       // Covers installs triggered from the browser's own UI (e.g. the address-bar
       // icon) rather than our button, which otherwise chains this itself.
-      maybeSubscribePush();
+      maybeShowPushCard();
     }
 
     window.addEventListener("beforeinstallprompt", onBeforeInstallPrompt);
     window.addEventListener("appinstalled", onAppInstalled);
 
     // Already-installed users (including iOS, which has no beforeinstallprompt
-    // event at all) still get one implicit chance to opt into push.
-    if (detectDevice().isStandalone) maybeSubscribePush();
+    // event at all) still get one chance to confirm push notifications.
+    if (detectDevice().isStandalone) maybeShowPushCard();
 
     return () => {
       window.removeEventListener("beforeinstallprompt", onBeforeInstallPrompt);
@@ -122,15 +132,24 @@ export function PwaBoot() {
     }
   }
 
-  function maybeSubscribePush() {
+  function maybeShowPushCard() {
     if (typeof Notification === "undefined" || Notification.permission !== "default") return;
     try {
       if (window.localStorage.getItem(PUSH_ASKED_KEY) === "1") return;
-      window.localStorage.setItem(PUSH_ASKED_KEY, "1");
     } catch {
       /* localStorage unavailable — fall through and ask anyway */
     }
-    subscribeToPush();
+    setPushOutcome("idle");
+    setShowPushCard(true);
+  }
+
+  function dismissPushCard() {
+    setShowPushCard(false);
+    try {
+      window.localStorage.setItem(PUSH_ASKED_KEY, "1");
+    } catch {
+      /* ignore */
+    }
   }
 
   async function handleInstallClick() {
@@ -145,33 +164,89 @@ export function PwaBoot() {
     setDeferredPrompt(null);
     setInstalling(false);
     persistDismissed();
-    maybeSubscribePush();
+    maybeShowPushCard();
+  }
+
+  async function handleAcceptPush() {
+    setPushOutcome("loading");
+    const ok = await subscribeToPush();
+    // Mark as asked only once we have a real answer — an unlucky reload mid-request
+    // won't permanently skip the ask.
+    try {
+      window.localStorage.setItem(PUSH_ASKED_KEY, "1");
+    } catch {
+      /* ignore */
+    }
+    setPushOutcome(ok ? "success" : "failed");
   }
 
   if (!device || !device.isMobile) return null;
 
-  const showBanner = !device.isStandalone && !installDismissed && (device.isAndroid ? !!deferredPrompt : device.isIOS);
-  if (!showBanner) return null;
+  const showInstallBanner = !device.isStandalone && !installDismissed && (device.isAndroid ? !!deferredPrompt : device.isIOS);
 
-  const platformActionLabel = device.isAndroid
-    ? t("pwa.install.actionAndroid")
-    : device.isIOS
-      ? t("pwa.install.actionIOS")
-      : t("pwa.install.action");
+  if (showInstallBanner) {
+    const platformActionLabel = device.isAndroid
+      ? t("pwa.install.actionAndroid")
+      : device.isIOS
+        ? t("pwa.install.actionIOS")
+        : t("pwa.install.action");
 
-  const PlatformIcon = device.isAndroid ? SiAndroidauto : device.isIOS ? FaAppStoreIos : FaMobileScreen;
+    const PlatformIcon = device.isAndroid ? SiAndroidauto : device.isIOS ? FaAppStoreIos : FaMobileScreen;
 
-  return (
-    <PwaCard
-      icon={<PlatformIcon size={16} />}
-      title={t("pwa.install.title")}
-      subtitle={device.isAndroid ? t("pwa.install.valueProp") : t("pwa.install.iosSubtitle")}
-      actionLabel={device.isAndroid && installing ? t("pwa.install.installing") : platformActionLabel}
-      onAction={device.isAndroid ? handleInstallClick : persistDismissed}
-      onDismiss={persistDismissed}
-      dismissAriaLabel={t("pwa.dismissAriaLabel")}
-    />
-  );
+    return (
+      <PwaCard
+        icon={<PlatformIcon size={16} />}
+        title={t("pwa.install.title")}
+        subtitle={device.isAndroid ? t("pwa.install.valueProp") : t("pwa.install.iosSubtitle")}
+        actionLabel={device.isAndroid && installing ? t("pwa.install.installing") : platformActionLabel}
+        onAction={device.isAndroid ? handleInstallClick : persistDismissed}
+        onDismiss={persistDismissed}
+        dismissAriaLabel={t("pwa.dismissAriaLabel")}
+      />
+    );
+  }
+
+  if (showPushCard) {
+    if (pushOutcome === "success") {
+      return (
+        <PwaCard
+          icon={<FaCheck size={16} />}
+          title={t("pwa.pushConfirm.successTitle")}
+          subtitle={t("pwa.pushConfirm.successSubtitle")}
+          actionLabel={t("pwa.pushConfirm.done")}
+          onAction={dismissPushCard}
+          onDismiss={dismissPushCard}
+          dismissAriaLabel={t("pwa.dismissAriaLabel")}
+        />
+      );
+    }
+    if (pushOutcome === "failed") {
+      return (
+        <PwaCard
+          icon={<FaBell size={16} />}
+          title={t("pwa.pushConfirm.failTitle")}
+          subtitle={t("pwa.pushConfirm.failSubtitle")}
+          actionLabel={t("pwa.pushConfirm.done")}
+          onAction={dismissPushCard}
+          onDismiss={dismissPushCard}
+          dismissAriaLabel={t("pwa.dismissAriaLabel")}
+        />
+      );
+    }
+    return (
+      <PwaCard
+        icon={<FaBell size={16} />}
+        title={t("pwa.pushConfirm.title")}
+        subtitle={t("pwa.pushConfirm.subtitle")}
+        actionLabel={pushOutcome === "loading" ? t("pwa.pushConfirm.accepting") : t("pwa.pushConfirm.accept")}
+        onAction={handleAcceptPush}
+        onDismiss={dismissPushCard}
+        dismissAriaLabel={t("pwa.dismissAriaLabel")}
+      />
+    );
+  }
+
+  return null;
 }
 
 function PwaCard({
