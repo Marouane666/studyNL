@@ -163,7 +163,7 @@ export function PwaBoot() {
 
   return (
     <PwaCard
-      icon={<PlatformIcon size={22} color={NAVY} />}
+      icon={<PlatformIcon size={16} />}
       title={t("pwa.install.title")}
       subtitle={device.isAndroid ? t("pwa.install.valueProp") : t("pwa.install.iosSubtitle")}
       actionLabel={device.isAndroid && installing ? t("pwa.install.installing") : platformActionLabel}
@@ -193,7 +193,7 @@ function PwaCard({
 }) {
   return (
     <div className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-sm">
-      <div className="relative rounded-4xl bg-white p-6 text-center shadow-[0_12px_40px_rgba(9,42,77,0.22)]">
+      <div className="relative rounded-4xl bg-white p-4 text-center shadow-[0_12px_40px_rgba(9,42,77,0.22)]">
         <button
           type="button"
           onClick={onDismiss}
@@ -204,26 +204,20 @@ function PwaCard({
           <CloseIcon />
         </button>
 
-        <div
-          className="mx-auto mb-3 flex size-12 items-center justify-center rounded-full"
-          style={{ backgroundColor: `${NAVY}0d` }}
-        >
-          {icon}
-        </div>
-
-        <h2 className="text-xl font-extrabold" style={{ color: NAVY }}>
+        <h2 className="text-base font-extrabold" style={{ color: NAVY }}>
           {title}
         </h2>
-        <p className="mx-auto mt-2 max-w-70 text-sm leading-relaxed" style={{ color: `${NAVY}99` }}>
+        <p className="mx-auto mt-1 max-w-70 text-xs leading-snug" style={{ color: `${NAVY}99` }}>
           {subtitle}
         </p>
 
         <button
           type="button"
           onClick={onAction}
-          className="mt-5 w-full rounded-full py-3.5 text-sm font-bold text-white shadow-sm transition-opacity hover:opacity-90"
+          className="mt-3 flex w-full items-center justify-center gap-2 rounded-full py-2.5 text-sm font-bold text-white shadow-sm transition-opacity hover:opacity-90"
           style={{ backgroundColor: NAVY }}
         >
+          {icon}
           {actionLabel}
         </button>
       </div>

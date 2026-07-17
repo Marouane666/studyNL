@@ -1448,6 +1448,15 @@ const de: Dict = {
   "about.cta.contact": "Kontakt aufnehmen",
   "partners.viewAll": "Alle Partner ansehen",
   "forum.compose.imagePreviewAlt": "Vorschau des Bildes, das du posten möchtest",
+
+  "pwa.install.title": "App installieren",
+  "pwa.install.valueProp": "Für ein flüssigeres Erlebnis und aktuelle Updates direkt auf deinem Handy.",
+  "pwa.install.iosSubtitle": "Tippe auf das Teilen-Symbol und dann auf „Zum Home-Bildschirm“, um StudyNL zu installieren.",
+  "pwa.install.action": "App installieren",
+  "pwa.install.actionAndroid": "Android-App installieren",
+  "pwa.install.actionIOS": "iOS-App installieren",
+  "pwa.install.installing": "Wird installiert…",
+  "pwa.dismissAriaLabel": "Schließen",
 };
 
 const fr: Dict = {
@@ -2104,6 +2113,15 @@ const fr: Dict = {
   "about.cta.contact": "Nous contacter",
   "partners.viewAll": "Voir tous les partenaires",
   "forum.compose.imagePreviewAlt": "Aperçu de l'image que vous allez publier",
+
+  "pwa.install.title": "Installer l'application",
+  "pwa.install.valueProp": "Pour une expérience plus fluide et nos dernières actualités directement sur votre téléphone.",
+  "pwa.install.iosSubtitle": "Appuyez sur l'icône Partager, puis sur « Sur l'écran d'accueil » pour installer StudyNL.",
+  "pwa.install.action": "Installer l'appli",
+  "pwa.install.actionAndroid": "Installer l'appli Android",
+  "pwa.install.actionIOS": "Installer l'appli iOS",
+  "pwa.install.installing": "Installation…",
+  "pwa.dismissAriaLabel": "Fermer",
 };
 
 const it: Dict = {
@@ -2762,6 +2780,15 @@ const it: Dict = {
   "about.cta.contact": "Contattaci",
   "partners.viewAll": "Vedi tutti i partner",
   "forum.compose.imagePreviewAlt": "Anteprima dell'immagine che stai per pubblicare",
+
+  "pwa.install.title": "Installa l'app",
+  "pwa.install.valueProp": "Per un'esperienza più fluida e i nostri ultimi aggiornamenti direttamente sul tuo telefono.",
+  "pwa.install.iosSubtitle": "Tocca l'icona Condividi, poi \"Aggiungi alla schermata Home\" per installare StudyNL.",
+  "pwa.install.action": "Installa l'app",
+  "pwa.install.actionAndroid": "Installa l'app Android",
+  "pwa.install.actionIOS": "Installa l'app iOS",
+  "pwa.install.installing": "Installazione…",
+  "pwa.dismissAriaLabel": "Chiudi",
 };
 
 const nl: Dict = {
@@ -3419,6 +3446,15 @@ const nl: Dict = {
   "about.cta.contact": "Neem contact op",
   "partners.viewAll": "Bekijk alle partners",
   "forum.compose.imagePreviewAlt": "Voorvertoning van de afbeelding die je gaat plaatsen",
+
+  "pwa.install.title": "Installeer de app",
+  "pwa.install.valueProp": "Voor een soepelere ervaring en onze laatste updates rechtstreeks op je telefoon.",
+  "pwa.install.iosSubtitle": "Tik op het deelpictogram en dan op \"Zet op beginscherm\" om StudyNL te installeren.",
+  "pwa.install.action": "App installeren",
+  "pwa.install.actionAndroid": "Android-app installeren",
+  "pwa.install.actionIOS": "iOS-app installeren",
+  "pwa.install.installing": "Bezig met installeren…",
+  "pwa.dismissAriaLabel": "Sluiten",
 };
 
 const ro: Dict = {
@@ -4074,6 +4110,15 @@ const ro: Dict = {
   "about.cta.contact": "Contactează-ne",
   "partners.viewAll": "Vezi toți partenerii",
   "forum.compose.imagePreviewAlt": "Previzualizare a imaginii pe care urmează să o postezi",
+
+  "pwa.install.title": "Instalează aplicația",
+  "pwa.install.valueProp": "Pentru o experiență mai fluidă și cele mai recente actualizări direct pe telefonul tău.",
+  "pwa.install.iosSubtitle": "Atinge pictograma Distribuie, apoi \"Adaugă pe ecranul principal\" pentru a instala StudyNL.",
+  "pwa.install.action": "Instalează aplicația",
+  "pwa.install.actionAndroid": "Instalează aplicația Android",
+  "pwa.install.actionIOS": "Instalează aplicația iOS",
+  "pwa.install.installing": "Se instalează…",
+  "pwa.dismissAriaLabel": "Închide",
 };
 
 const tr: Dict = {
@@ -4729,6 +4774,15 @@ const tr: Dict = {
   "about.cta.contact": "Bize ulaşın",
   "partners.viewAll": "Tüm ortakları gör",
   "forum.compose.imagePreviewAlt": "Paylaşmak üzere olduğun görselin önizlemesi",
+
+  "pwa.install.title": "Uygulamayı yükle",
+  "pwa.install.valueProp": "Daha akıcı bir deneyim ve en son güncellemeler doğrudan telefonunda.",
+  "pwa.install.iosSubtitle": "Paylaş simgesine, ardından \"Ana Ekrana Ekle\"ye dokunarak StudyNL'yi yükle.",
+  "pwa.install.action": "Uygulamayı yükle",
+  "pwa.install.actionAndroid": "Android Uygulamasını Yükle",
+  "pwa.install.actionIOS": "iOS Uygulamasını Yükle",
+  "pwa.install.installing": "Yükleniyor…",
+  "pwa.dismissAriaLabel": "Kapat",
 };
 
 const zh: Dict = {
@@ -5354,6 +5408,15 @@ const zh: Dict = {
   "about.cta.contact": "联系我们",
   "partners.viewAll": "查看所有合作伙伴",
   "forum.compose.imagePreviewAlt": "你即将发布的图片预览",
+
+  "pwa.install.title": "安装应用",
+  "pwa.install.valueProp": "获得更流畅的体验,并将我们的最新消息直接推送到你的手机。",
+  "pwa.install.iosSubtitle": "点击分享图标,然后选择「添加到主屏幕」即可安装 StudyNL。",
+  "pwa.install.action": "安装应用",
+  "pwa.install.actionAndroid": "安装安卓应用",
+  "pwa.install.actionIOS": "安装 iOS 应用",
+  "pwa.install.installing": "正在安装…",
+  "pwa.dismissAriaLabel": "关闭",
 };
 
 const ar: Dict = {
@@ -6007,6 +6070,15 @@ const ar: Dict = {
   "about.cta.contact": "تواصل معنا",
   "partners.viewAll": "عرض جميع الشركاء",
   "forum.compose.imagePreviewAlt": "معاينة الصورة التي أنت على وشك نشرها",
+
+  "pwa.install.title": "تثبيت التطبيق",
+  "pwa.install.valueProp": "احصل على تجربة أكثر سلاسة وتلقَّ آخر تحديثاتنا مباشرة على هاتفك.",
+  "pwa.install.iosSubtitle": "اضغط على أيقونة المشاركة، ثم \"إضافة إلى الشاشة الرئيسية\" لتثبيت StudyNL.",
+  "pwa.install.action": "تثبيت التطبيق",
+  "pwa.install.actionAndroid": "تثبيت تطبيق أندرويد",
+  "pwa.install.actionIOS": "تثبيت تطبيق iOS",
+  "pwa.install.installing": "جارٍ التثبيت…",
+  "pwa.dismissAriaLabel": "إغلاق",
 };
 
 export const TRANSLATIONS: Record<LangCode, Dict> = {
