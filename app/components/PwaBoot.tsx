@@ -1,6 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { SiAndroidauto } from "react-icons/si";
+import { FaAppStoreIos } from "react-icons/fa";
+import { FaMobileScreen } from "react-icons/fa6";
 import { useT } from "../i18n/I18nProvider";
 
 const NAVY = "#092A4D";
@@ -156,8 +159,11 @@ export function PwaBoot() {
       ? t("pwa.install.actionIOS")
       : t("pwa.install.action");
 
+  const PlatformIcon = device.isAndroid ? SiAndroidauto : device.isIOS ? FaAppStoreIos : FaMobileScreen;
+
   return (
     <PwaCard
+      icon={<PlatformIcon size={22} color={NAVY} />}
       title={t("pwa.install.title")}
       subtitle={device.isAndroid ? t("pwa.install.valueProp") : t("pwa.install.iosSubtitle")}
       actionLabel={device.isAndroid && installing ? t("pwa.install.installing") : platformActionLabel}
@@ -169,6 +175,7 @@ export function PwaBoot() {
 }
 
 function PwaCard({
+  icon,
   title,
   subtitle,
   actionLabel,
@@ -176,6 +183,7 @@ function PwaCard({
   onDismiss,
   dismissAriaLabel,
 }: {
+  icon: React.ReactNode;
   title: string;
   subtitle: string;
   actionLabel: string;
@@ -195,6 +203,13 @@ function PwaCard({
         >
           <CloseIcon />
         </button>
+
+        <div
+          className="mx-auto mb-3 flex size-12 items-center justify-center rounded-full"
+          style={{ backgroundColor: `${NAVY}0d` }}
+        >
+          {icon}
+        </div>
 
         <h2 className="text-xl font-extrabold" style={{ color: NAVY }}>
           {title}
