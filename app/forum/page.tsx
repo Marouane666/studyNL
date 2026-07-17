@@ -8,17 +8,15 @@ import { PostComposer } from "./components/PostComposer";
 import { PostCard } from "./components/PostCard";
 import { MembersTab } from "./components/MembersTab";
 import { AboutTab } from "./components/AboutTab";
-import { AdminTab } from "./components/AdminTab";
-import { isAdminRole } from "@/lib/roles";
 import type { ForumPost } from "./components/types";
 
 const BG = "#EAF6FF";
 const NAVY = "#092A4D";
 const ORANGE = "#fd7933";
 
-type Tab = "discussion" | "members" | "about" | "admin";
+type Tab = "discussion" | "members" | "about";
 
-const BASE_TABS: { key: Tab; labelKey: string }[] = [
+const TABS: { key: Tab; labelKey: string }[] = [
   { key: "discussion", labelKey: "forum.tabs.discussion" },
   { key: "members", labelKey: "forum.tabs.members" },
   { key: "about", labelKey: "forum.tabs.about" },
@@ -30,9 +28,6 @@ export default function ForumPage() {
   const [tab, setTab] = useState<Tab>("discussion");
   const [posts, setPosts] = useState<ForumPost[] | null>(null);
   const [loadError, setLoadError] = useState(false);
-  const tabs = isAdminRole(user?.role)
-    ? [...BASE_TABS, { key: "admin" as const, labelKey: "forum.tabs.admin" }]
-    : BASE_TABS;
 
   useEffect(() => {
     if (tab !== "discussion" || posts !== null) return;
@@ -116,7 +111,7 @@ export default function ForumPage() {
         )}
 
         <div className="mt-8 flex gap-2 border-b border-[#092A4D]/10">
-          {tabs.map((item) => {
+          {TABS.map((item) => {
             const active = tab === item.key;
             return (
               <button
@@ -154,7 +149,6 @@ export default function ForumPage() {
 
           {tab === "members" && <MembersTab />}
           {tab === "about" && <AboutTab />}
-          {tab === "admin" && isAdminRole(user?.role) && <AdminTab />}
         </div>
       </div>
     </section>

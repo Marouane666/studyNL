@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { LANGUAGES } from "../i18n/dictionary";
 import { useI18n } from "../i18n/I18nProvider";
+import { useAuth } from "../auth/AuthProvider";
+import { isAdminRole } from "@/lib/roles";
 import { GlobalSearch } from "./GlobalSearch";
 
 type NavItem = { href: string; tKey: string };
@@ -22,6 +24,7 @@ const NAV_ITEMS: NavItem[] = [
 export function Navbar() {
   const pathname = usePathname();
   const { t } = useI18n();
+  const { user } = useAuth();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
@@ -51,7 +54,17 @@ export function Navbar() {
             <span className="hidden sm:inline">{t("nav.tagline.prefix")} </span>
             <span className="font-bold text-white">{t("nav.tagline.suffix")}</span>
           </p>
-          <LanguagePicker />
+          <div className="flex shrink-0 items-center gap-2">
+            {isAdminRole(user?.role) && (
+              <Link
+                href="/ps-admin"
+                className="inline-flex items-center rounded-full bg-white/10 px-2.5 py-1 text-xs font-semibold text-white transition-colors hover:bg-white/20 sm:px-3"
+              >
+                {t("nav.dashboard")}
+              </Link>
+            )}
+            <LanguagePicker />
+          </div>
         </div>
       </div>
 

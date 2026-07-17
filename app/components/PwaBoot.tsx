@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useT } from "../i18n/I18nProvider";
 
 const NAVY = "#092A4D";
-const ORANGE = "#fd7933";
 
 const INSTALL_DISMISSED_KEY = "studynl.pwa.installDismissed";
 const PUSH_ASKED_KEY = "studynl.pwa.pushAsked";
@@ -40,6 +39,9 @@ function urlBase64ToUint8Array(base64String: string): Uint8Array<ArrayBuffer> {
   return outputArray;
 }
 
+// Triggers the browser's own native permission dialog — there is no way to
+// subscribe without it. "Implicit" here just means our UI doesn't show a
+// second custom prompt asking first; we go straight to the OS-level one.
 async function subscribeToPush(): Promise<void> {
   const publicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
   if (!publicKey || !("serviceWorker" in navigator) || !("PushManager" in window)) return;
@@ -69,7 +71,6 @@ export function PwaBoot() {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [installDismissed, setInstallDismissed] = useState(true);
   const [installing, setInstalling] = useState(false);
-  const [showPushAsk, setShowPushAsk] = useState(false);
 
   useEffect(() => {
     if ("serviceWorker" in navigator) {
@@ -83,16 +84,6 @@ export function PwaBoot() {
       setInstallDismissed(false);
     }
 
-    function offerPushIfEligible() {
-      if (typeof Notification === "undefined" || Notification.permission !== "default") return;
-      try {
-        if (window.localStorage.getItem(PUSH_ASKED_KEY) === "1") return;
-      } catch {
-        /* localStorage unavailable — fall through and ask anyway */
-      }
-      setShowPushAsk(true);
-    }
-
     function onBeforeInstallPrompt(e: Event) {
       e.preventDefault();
       setDeferredPrompt(e as BeforeInstallPromptEvent);
@@ -100,20 +91,18 @@ export function PwaBoot() {
 
     function onAppInstalled() {
       setDeferredPrompt(null);
-      try {
-        window.localStorage.setItem(INSTALL_DISMISSED_KEY, "1");
-      } catch {
-        /* ignore */
-      }
-      offerPushIfEligible();
+      persistDismissed();
+      // Covers installs triggered from the browser's own UI (e.g. the address-bar
+      // icon) rather than our button, which otherwise chains this itself.
+      maybeSubscribePush();
     }
 
     window.addEventListener("beforeinstallprompt", onBeforeInstallPrompt);
     window.addEventListener("appinstalled", onAppInstalled);
 
-    // Users who already installed (including iOS, which has no
-    // beforeinstallprompt event at all) still get one chance to opt into push.
-    if (detectDevice().isStandalone) offerPushIfEligible();
+    // Already-installed users (including iOS, which has no beforeinstallprompt
+    // event at all) still get one implicit chance to opt into push.
+    if (detectDevice().isStandalone) maybeSubscribePush();
 
     return () => {
       window.removeEventListener("beforeinstallprompt", onBeforeInstallPrompt);
@@ -121,13 +110,24 @@ export function PwaBoot() {
     };
   }, []);
 
-  function dismissInstall() {
+  function persistDismissed() {
     setInstallDismissed(true);
     try {
       window.localStorage.setItem(INSTALL_DISMISSED_KEY, "1");
     } catch {
       /* ignore */
     }
+  }
+
+  function maybeSubscribePush() {
+    if (typeof Notification === "undefined" || Notification.permission !== "default") return;
+    try {
+      if (window.localStorage.getItem(PUSH_ASKED_KEY) === "1") return;
+      window.localStorage.setItem(PUSH_ASKED_KEY, "1");
+    } catch {
+      /* localStorage unavailable — fall through and ask anyway */
+    }
+    subscribeToPush();
   }
 
   async function handleInstallClick() {
@@ -141,98 +141,85 @@ export function PwaBoot() {
     }
     setDeferredPrompt(null);
     setInstalling(false);
-  }
-
-  function markPushAsked() {
-    setShowPushAsk(false);
-    try {
-      window.localStorage.setItem(PUSH_ASKED_KEY, "1");
-    } catch {
-      /* ignore */
-    }
-  }
-
-  async function handleEnablePush() {
-    markPushAsked();
-    await subscribeToPush();
+    persistDismissed();
+    maybeSubscribePush();
   }
 
   if (!device || !device.isMobile) return null;
 
-  const showInstallBanner = !device.isStandalone && !installDismissed && (device.isAndroid ? !!deferredPrompt : device.isIOS);
+  const showBanner = !device.isStandalone && !installDismissed && (device.isAndroid ? !!deferredPrompt : device.isIOS);
+  if (!showBanner) return null;
 
-  if (showInstallBanner) {
-    return (
-      <InstallBanner
-        title={t("pwa.install.title")}
-        subtitle={device.isAndroid ? t("pwa.install.subtitle") : t("pwa.install.iosSubtitle")}
-        actionLabel={device.isAndroid ? (installing ? t("pwa.install.installing") : t("pwa.install.action")) : undefined}
-        onAction={device.isAndroid ? handleInstallClick : undefined}
-        dismissLabel={device.isAndroid ? t("pwa.install.dismiss") : t("pwa.install.gotIt")}
-        onDismiss={dismissInstall}
-      />
-    );
-  }
+  const platformActionLabel = device.isAndroid
+    ? t("pwa.install.actionAndroid")
+    : device.isIOS
+      ? t("pwa.install.actionIOS")
+      : t("pwa.install.action");
 
-  if (showPushAsk) {
-    return (
-      <InstallBanner
-        title={t("pwa.push.title")}
-        subtitle={t("pwa.push.subtitle")}
-        actionLabel={t("pwa.push.enable")}
-        onAction={handleEnablePush}
-        dismissLabel={t("pwa.push.dismiss")}
-        onDismiss={markPushAsked}
-      />
-    );
-  }
-
-  return null;
+  return (
+    <PwaCard
+      title={t("pwa.install.title")}
+      subtitle={device.isAndroid ? t("pwa.install.valueProp") : t("pwa.install.iosSubtitle")}
+      actionLabel={device.isAndroid && installing ? t("pwa.install.installing") : platformActionLabel}
+      onAction={device.isAndroid ? handleInstallClick : persistDismissed}
+      onDismiss={persistDismissed}
+      dismissAriaLabel={t("pwa.dismissAriaLabel")}
+    />
+  );
 }
 
-function InstallBanner({
+function PwaCard({
   title,
   subtitle,
   actionLabel,
   onAction,
-  dismissLabel,
   onDismiss,
+  dismissAriaLabel,
 }: {
   title: string;
   subtitle: string;
-  actionLabel?: string;
-  onAction?: () => void;
-  dismissLabel: string;
+  actionLabel: string;
+  onAction: () => void;
   onDismiss: () => void;
+  dismissAriaLabel: string;
 }) {
   return (
-    <div className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-sm rounded-2xl bg-white p-4 shadow-[0_8px_30px_rgba(9,42,77,0.18)] ring-1 ring-[#092A4D]/10">
-      <p className="text-sm font-bold" style={{ color: NAVY }}>
-        {title}
-      </p>
-      <p className="mt-1 text-xs leading-relaxed" style={{ color: `${NAVY}99` }}>
-        {subtitle}
-      </p>
-      <div className="mt-3 flex items-center justify-end gap-2">
+    <div className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-sm">
+      <div className="relative rounded-4xl bg-white p-6 text-center shadow-[0_12px_40px_rgba(9,42,77,0.22)]">
         <button
           type="button"
           onClick={onDismiss}
-          className="rounded-full px-4 py-2 text-xs font-bold"
-          style={{ color: `${NAVY}99` }}
+          aria-label={dismissAriaLabel}
+          className="absolute -right-2 -top-2 inline-flex size-5 items-center justify-center rounded-full bg-white text-xs leading-none shadow ring-1 ring-[#092A4D]/10 hover:text-[#092A4D]"
+          style={{ color: `${NAVY}80` }}
         >
-          {dismissLabel}
+          <CloseIcon />
         </button>
-        {actionLabel && onAction && (
-          <button
-            type="button"
-            onClick={onAction}
-            className="inline-flex items-center rounded-full px-4 py-2 text-xs font-bold text-white shadow-sm hover:opacity-90"
-            style={{ backgroundColor: ORANGE }}
-          >
-            {actionLabel}
-          </button>
-        )}
+
+        <h2 className="text-xl font-extrabold" style={{ color: NAVY }}>
+          {title}
+        </h2>
+        <p className="mx-auto mt-2 max-w-70 text-sm leading-relaxed" style={{ color: `${NAVY}99` }}>
+          {subtitle}
+        </p>
+
+        <button
+          type="button"
+          onClick={onAction}
+          className="mt-5 w-full rounded-full py-3.5 text-sm font-bold text-white shadow-sm transition-opacity hover:opacity-90"
+          style={{ backgroundColor: NAVY }}
+        >
+          {actionLabel}
+        </button>
       </div>
     </div>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" aria-hidden="true">
+      <path d="M6 6l12 12M18 6 6 18" />
+    </svg>
   );
 }

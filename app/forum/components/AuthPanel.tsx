@@ -12,9 +12,11 @@ type Mode = "login" | "signup";
 export function AuthPanel({
   loginSubtitle,
   signupSubtitle,
+  hideSignup,
 }: {
   loginSubtitle?: string;
   signupSubtitle?: string;
+  hideSignup?: boolean;
 }) {
   const t = useT();
   const { login, signup } = useAuth();
@@ -25,7 +27,7 @@ export function AuthPanel({
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
-  const isLogin = mode === "login";
+  const isLogin = hideSignup ? true : mode === "login";
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
@@ -101,20 +103,22 @@ export function AuthPanel({
         </button>
       </form>
 
-      <p className="mt-5 text-center text-sm" style={{ color: `${NAVY}99` }}>
-        {isLogin ? t("auth.login.switchPrompt") : t("auth.signup.switchPrompt")}{" "}
-        <button
-          type="button"
-          onClick={() => {
-            setError(null);
-            setMode(isLogin ? "signup" : "login");
-          }}
-          className="font-bold underline-offset-2 hover:underline"
-          style={{ color: NAVY }}
-        >
-          {isLogin ? t("auth.login.switchAction") : t("auth.signup.switchAction")}
-        </button>
-      </p>
+      {!hideSignup && (
+        <p className="mt-5 text-center text-sm" style={{ color: `${NAVY}99` }}>
+          {isLogin ? t("auth.login.switchPrompt") : t("auth.signup.switchPrompt")}{" "}
+          <button
+            type="button"
+            onClick={() => {
+              setError(null);
+              setMode(isLogin ? "signup" : "login");
+            }}
+            className="font-bold underline-offset-2 hover:underline"
+            style={{ color: NAVY }}
+          >
+            {isLogin ? t("auth.login.switchAction") : t("auth.signup.switchAction")}
+          </button>
+        </p>
+      )}
     </div>
   );
 }
