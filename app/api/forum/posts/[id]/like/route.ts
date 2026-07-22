@@ -27,7 +27,7 @@ export async function POST(
   const { error: mutationError } = await mutation;
   if (mutationError) return jsonError("Couldn't update your like.", 500);
 
-  // Plain select (not a HEAD count request) so a real error body is parseable —
+  // Plain select (not a HEAD count request) so a real error body is parseable, 
   // see the view route for why head:true count queries are avoided here.
   const { data: likes, error: countError } = await supabaseAdmin
     .from("forum_likes")

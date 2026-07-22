@@ -134,8 +134,8 @@ export default function LegalPage() {
 
             <h3>Changes to this policy</h3>
             <p>
-              If we change what we collect or why — for example if we introduce analytics, paid
-              services or new integrations — we will update this page and the &ldquo;last
+              If we change what we collect or why, for example if we introduce analytics, paid
+              services or new integrations, we will update this page and the &ldquo;last
               updated&rdquo; date above.
             </p>
           </Prose>
@@ -147,14 +147,14 @@ export default function LegalPage() {
           </h2>
 
           <Prose>
-            <h3>What StudyNL is — and isn&rsquo;t</h3>
+            <h3>What StudyNL is, and isn&rsquo;t</h3>
             <p>
               StudyNL publishes general information, guides and a community forum for students
               considering or currently studying in the Netherlands. We are an independent
               information service. We are not a government body, university, immigration authority
               or regulated financial or legal adviser, and nothing on this site is legal,
-              immigration, tax or financial advice. Always confirm time-sensitive requirements —
-              deadlines, fees, visa rules, eligibility — with the official source linked in each
+              immigration, tax or financial advice. Always confirm time-sensitive requirements, 
+              deadlines, fees, visa rules, eligibility, with the official source linked in each
               guide, or with a qualified professional.
             </p>
 

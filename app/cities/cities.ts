@@ -1,4 +1,4 @@
-// Shared city catalogue — the source of truth for both the cities index
+// Shared city catalogue, the source of truth for both the cities index
 // (`app/cities/page.tsx`) and the city detail route (`app/cities/[slug]/page.tsx`).
 
 export type CityHousingPressure = "very-high" | "high" | "moderate";
@@ -12,16 +12,16 @@ export type CityOfficialLink = {
 export type City = {
   /** URL slug under /cities. */
   slug: string;
-  /** Proper noun — not translated. */
+  /** Proper noun, not translated. */
   name: string;
-  /** Proper noun — not translated. */
+  /** Proper noun, not translated. */
   province: string;
   positioningKey: string;
   summaryKey: string;
   bestForKeys: string[];
   housingPressure: CityHousingPressure;
   scaleLabelKey: string;
-  /** Institution names — proper nouns, not translated. */
+  /** Institution names, proper nouns, not translated. */
   institutions: string[];
   officialLink: CityOfficialLink;
 };

@@ -26,7 +26,7 @@ const FAQS: Faq[] = [
 
 function normalize(value: string): string {
   // Strip punctuation so a query like "Can I work?" (from a homepage quick-tag
-  // link) tokenizes to "work", matching FAQ text like "work as a student" —
+  // link) tokenizes to "work", matching FAQ text like "work as a student", 
   // without this, the trailing "?" makes the token "work?" match nothing.
   return value
     .toLowerCase()

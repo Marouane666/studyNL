@@ -10,7 +10,7 @@ if (!url || !secretKey) {
   );
 }
 
-// Service-role client — bypasses RLS. Import only from app/api/**/route.ts.
+// Service-role client, bypasses RLS. Import only from app/api/**/route.ts.
 // Never import this from a "use client" file or expose it to the browser.
 //
 // IMPORTANT: never call auth.signInWithPassword() or auth.refreshSession() on
@@ -31,7 +31,7 @@ export const supabaseAdmin = createClient(url, secretKey, {
 
 /**
  * A fresh, one-time-use client for auth operations that establish a session
- * (signInWithPassword, refreshSession) — never reused, so its session state
+ * (signInWithPassword, refreshSession), never reused, so its session state
  * dies with it instead of silently hijacking supabaseAdmin's identity.
  */
 export function createEphemeralAuthClient() {

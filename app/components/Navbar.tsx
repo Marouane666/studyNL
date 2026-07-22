@@ -51,8 +51,8 @@ export function Navbar() {
       <div className="bg-[#03294f] text-white">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-2 sm:px-6">
           <p className="truncate text-[10px] font-medium uppercase tracking-[0.18em] text-white/75 sm:text-[11px]">
-            <span className="hidden sm:inline">{t("nav.tagline.prefix")} </span>
-            <span className="font-bold text-white">{t("nav.tagline.suffix")}</span>
+            <span className="hidden sm:inline">POWERED BY GRADUATES </span>
+            <span className="font-bold text-white">FOR STUDENTS</span>
           </p>
           <div className="flex shrink-0 items-center gap-2">
             {isAdminRole(user?.role) && (
@@ -219,8 +219,8 @@ function MobileDrawer({
             {t("nav.startMove")}
           </Link>
           <p className="text-center text-[10px] font-medium uppercase tracking-[0.18em] text-[#03294f]/60">
-            {t("nav.tagline.prefix")}{" "}
-            <span className="font-bold text-[#03294f]">{t("nav.tagline.suffix")}</span>
+            POWERED BY GRADUATES{" "}
+            <span className="font-bold text-[#03294f]">FOR STUDENTS</span>
           </p>
         </div>
       </aside>

@@ -2,10 +2,34 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useT } from "../i18n/I18nProvider";
 
 const NAVY = "#03294f";
 const ORANGE = "#fd7933";
+
+// Slideshow images. Drop your files in /public/hero/ and list them here.
+// The first entry (hero.png) already exists so the section never breaks.
+const HERO_SLIDES = [
+  "/hero/hero.png",
+  "/hero/hero-1.jpg",
+  "/hero/hero-2.jpg",
+  "/hero/hero-3.jpg",
+  "/hero/hero-4.jpg",
+  "/hero/hero-5.jpg",
+  "/hero/hero-6.jpg",
+  "/hero/hero-7.jpg",
+  "/hero/hero-8.jpg",
+  "/hero/hero-9.jpg",
+  "/hero/hero-10.jpg",
+  "/hero/hero-11.jpg",
+  "/hero/hero-12.jpg",
+  "/hero/hero-13.jpg",
+  "/hero/hero-14.jpg",
+  "/hero/hero-15.jpg",
+];
+
+const SLIDE_INTERVAL_MS = 4500;
 
 export function Hero() {
   const t = useT();
@@ -36,7 +60,7 @@ export function Hero() {
 
             <p
               className="mt-6 max-w-xl text-base leading-relaxed"
-              style={{ color: `${NAVY}99` }}
+              style={{ color: `${NAVY}B3` }}
             >
               {t("hero.subtitle")}
             </p>
@@ -79,16 +103,7 @@ export function Hero() {
           </div>
 
           <div className="relative">
-            <div className="relative overflow-hidden rounded-3xl shadow-lg">
-              <Image
-                src="/hero/hero.png"
-                alt="Students studying together"
-                width={720}
-                height={520}
-                className="h-auto w-full object-cover"
-                priority
-              />
-            </div>
+            <HeroSlideshow />
 
             <FloatingCard
               className="absolute left-4 top-6 sm:left-6 sm:top-8"
@@ -116,6 +131,59 @@ export function Hero() {
         </div>
       </div>
     </section>
+  );
+}
+
+function HeroSlideshow() {
+  const [active, setActive] = useState(0);
+  const slides = HERO_SLIDES;
+
+  useEffect(() => {
+    if (slides.length <= 1) return;
+    const id = setInterval(() => {
+      setActive((prev) => (prev + 1) % slides.length);
+    }, SLIDE_INTERVAL_MS);
+    return () => clearInterval(id);
+  }, [slides.length]);
+
+  return (
+    <div className="relative aspect-720/520 w-full overflow-hidden rounded-3xl shadow-lg">
+      {slides.map((src, i) => (
+        <div
+          key={src}
+          aria-hidden={i !== active}
+          className="absolute inset-0 transition-opacity duration-1200 ease-in-out"
+          style={{ opacity: i === active ? 1 : 0 }}
+        >
+          <Image
+            src={src}
+            alt="Students studying together"
+            fill
+            sizes="(min-width: 1024px) 45vw, 100vw"
+            className={`h-full w-full object-cover transition-transform ease-out ${
+              i === active ? "scale-110 duration-6000" : "scale-100 duration-0"
+            }`}
+            priority={i === 0}
+          />
+        </div>
+      ))}
+
+      <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 gap-1.5">
+        {slides.map((src, i) => (
+          <button
+            key={src}
+            type="button"
+            aria-label={`Go to slide ${i + 1}`}
+            onClick={() => setActive(i)}
+            className="h-1.5 rounded-full bg-white transition-all"
+            style={{
+              width: i === active ? 20 : 6,
+              opacity: i === active ? 1 : 0.55,
+            }}
+          />
+        ))}
+      </div>
+    </div>
   );
 }
 

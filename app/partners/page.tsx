@@ -34,32 +34,44 @@ export default function PartnersPage() {
 
         <ul className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
           {PARTNERS.map((partner) => (
-            <li
-              key={partner.slug}
-              className="rounded-2xl bg-white p-6 shadow-[0_1px_2px_rgba(9,42,77,0.04)]"
-            >
-              <div className="flex items-center justify-between gap-3">
-                <div className="flex items-center gap-3">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={partner.logoSrc}
-                    alt=""
-                    className="h-6 w-auto max-w-22.5 object-contain"
-                  />
-                  <h3 className="text-base font-bold" style={{ color: NAVY }}>
-                    {partner.name}
-                  </h3>
+            <li key={partner.slug}>
+              <a
+                href={partner.url}
+                target="_blank"
+                rel={partner.affiliate ? "sponsored noopener noreferrer" : "noopener noreferrer"}
+                aria-label={`${t("partnersPage.visit")}: ${partner.name}`}
+                className="group flex h-full flex-col rounded-2xl bg-white p-6 shadow-[0_1px_2px_rgba(9,42,77,0.04)] transition-shadow duration-200 hover:shadow-[0_10px_28px_rgba(9,42,77,0.12)]"
+              >
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={partner.logoSrc}
+                      alt=""
+                      className="h-6 w-auto max-w-22.5 object-contain"
+                    />
+                    <h3 className="text-base font-bold" style={{ color: NAVY }}>
+                      {partner.name}
+                    </h3>
+                  </div>
+                  <span
+                    className="inline-flex items-center rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide ring-1 ring-[#092A4D]/10"
+                    style={{ color: `${NAVY}99` }}
+                  >
+                    {t(partner.categoryKey)}
+                  </span>
                 </div>
+                <p className="mt-2 text-sm leading-relaxed" style={{ color: `${NAVY}99` }}>
+                  {t(partner.descriptionKey)}
+                </p>
                 <span
-                  className="inline-flex items-center rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide ring-1 ring-[#092A4D]/10"
-                  style={{ color: `${NAVY}99` }}
+                  className="mt-auto inline-flex items-center gap-1.5 pt-4 text-sm font-semibold transition-colors group-hover:text-[#e96a25]"
+                  style={{ color: ORANGE }}
                 >
-                  {t(partner.categoryKey)}
+                  {t("partnersPage.visit")}
+                  <ExternalIcon />
                 </span>
-              </div>
-              <p className="mt-2 text-sm leading-relaxed" style={{ color: `${NAVY}99` }}>
-                {t(partner.descriptionKey)}
-              </p>
+              </a>
             </li>
           ))}
         </ul>
@@ -90,5 +102,24 @@ export default function PartnersPage() {
         </div>
       </div>
     </section>
+  );
+}
+
+function ExternalIcon() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M7 17 17 7" />
+      <path d="M8 7h9v9" />
+    </svg>
   );
 }

@@ -37,7 +37,7 @@ export function PostCard({
         if (typeof data?.viewCount === "number") setViewCount(data.viewCount);
       })
       .catch(() => {});
-    // Fires once per (post, logged-in user) — post.id is stable for this component's lifetime.
+    // Fires once per (post, logged-in user), post.id is stable for this component's lifetime.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.id]);
 

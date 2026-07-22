@@ -6,7 +6,7 @@ export async function GET() {
 
   // Plain selects (not head:true count requests): postgrest-js has a known quirk where a
   // HEAD count request against an unreachable/misconfigured table silently reports
-  // count: null with no error, instead of surfacing the failure — see PostgrestBuilder's
+  // count: null with no error, instead of surfacing the failure, see PostgrestBuilder's
   // "workaround for supabase/postgrest-js#295". A normal select's body is always parsed,
   // so real errors don't get swallowed as if the table were just empty.
   const [totalMembers, newMembers, newPosts] = await Promise.all([

@@ -74,7 +74,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
 
       // Account was created but the automatic sign-in right after didn't complete
-      // (transient error) — the account is real, so a normal login just works.
+      // (transient error), the account is real, so a normal login just works.
       return login(email, password);
     },
     [login],

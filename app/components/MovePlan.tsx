@@ -34,13 +34,7 @@ export function MovePlan() {
             }}
           >
             <div className="flex h-full flex-col rounded-[2rem] bg-white p-8 sm:p-10">
-              <div className="flex items-start justify-between">
-                <span
-                  className="inline-flex size-12 items-center justify-center rounded-full text-white"
-                  style={{ backgroundColor: NAVY }}
-                >
-                  <ArrowUpRightIcon />
-                </span>
+              <div className="flex items-start justify-end">
                 <div className="flex items-center gap-2">
                   <span
                     className="inline-flex items-center rounded-full bg-white px-3 py-1.5 text-xs font-semibold ring-1 ring-[#03294f]/10"
@@ -52,13 +46,13 @@ export function MovePlan() {
                     className="inline-flex items-center rounded-full bg-white px-3 py-1.5 text-xs font-semibold ring-1 ring-[#03294f]/10"
                     style={{ color: NAVY }}
                   >
-                    2025
+                    2026
                   </span>
                 </div>
               </div>
 
               <h3
-                className="mt-16 break-words text-[clamp(1.875rem,4vw,3rem)] font-extrabold leading-[1.05] tracking-tight"
+                className="mt-8 break-words text-[clamp(1.875rem,4vw,3rem)] font-extrabold leading-[1.05] tracking-tight"
                 style={{ color: NAVY }}
               >
                 {t("moveplan.title")}
@@ -66,7 +60,7 @@ export function MovePlan() {
 
               <p
                 className="mt-5 max-w-sm text-sm leading-relaxed"
-                style={{ color: `${NAVY}80` }}
+                style={{ color: `${NAVY}A6` }}
               >
                 {t("moveplan.subtitle")}
               </p>
@@ -98,7 +92,7 @@ export function MovePlan() {
               </h2>
               <p
                 className="text-sm leading-relaxed"
-                style={{ color: `${NAVY}80` }}
+                style={{ color: `${NAVY}A6` }}
               >
                 {t("moveplan.heading_blurb")}
               </p>
@@ -139,7 +133,7 @@ function StepRow({ step }: { step: Step }) {
           </h3>
           <p
             className="text-xs leading-relaxed sm:text-sm"
-            style={{ color: `${NAVY}80` }}
+            style={{ color: `${NAVY}A6` }}
           >
             {t(step.blurbKey)}
           </p>
@@ -176,15 +170,6 @@ function ArrowRightIcon() {
     <Svg width={18} height={18}>
       <path d="M5 12h14" />
       <path d="m13 5 7 7-7 7" />
-    </Svg>
-  );
-}
-
-function ArrowUpRightIcon() {
-  return (
-    <Svg width={20} height={20}>
-      <path d="M7 17 17 7" />
-      <path d="M8 7h9v9" />
     </Svg>
   );
 }

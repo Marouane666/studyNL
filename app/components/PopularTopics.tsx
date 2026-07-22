@@ -73,7 +73,7 @@ export function PopularTopics() {
           </div>
           <p
             className="text-sm leading-relaxed lg:mt-2"
-            style={{ color: `${NAVY}80` }}
+            style={{ color: `${NAVY}A6` }}
           >
             {t("popular.subtitle")}
           </p>

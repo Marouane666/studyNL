@@ -45,7 +45,7 @@ export function HelpCentreSearch() {
 
               <p
                 className="mt-5 max-w-lg text-sm leading-relaxed"
-                style={{ color: `${NAVY}80` }}
+                style={{ color: `${NAVY}A6` }}
               >
                 {t("help.subtitle")}
               </p>

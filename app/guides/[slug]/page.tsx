@@ -26,10 +26,10 @@ export default function GuideDetailPage({
 
   return (
     <section style={{ backgroundColor: BG, color: NAVY }}>
-      <div className="mx-auto max-w-4xl px-6 py-10">
+      <div className="mx-auto max-w-4xl px-6 pb-10 pt-16 sm:pt-20">
         <Link
           href="/guides"
-          className="inline-flex items-center gap-1.5 text-sm font-bold text-[#092A4D]/60 transition-colors hover:text-[#092A4D]"
+          className="flex w-fit items-center gap-1.5 text-sm font-bold text-[#092A4D]/60 transition-colors hover:text-[#092A4D]"
         >
           <BackIcon />
           {t("guide.back")}
@@ -87,10 +87,10 @@ export default function GuideDetailPage({
           </div>
         )}
 
-        <div className="mt-10 rounded-2xl bg-white p-6 shadow-[0_2px_10px_rgba(9,42,77,0.05)] sm:p-8">
+        <div className="mt-10 rounded-2xl bg-white p-6 shadow-[0_2px_10px_rgba(9,42,77,0.05)] sm:flex sm:justify-center sm:p-8">
           <Link
             href="/start"
-            className="inline-flex items-center rounded-full px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:opacity-90"
+            className="inline-flex items-center rounded-full px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:opacity-90 sm:px-12 sm:py-5 sm:text-lg"
             style={{ backgroundColor: ORANGE }}
           >
             {t("guide.cta")}

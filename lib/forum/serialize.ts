@@ -35,7 +35,7 @@ export async function enrichPosts(
   const authorIds = Array.from(new Set(posts.map((p) => p.author_id)));
 
   // Aggregate counts come from Postgres functions (one row per post_id), not raw
-  // per-like/comment/view rows — a plain `.in("post_id", postIds)` select on
+  // per-like/comment/view rows, a plain `.in("post_id", postIds)` select on
   // popular posts could exceed PostgREST's default row cap and silently
   // undercount. "likedByMe" stays a plain select: it's scoped to one user, so
   // it can return at most postIds.length rows regardless of total like volume.

@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "StudyNL — Study in the Netherlands",
+    name: "StudyNL, Study in the Netherlands",
     short_name: "StudyNL",
     description:
       "Plan your move to study in the Netherlands: guides, cities, visa, housing, funding and a student community.",

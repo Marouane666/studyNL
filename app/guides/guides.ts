@@ -1,4 +1,4 @@
-// Shared guide catalogue — the source of truth for both the guides index
+// Shared guide catalogue, the source of truth for both the guides index
 // (`app/guides/page.tsx`) and the guide detail route (`app/guides/[slug]/page.tsx`).
 
 export type GuideSource = {
@@ -49,9 +49,7 @@ export const GUIDES: Guide[] = [
         bulletKeys: ["guide.study-route.s3.b1", "guide.study-route.s3.b2", "guide.study-route.s3.b3"],
       },
     ],
-    sources: [
-      { label: "The Dutch education system", href: "https://www.studyinnl.org/dutch-education", org: "Study in NL / Nuffic" },
-    ],
+    sources: [],
   },
   {
     slug: "scholarships",
@@ -77,7 +75,6 @@ export const GUIDES: Guide[] = [
       },
     ],
     sources: [
-      { label: "NL Scholarship", href: "https://www.studyinnl.org/finances/nl-scholarship", org: "Study in NL / Nuffic" },
       { label: "Student finance", href: "https://duo.nl/particulier/student-finance/", org: "DUO" },
     ],
   },
@@ -102,9 +99,7 @@ export const GUIDES: Guide[] = [
       { headingKey: "guide.cost-of-living.s2.heading", bodyKey: "guide.cost-of-living.s2.body" },
       { headingKey: "guide.cost-of-living.s3.heading", bodyKey: "guide.cost-of-living.s3.body" },
     ],
-    sources: [
-      { label: "Cost of living", href: "https://www.studyinnl.org/finances/cost-of-living", org: "Study in NL / Nuffic" },
-    ],
+    sources: [],
   },
   {
     slug: "working-while-studying",
@@ -151,13 +146,7 @@ export const GUIDES: Guide[] = [
       },
       { headingKey: "guide.arrival-checklist.s3.heading", bodyKey: "guide.arrival-checklist.s3.body" },
     ],
-    sources: [
-      {
-        label: "Moving to the Netherlands checklist",
-        href: "https://www.government.nl/topics/immigration-to-the-netherlands/question-and-answer/checklist-moving-to-the-netherlands",
-        org: "Government of the Netherlands",
-      },
-    ],
+    sources: [],
   },
   {
     slug: "enrolment",
@@ -176,7 +165,6 @@ export const GUIDES: Guide[] = [
     ],
     sources: [
       { label: "Studielink", href: "https://www.studielink.nl/", org: "Studielink" },
-      { label: "How to apply", href: "https://www.studyinnl.org/plan-your-stay/how-to-apply", org: "Study in NL / Nuffic" },
     ],
   },
   {
@@ -199,7 +187,6 @@ export const GUIDES: Guide[] = [
     ],
     sources: [
       { label: "Renting a house", href: "https://www.government.nl/topics/housing/rented-housing", org: "Government of the Netherlands" },
-      { label: "Housing for international students", href: "https://www.studyinnl.org/life-in-nl/housing", org: "Study in NL / Nuffic" },
     ],
   },
   {
@@ -238,6 +225,10 @@ export const GUIDES: Guide[] = [
         bulletKeys: ["guide.avoid-scams.s1.b1", "guide.avoid-scams.s1.b2", "guide.avoid-scams.s1.b3", "guide.avoid-scams.s1.b4", "guide.avoid-scams.s1.b5"],
       },
       {
+        headingKey: "guide.avoid-scams.s4.heading",
+        bulletKeys: ["guide.avoid-scams.s4.b1", "guide.avoid-scams.s4.b2", "guide.avoid-scams.s4.b3", "guide.avoid-scams.s4.b4", "guide.avoid-scams.s4.b5"],
+      },
+      {
         headingKey: "guide.avoid-scams.s2.heading",
         bulletKeys: ["guide.avoid-scams.s2.b1", "guide.avoid-scams.s2.b2", "guide.avoid-scams.s2.b3", "guide.avoid-scams.s2.b4"],
       },
@@ -265,9 +256,7 @@ export const GUIDES: Guide[] = [
         bulletKeys: ["guide.student-associations.s3.b1", "guide.student-associations.s3.b2", "guide.student-associations.s3.b3", "guide.student-associations.s3.b4"],
       },
     ],
-    sources: [
-      { label: "Student life in the Netherlands", href: "https://www.studyinnl.org/life-in-nl", org: "Study in NL / Nuffic" },
-    ],
+    sources: [],
   },
   {
     slug: "student-finance",
@@ -310,9 +299,7 @@ export const GUIDES: Guide[] = [
       },
       { headingKey: "guide.open-days.s3.heading", bodyKey: "guide.open-days.s3.body" },
     ],
-    sources: [
-      { label: "How to apply", href: "https://www.studyinnl.org/plan-your-stay/how-to-apply", org: "Study in NL / Nuffic" },
-    ],
+    sources: [],
   },
 ];
 

@@ -34,7 +34,7 @@ export async function POST(request: Request) {
   const body = await request.json().catch(() => null);
   const text = typeof body?.body === "string" ? body.body.trim() : "";
   const rawImageUrl = typeof body?.imageUrl === "string" ? body.imageUrl : "";
-  // Only accept image URLs that point at our own forum-media bucket — otherwise a
+  // Only accept image URLs that point at our own forum-media bucket, otherwise a
   // caller hitting this endpoint directly could post an arbitrary third-party image
   // URL (bypassing the upload route's size/type checks, loading in every viewer's browser).
   const imageUrl = rawImageUrl && isForumMediaUrl(rawImageUrl) ? rawImageUrl : null;

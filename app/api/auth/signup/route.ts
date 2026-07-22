@@ -48,7 +48,7 @@ export async function POST(request: Request) {
   });
 
   if (signInError || !signIn.session) {
-    // Account + profile were created successfully — only the immediate auto-login
+    // Account + profile were created successfully, only the immediate auto-login
     // failed (e.g. a transient error). Say so with 200, not a hard failure: the
     // client falls back to a normal login with the same credentials.
     return Response.json({ requiresLogin: true });

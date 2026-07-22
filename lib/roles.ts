@@ -1,5 +1,5 @@
 // Pure role logic, safe to import from both server (route handlers, lib/auth/session.ts)
-// and client ("use client" components) code — no server-only imports here.
+// and client ("use client" components) code, no server-only imports here.
 
 export type Role = "member" | "moderator" | "admin";
 

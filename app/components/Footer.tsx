@@ -59,9 +59,9 @@ export function Footer() {
               </span>
               <span
                 className="mt-1.5 text-[10px] font-medium tracking-[0.15em]"
-                style={{ color: `${NAVY}80` }}
+                style={{ color: `${NAVY}A6` }}
               >
-                {t("nav.tagline.prefix")} <span className="font-bold">{t("nav.tagline.suffix")}</span>
+                POWERED BY GRADUATES <span className="font-bold">FOR STUDENTS</span>
               </span>
             </Link>
           </div>
@@ -85,7 +85,7 @@ export function Footer() {
 
         <p
           className="mt-14 text-xs"
-          style={{ color: `${NAVY}80` }}
+          style={{ color: `${NAVY}A6` }}
         >
           {t("footer.copyright")}
         </p>

@@ -1,7 +1,7 @@
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { getCurrentUser } from "@/lib/auth/session";
 
-// Only counts views from logged-in members (deduped per post/user pair) —
+// Only counts views from logged-in members (deduped per post/user pair), 
 // anonymous view tracking was left out of this first version.
 export async function POST(
   _request: Request,
@@ -23,7 +23,7 @@ export async function POST(
 
   // Plain select (not a HEAD count request): postgrest-js has a known quirk where a
   // HEAD count request against an unreachable/misconfigured table silently reports
-  // count: null with no error, instead of surfacing the failure — see PostgrestBuilder's
+  // count: null with no error, instead of surfacing the failure, see PostgrestBuilder's
   // "workaround for supabase/postgrest-js#295". A normal select's body is always parsed,
   // so real errors don't get swallowed.
   const { data: views, error: countError } = await supabaseAdmin

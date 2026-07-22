@@ -41,6 +41,14 @@ export default function HubPlusPage() {
             {t("hubplus.subtitle")}
           </p>
 
+          <Link
+            href="/hub-plus/join"
+            className="mt-8 inline-flex items-center rounded-full px-7 py-3.5 text-sm font-semibold text-white shadow-sm transition-opacity hover:opacity-90"
+            style={{ backgroundColor: ORANGE }}
+          >
+            {t("hubplus.getStarted")}
+          </Link>
+
           <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {FEATURES.map((f) => (
               <FeatureCard key={f.titleKey} feature={f} />

@@ -39,7 +39,7 @@ export async function POST(request: Request) {
 
   const payload = JSON.stringify({ title, body: message, url });
   const staleIds: string[] = [];
-  // "Accepted" — the push service (FCM/etc.) took the message for delivery.
+  // "Accepted", the push service (FCM/etc.) took the message for delivery.
   // This is NOT proof it was ever displayed on a device; that last mile
   // depends on the OS/browser actually waking the app in the background.
   let accepted = 0;
@@ -59,7 +59,7 @@ export async function POST(request: Request) {
       } catch (err: unknown) {
         failed += 1;
         const e = err as { statusCode?: number; body?: string; headers?: Record<string, string> };
-        // Logged in full — statusCode alone can't distinguish "genuinely
+        // Logged in full, statusCode alone can't distinguish "genuinely
         // expired" from a config problem (e.g. InvalidRegistration,
         // MismatchSenderId) that a push service can also report as 404/410.
         // .body/.headers carry that distinction and were previously discarded.
@@ -68,7 +68,7 @@ export async function POST(request: Request) {
             `endpoint=...${sub.endpoint.slice(-24)} statusCode=${e?.statusCode} ` +
             `body=${e?.body} headers=${JSON.stringify(e?.headers)}`,
         );
-        // 404/410 mean the browser unsubscribed or the endpoint expired —
+        // 404/410 mean the browser unsubscribed or the endpoint expired, 
         // keeping those rows around would just fail again on every future send.
         if (e?.statusCode === 404 || e?.statusCode === 410) staleIds.push(sub.id);
       }

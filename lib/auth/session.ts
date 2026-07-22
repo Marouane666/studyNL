@@ -7,7 +7,7 @@ export type { Role };
 
 const ACCESS_COOKIE = "sb_at";
 const REFRESH_COOKIE = "sb_rt";
-const REFRESH_MAX_AGE = 60 * 60 * 24 * 60; // 60 days — outer ceiling; Supabase still validates the token itself.
+const REFRESH_MAX_AGE = 60 * 60 * 24 * 60; // 60 days, outer ceiling; Supabase still validates the token itself.
 
 const cookieDefaults = {
   httpOnly: true,
@@ -43,7 +43,7 @@ export async function clearSessionCookies() {
 /**
  * Returns a valid access token for revoking the session on logout, refreshing
  * first if the short-lived access-token cookie already expired but the
- * refresh token hasn't — otherwise logout would silently skip revocation.
+ * refresh token hasn't, otherwise logout would silently skip revocation.
  */
 export async function getAccessTokenForSignOut(): Promise<string | undefined> {
   const store = await cookies();
@@ -84,7 +84,7 @@ async function loadUser(accessToken: string): Promise<CurrentUser | null> {
     .eq("id", data.user.id)
     .maybeSingle();
 
-  // Suspended accounts are treated as logged out everywhere — this is the
+  // Suspended accounts are treated as logged out everywhere, this is the
   // single enforcement point, so no individual route needs its own check.
   if (profile?.status === "suspended") return null;
 
@@ -115,7 +115,7 @@ export async function getCurrentUser(): Promise<CurrentUser | null> {
   if (error || !data.session) {
     // Don't clear cookies here: refresh tokens rotate on use, so a concurrent
     // request racing on the same stale token can fail here right after another
-    // request's refresh already succeeded and set fresh cookies — clearing
+    // request's refresh already succeeded and set fresh cookies, clearing
     // them now would log the user out of a session that just renewed.
     // Cookies naturally expire (REFRESH_MAX_AGE) if the session really is dead.
     return null;

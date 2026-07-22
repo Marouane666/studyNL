@@ -93,7 +93,7 @@ export default function StartPage() {
         }
       }
     } catch {
-      // Ignore corrupt/unavailable localStorage — just start fresh.
+      // Ignore corrupt/unavailable localStorage, just start fresh.
     } finally {
       setHydrated(true);
     }
@@ -104,7 +104,7 @@ export default function StartPage() {
     try {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ answers, done }));
     } catch {
-      // Storage may be unavailable (private browsing, quota) — plan just won't persist.
+      // Storage may be unavailable (private browsing, quota), plan just won't persist.
     }
   }, [answers, done, hydrated]);
 
@@ -143,7 +143,7 @@ export default function StartPage() {
     return () => {
       cancelled = true;
     };
-    // Deliberately only re-runs on login state changes — answers/done are
+    // Deliberately only re-runs on login state changes, answers/done are
     // read once at the moment of login, not tracked as reactive deps here.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, hydrated, authLoading]);

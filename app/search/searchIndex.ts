@@ -3,7 +3,7 @@
 // Each entry maps a destination route to the dictionary keys whose translated
 // text should be matched. Because the searchable text is pulled from the i18n
 // dictionary at query time (via `t(key)`), search works in every language for
-// free — see `useSiteSearch`.
+// free, see `useSiteSearch`.
 
 export type SearchEntry = {
   /** Stable id, used for React keys and keyboard navigation. */

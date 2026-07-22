@@ -38,7 +38,7 @@ export function PartnersTeaser() {
               </h2>
               <p
                 className="mt-3 max-w-md text-sm leading-relaxed"
-                style={{ color: `${NAVY}99` }}
+                style={{ color: `${NAVY}B3` }}
               >
                 {t("partners.subtitle")}
               </p>

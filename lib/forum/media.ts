@@ -3,7 +3,7 @@ import "server-only";
 export const FORUM_MEDIA_BUCKET = "forum-media";
 
 // Maps an allowlisted MIME type to its stored extension. SVG is deliberately
-// excluded — it can carry executable <script> content, and the public
+// excluded, it can carry executable <script> content, and the public
 // storage URL would serve it as-is if opened directly outside an <img> tag.
 export const FORUM_IMAGE_TYPES: Record<string, string> = {
   "image/jpeg": "jpg",

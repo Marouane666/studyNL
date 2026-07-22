@@ -136,13 +136,19 @@ function SearchDialog({ onClose }: { onClose: () => void }) {
             className="min-w-0 flex-1 bg-transparent text-base font-medium outline-none placeholder:text-[#03294f]/40"
             style={{ color: NAVY }}
           />
+          <kbd
+            aria-hidden="true"
+            className="hidden shrink-0 items-center rounded-md bg-[#eaf2fa] px-2 py-1 text-[10px] font-bold tracking-wide text-[#03294f]/60 sm:inline-flex"
+          >
+            ESC
+          </kbd>
           <button
             type="button"
             onClick={onClose}
             aria-label={t("nav.close")}
-            className="hidden shrink-0 items-center rounded-md bg-[#eaf2fa] px-2 py-1 text-[10px] font-bold tracking-wide text-[#03294f]/60 sm:inline-flex"
+            className="flex shrink-0 items-center justify-center rounded-full p-1.5 text-[#03294f]/50 transition-colors hover:bg-[#eaf2fa] hover:text-[#03294f]"
           >
-            ESC
+            <CloseIcon />
           </button>
         </div>
 
@@ -208,6 +214,25 @@ function SearchIcon() {
     >
       <circle cx="11" cy="11" r="7" />
       <path d="m20 20-3.5-3.5" />
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M18 6 6 18" />
+      <path d="m6 6 12 12" />
     </svg>
   );
 }

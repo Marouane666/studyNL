@@ -45,12 +45,12 @@ function urlBase64ToUint8Array(base64String: string): Uint8Array<ArrayBuffer> {
 }
 
 // Permission being "granted" doesn't mean the SERVER still has this
-// subscription saved — a subscription object existing locally only proves
+// subscription saved, a subscription object existing locally only proves
 // the browser's side is alive, not that it survived (or ever completed) the
 // round trip to /api/push/subscribe. Re-POSTing unconditionally is a cheap,
 // idempotent upsert, and it's the only thing that reconciles a subscription
 // that's locally present but was never actually saved (or was pruned
-// server-side after a bounced send) — a bare "if already exists, do
+// server-side after a bounced send), a bare "if already exists, do
 // nothing" check silently leaves that gap unrepaired forever.
 async function revalidateSubscription(): Promise<void> {
   if (typeof Notification === "undefined" || Notification.permission !== "granted") return;
@@ -75,7 +75,7 @@ async function revalidateSubscription(): Promise<void> {
   subscribeToPush();
 }
 
-// Returns whether the subscription genuinely ended up saved server-side —
+// Returns whether the subscription genuinely ended up saved server-side, 
 // every failure mode (permission denied, unsupported browser, subscribe
 // error, network error saving it) is reported back instead of swallowed, so
 // the UI can tell the user the truth instead of silently doing nothing.
@@ -140,7 +140,7 @@ export function PwaBoot() {
     }
 
     function onAppInstalled() {
-      // Only clear the live prompt — don't permanently mark the banner as
+      // Only clear the live prompt, don't permanently mark the banner as
       // dismissed. If this install is later uninstalled, isStandalone goes
       // back to false and the browser can offer to install again; a
       // permanent flag here would hide the banner forever after that.
@@ -177,7 +177,7 @@ export function PwaBoot() {
     try {
       if (window.localStorage.getItem(PUSH_ASKED_KEY) === "1") return;
     } catch {
-      /* localStorage unavailable — fall through and ask anyway */
+      /* localStorage unavailable, fall through and ask anyway */
     }
     setPushOutcome("idle");
     setShowPushCard(true);
@@ -199,7 +199,7 @@ export function PwaBoot() {
       await deferredPrompt.prompt();
       await deferredPrompt.userChoice;
     } catch {
-      /* user dismissed the native prompt or it failed — nothing to recover */
+      /* user dismissed the native prompt or it failed, nothing to recover */
     }
     setDeferredPrompt(null);
     setInstalling(false);
@@ -209,7 +209,7 @@ export function PwaBoot() {
   async function handleAcceptPush() {
     setPushOutcome("loading");
     const ok = await subscribeToPush();
-    // Mark as asked only once we have a real answer — an unlucky reload mid-request
+    // Mark as asked only once we have a real answer, an unlucky reload mid-request
     // won't permanently skip the ask.
     try {
       window.localStorage.setItem(PUSH_ASKED_KEY, "1");
