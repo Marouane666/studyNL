@@ -56,9 +56,9 @@ const en: Dict = {
   "notfound.guides": "Browse guides",
 
   "forum.badge": "Community",
-  "forum.title": "Ask students who've already made the move.",
+  "forum.title": "Join the StudyNL Community",
   "forum.subtitle":
-    "Get answers on housing, enrolment, money and arrival from students who've been there.",
+    "Join open discussions and get answers on our most frequently asked questions like housing, enrolment, money, how to avoid scams and a lot more.",
 
   "forum.tabs.discussion": "Discussion",
   "forum.tabs.members": "Members",
@@ -168,7 +168,7 @@ const en: Dict = {
   "footer.l.legal": "Legal",
   "footer.l.help": "Help centre",
 
-  "hero.badge": "+ Your guide to studying in NL",
+  "hero.badge": "Your guide to studying in NL",
   "hero.title": "Your clear route to studying in the Netherlands.",
   "hero.subtitle":
     "Make the big decisions in the right order: study route, enrolment, housing, money, work rules and arrival tasks.",
@@ -791,6 +791,60 @@ const en: Dict = {
   "hubplus.f3.title": "Arrival templates",
   "hubplus.f3.blurb": "Use ready-made checklists and planning tools.",
 
+  "hubplus.everything.title": "Everything You Need. All in One Membership.",
+  "hubplus.everything.p1":
+    "Hub Plus is our premium membership designed to make your move to the Netherlands simpler, smarter, and more affordable. From personalised guidance and exclusive student benefits to premium accommodation opportunities and trusted partner services, everything you need is available in one place.",
+  "hubplus.everything.p2":
+    "Enjoy priority Q&A support, ready-made arrival checklists and planning tools, downloadable guides, priority access to student associations, premium property listings, and exclusive partner offers. Plus, unlock over 150,000 student discounts worldwide through your exclusive member benefit, helping you save on travel, shopping, entertainment, technology, and much more throughout your student journey.",
+
+  "hubplus.frat.eyebrow": "Exclusive fraternity access",
+  "hubplus.frat.title": "A better way to build your network",
+  "hubplus.frat.p1":
+    "As a Hub Plus member you'll receive priority access to selected fraternities before applications open more widely, giving you a unique opportunity to secure your place within some of the most respected student communities.",
+  "hubplus.frat.p2":
+    "Fraternities are exclusive student organisations that offer far more than a social experience. Members gain access to influential networks, private events, professional development opportunities, sporting activities, charitable initiatives, and lifelong friendships with ambitious students from across the Netherlands.",
+  "hubplus.frat.p3":
+    "Whether you're looking to expand your social circle, accelerate your career, or make the most of your university experience, Hub Plus gives you a head start.",
+
+  "hubplus.isic.eyebrow": "Complimentary ISIC Student Card",
+  "hubplus.isic.title": "Unlock Savings Around the World",
+  "hubplus.isic.p1":
+    "As a Hub Plus member, you'll receive an exclusive discount. Your ISIC card unlocks thousands of student discounts across more than 130 countries, helping you save on travel, transport, shopping, food, entertainment, technology, and much more throughout your time as a student. It's the perfect companion for making university life more affordable, whether you're studying in the Netherlands or travelling across Europe.",
+  "hubplus.isic.discountsTitle": "Where you can save",
+  "hubplus.isic.discountsNote":
+    "Discount categories available through the ISIC network. Offers vary by country and partner.",
+  "hubplus.isic.browse": "Browse all ISIC discounts",
+  "hubplus.isic.d.travel": "Travel & flights",
+  "hubplus.isic.d.transport": "Trains & transport",
+  "hubplus.isic.d.accommodation": "Hostels & stays",
+  "hubplus.isic.d.carRental": "Car rental",
+  "hubplus.isic.d.shopping": "Shopping & fashion",
+  "hubplus.isic.d.food": "Food & drink",
+  "hubplus.isic.d.entertainment": "Entertainment",
+  "hubplus.isic.d.technology": "Technology",
+  "hubplus.isic.d.mobile": "Mobile & internet",
+  "hubplus.isic.d.culture": "Museums & culture",
+  "hubplus.isic.d.sport": "Sport & fitness",
+  "hubplus.isic.d.books": "Books & study",
+  "hubplus.isic.d.courses": "Language courses",
+  "hubplus.isic.d.insurance": "Travel insurance",
+  "hubplus.isic.d.wellbeing": "Beauty & wellbeing",
+
+  "newsletter.title": "Subscribe now to receive weekly discounts and offers",
+  "newsletter.subtitle":
+    "One email a week with the best student deals, offers and StudyNL updates.",
+  "newsletter.emailLabel": "Email address",
+  "newsletter.placeholder": "you@email.com",
+  "newsletter.submit": "Subscribe",
+  "newsletter.submitting": "Subscribing…",
+  "newsletter.invalid": "Please enter a valid email address.",
+  "newsletter.error": "Couldn't subscribe right now. Please try again.",
+  "newsletter.successTitle": "You're subscribed.",
+  "newsletter.successBody": "Your first weekly round-up of discounts is on its way.",
+  "newsletter.successDone": "Done",
+  "newsletter.privacy": "No spam. Unsubscribe anytime.",
+  "newsletter.dismissAriaLabel": "Close",
+
   "start.badge": "Start Here",
   "start.title": "Get your personal move plan.",
   "start.subtitle":
@@ -843,9 +897,9 @@ const es: Dict = {
   "notfound.guides": "Explorar guías",
 
   "forum.badge": "Comunidad",
-  "forum.title": "Pregunta a estudiantes que ya han dado el paso.",
+  "forum.title": "Únete a la comunidad de StudyNL",
   "forum.subtitle":
-    "Consigue respuestas sobre alojamiento, matrícula, dinero y llegada de estudiantes que ya han pasado por ello.",
+    "Únete a debates abiertos y consigue respuestas a nuestras preguntas más frecuentes: alojamiento, matrícula, dinero, cómo evitar estafas y mucho más.",
 
   "forum.tabs.discussion": "Debate",
   "forum.tabs.members": "Miembros",
@@ -955,7 +1009,7 @@ const es: Dict = {
   "footer.l.legal": "Aviso legal",
   "footer.l.help": "Centro de ayuda",
 
-  "hero.badge": "+ Tu guía para estudiar en NL",
+  "hero.badge": "Tu guía para estudiar en NL",
   "hero.title": "Tu ruta clara para estudiar en los Países Bajos.",
   "hero.subtitle":
     "Toma las grandes decisiones en el orden correcto: ruta de estudios, matrícula, alojamiento, dinero, normas de trabajo y tareas de llegada.",
@@ -1630,9 +1684,9 @@ const de: Dict = {
   "notfound.guides": "Leitfäden ansehen",
 
   "forum.badge": "Community",
-  "forum.title": "Frag Studierende, die den Umzug schon gemacht haben.",
+  "forum.title": "Werde Teil der StudyNL-Community",
   "forum.subtitle":
-    "Antworten zu Wohnen, Einschreibung, Geld und Ankunft von Studierenden mit Erfahrung.",
+    "Nimm an offenen Diskussionen teil und erhalte Antworten auf unsere häufigsten Fragen: Wohnen, Einschreibung, Geld, Betrug vermeiden und viel mehr.",
 
   "forum.tabs.discussion": "Diskussion",
   "forum.tabs.members": "Mitglieder",
@@ -1742,7 +1796,7 @@ const de: Dict = {
   "footer.l.legal": "Rechtliches",
   "footer.l.help": "Hilfe-Center",
 
-  "hero.badge": "+ Dein Leitfaden zum Studium in NL",
+  "hero.badge": "Dein Leitfaden zum Studium in NL",
   "hero.title": "Dein klarer Weg zum Studium in den Niederlanden.",
   "hero.subtitle":
     "Triff die wichtigen Entscheidungen in der richtigen Reihenfolge: Studienweg, Einschreibung, Wohnen, Geld, Arbeitsregeln und Ankunftsaufgaben.",
@@ -2310,9 +2364,9 @@ const fr: Dict = {
   "notfound.guides": "Voir les guides",
 
   "forum.badge": "Communauté",
-  "forum.title": "Posez vos questions aux étudiants déjà installés.",
+  "forum.title": "Rejoins la communauté StudyNL",
   "forum.subtitle":
-    "Des réponses sur le logement, l'inscription, l'argent et l'arrivée par ceux qui l'ont vécu.",
+    "Participe à des discussions ouvertes et obtiens des réponses à nos questions les plus fréquentes : logement, inscription, argent, comment éviter les arnaques et bien plus.",
 
   "forum.tabs.discussion": "Discussion",
   "forum.tabs.members": "Membres",
@@ -2423,7 +2477,7 @@ const fr: Dict = {
   "footer.l.legal": "Mentions légales",
   "footer.l.help": "Centre d'aide",
 
-  "hero.badge": "+ Ton guide pour étudier aux Pays-Bas",
+  "hero.badge": "Ton guide pour étudier aux Pays-Bas",
   "hero.title": "Ton parcours clair pour étudier aux Pays-Bas.",
   "hero.subtitle":
     "Prends les bonnes décisions dans le bon ordre : parcours d'études, inscription, logement, argent, règles de travail et tâches d'arrivée.",
@@ -2992,9 +3046,9 @@ const it: Dict = {
   "notfound.guides": "Sfoglia le guide",
 
   "forum.badge": "Comunità",
-  "forum.title": "Chiedi agli studenti che si sono già trasferiti.",
+  "forum.title": "Unisciti alla community di StudyNL",
   "forum.subtitle":
-    "Risposte su alloggio, iscrizione, soldi e arrivo da chi c'è già passato.",
+    "Partecipa a discussioni aperte e trova risposte alle domande più frequenti: alloggio, iscrizione, soldi, come evitare le truffe e molto altro.",
 
   "forum.tabs.discussion": "Discussioni",
   "forum.tabs.members": "Membri",
@@ -3105,7 +3159,7 @@ const it: Dict = {
   "footer.l.legal": "Legale",
   "footer.l.help": "Centro assistenza",
 
-  "hero.badge": "+ La tua guida per studiare nei Paesi Bassi",
+  "hero.badge": "La tua guida per studiare nei Paesi Bassi",
   "hero.title": "Il tuo percorso chiaro per studiare nei Paesi Bassi.",
   "hero.subtitle":
     "Prendi le decisioni importanti nell'ordine giusto: percorso di studi, iscrizione, alloggio, denaro, regole di lavoro e arrivo.",
@@ -3676,9 +3730,9 @@ const nl: Dict = {
   "notfound.guides": "Bekijk gidsen",
 
   "forum.badge": "Community",
-  "forum.title": "Vraag studenten die de stap al hebben gezet.",
+  "forum.title": "Word lid van de StudyNL-community",
   "forum.subtitle":
-    "Antwoorden over huisvesting, inschrijving, geld en aankomst van studenten met ervaring.",
+    "Doe mee aan open discussies en krijg antwoord op onze meestgestelde vragen: huisvesting, inschrijving, geld, hoe je fraude voorkomt en veel meer.",
 
   "forum.tabs.discussion": "Discussie",
   "forum.tabs.members": "Leden",
@@ -3789,7 +3843,7 @@ const nl: Dict = {
   "footer.l.legal": "Juridisch",
   "footer.l.help": "Helpcentrum",
 
-  "hero.badge": "+ Jouw gids voor studeren in NL",
+  "hero.badge": "Jouw gids voor studeren in NL",
   "hero.title": "Jouw duidelijke route om in Nederland te studeren.",
   "hero.subtitle":
     "Neem de belangrijke beslissingen in de juiste volgorde: studieroute, inschrijving, huisvesting, geld, werkregels en aankomst.",
@@ -4359,9 +4413,9 @@ const ro: Dict = {
   "notfound.guides": "Vezi ghidurile",
 
   "forum.badge": "Comunitate",
-  "forum.title": "Întreabă studenții care s-au mutat deja.",
+  "forum.title": "Alătură-te comunității StudyNL",
   "forum.subtitle":
-    "Răspunsuri despre cazare, înscriere, bani și sosire de la cei care au trecut prin asta.",
+    "Alătură-te discuțiilor deschise și găsește răspunsuri la cele mai frecvente întrebări: cazare, înscriere, bani, cum să eviți țepele și multe altele.",
 
   "forum.tabs.discussion": "Discuții",
   "forum.tabs.members": "Membri",
@@ -4472,7 +4526,7 @@ const ro: Dict = {
   "footer.l.legal": "Legal",
   "footer.l.help": "Centru de ajutor",
 
-  "hero.badge": "+ Ghidul tău pentru studii în NL",
+  "hero.badge": "Ghidul tău pentru studii în NL",
   "hero.title": "Traseul tău clar pentru studii în Olanda.",
   "hero.subtitle":
     "Ia deciziile importante în ordinea corectă: traseu de studiu, înscriere, cazare, bani, reguli de muncă și sarcini de sosire.",
@@ -5040,9 +5094,9 @@ const tr: Dict = {
   "notfound.guides": "Rehberlere göz at",
 
   "forum.badge": "Topluluk",
-  "forum.title": "Taşınmayı çoktan yapmış öğrencilere sor.",
+  "forum.title": "StudyNL topluluğuna katıl",
   "forum.subtitle":
-    "Konaklama, kayıt, para ve varış hakkında deneyimli öğrencilerden yanıtlar.",
+    "Açık tartışmalara katıl ve en sık sorulan sorulara yanıt bul: konaklama, kayıt, para, dolandırıcılıktan nasıl korunulur ve daha pek çok konu.",
 
   "forum.tabs.discussion": "Tartışma",
   "forum.tabs.members": "Üyeler",
@@ -5153,7 +5207,7 @@ const tr: Dict = {
   "footer.l.legal": "Yasal",
   "footer.l.help": "Yardım merkezi",
 
-  "hero.badge": "+ Hollanda'da eğitim rehberin",
+  "hero.badge": "Hollanda'da eğitim rehberin",
   "hero.title": "Hollanda'da eğitim için net rotanız.",
   "hero.subtitle":
     "Önemli kararları doğru sırada al: eğitim rotası, kayıt, konaklama, para, çalışma kuralları ve varış görevleri.",
@@ -5720,8 +5774,9 @@ const zh: Dict = {
   "notfound.guides": "浏览指南",
 
   "forum.badge": "社区",
-  "forum.title": "向已经完成搬迁的学生提问。",
-  "forum.subtitle": "从过来人那里获得关于住宿、注册、资金和到达的解答。",
+  "forum.title": "加入 StudyNL 社区",
+  "forum.subtitle":
+    "参与公开讨论，获取最常见问题的解答：住宿、注册、资金、如何避免诈骗等等。",
 
   "forum.tabs.discussion": "讨论",
   "forum.tabs.members": "成员",
@@ -5830,7 +5885,7 @@ const zh: Dict = {
   "footer.l.legal": "法律信息",
   "footer.l.help": "帮助中心",
 
-  "hero.badge": "+ 你的荷兰留学指南",
+  "hero.badge": "你的荷兰留学指南",
   "hero.title": "清晰的荷兰留学之路。",
   "hero.subtitle":
     "按正确顺序做出重要决定：学业路径、注册、住宿、资金、工作规定与抵达事项。",
@@ -6372,9 +6427,9 @@ const ar: Dict = {
   "notfound.guides": "تصفّح الأدلة",
 
   "forum.badge": "المجتمع",
-  "forum.title": "اسأل الطلاب الذين انتقلوا بالفعل.",
+  "forum.title": "انضم إلى مجتمع StudyNL",
   "forum.subtitle":
-    "احصل على إجابات حول السكن والتسجيل والمال والوصول ممن مرّوا بالتجربة.",
+    "شارك في المناقشات المفتوحة واحصل على إجابات لأكثر الأسئلة تكرارًا: السكن، التسجيل، المال، كيف تتجنب الاحتيال والمزيد.",
 
   "forum.tabs.discussion": "النقاش",
   "forum.tabs.members": "الأعضاء",
@@ -6485,7 +6540,7 @@ const ar: Dict = {
   "footer.l.legal": "قانوني",
   "footer.l.help": "مركز المساعدة",
 
-  "hero.badge": "+ دليلك للدراسة في هولندا",
+  "hero.badge": "دليلك للدراسة في هولندا",
   "hero.title": "مسارك الواضح للدراسة في هولندا.",
   "hero.subtitle":
     "اتخذ القرارات المهمة بالترتيب الصحيح: مسار الدراسة، التسجيل، السكن، المال، قواعد العمل ومهام الوصول.",

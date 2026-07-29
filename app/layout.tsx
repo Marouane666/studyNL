@@ -6,6 +6,7 @@ import { Navbar } from "./components/Navbar";
 import { I18nProvider } from "./i18n/I18nProvider";
 import { AuthProvider } from "./auth/AuthProvider";
 import { PwaBoot } from "./components/PwaBoot";
+import { NewsletterPopup } from "./components/NewsletterPopup";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -53,6 +54,7 @@ export default function RootLayout({
         <I18nProvider>
           <AuthProvider>
             <PwaBoot />
+            <NewsletterPopup />
             <Navbar />
             <main className="flex-1">{children}</main>
             <Footer />

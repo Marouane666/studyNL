@@ -18,6 +18,11 @@ const INCLUDED = [
   "Priority Q&A with guided support",
   "Ready-made arrival checklists and planning tools",
   "Partner guidance in one place",
+  "Premium listings for properties",
+  "Downloadable guides",
+  "Priority access to the student associations",
+  "Exclusive offers",
+  "Over 150,000 student discounts",
 ];
 
 export default function HubPlusJoinPage() {

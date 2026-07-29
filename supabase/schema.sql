@@ -177,3 +177,16 @@ create table if not exists public.push_subscriptions (
 create index if not exists push_subscriptions_user_id_idx on public.push_subscriptions (user_id);
 
 alter table public.push_subscriptions enable row level security;
+
+-- Newsletter sign-ups from the site-wide email capture popup. email is unique so
+-- a repeat visitor re-subscribing is a no-op rather than a duplicate row; the
+-- route turns the unique violation into a success response.
+create table if not exists public.newsletter_subscribers (
+  id uuid primary key default gen_random_uuid(),
+  email text not null unique check (char_length(email) between 3 and 320),
+  created_at timestamptz not null default now()
+);
+
+create index if not exists newsletter_subscribers_created_at_idx on public.newsletter_subscribers (created_at desc);
+
+alter table public.newsletter_subscribers enable row level security;

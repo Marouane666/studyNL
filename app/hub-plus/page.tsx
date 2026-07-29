@@ -1,10 +1,30 @@
 "use client";
 
 import Link from "next/link";
+import type { IconType } from "react-icons";
+import {
+  FaBed,
+  FaBook,
+  FaCar,
+  FaDumbbell,
+  FaGraduationCap,
+  FaLandmark,
+  FaLaptop,
+  FaMobileAlt,
+  FaPlane,
+  FaShieldAlt,
+  FaShoppingBag,
+  FaSpa,
+  FaTicketAlt,
+  FaTrain,
+  FaUtensils,
+} from "react-icons/fa";
 import { useT } from "../i18n/I18nProvider";
 
 const NAVY = "#092A4D";
 const ORANGE = "#fd7933";
+
+const ISIC_DISCOUNTS_URL = "https://www.isic.org/discounts/";
 
 type Feature = {
   titleKey: string;
@@ -15,6 +35,28 @@ const FEATURES: Feature[] = [
   { titleKey: "hubplus.f1.title", blurbKey: "hubplus.f1.blurb" },
   { titleKey: "hubplus.f2.title", blurbKey: "hubplus.f2.blurb" },
   { titleKey: "hubplus.f3.title", blurbKey: "hubplus.f3.blurb" },
+];
+
+// The ISIC network's discount categories rather than individual partner offers:
+// the live offers rotate per country and per partner, so naming a brand and a
+// percentage here would go stale (and be wrong for most visitors) the moment it
+// shipped. Each tile deep-links to ISIC, which is authoritative for live deals.
+const ISIC_CATEGORIES: { key: string; Icon: IconType }[] = [
+  { key: "hubplus.isic.d.travel", Icon: FaPlane },
+  { key: "hubplus.isic.d.transport", Icon: FaTrain },
+  { key: "hubplus.isic.d.accommodation", Icon: FaBed },
+  { key: "hubplus.isic.d.carRental", Icon: FaCar },
+  { key: "hubplus.isic.d.shopping", Icon: FaShoppingBag },
+  { key: "hubplus.isic.d.food", Icon: FaUtensils },
+  { key: "hubplus.isic.d.entertainment", Icon: FaTicketAlt },
+  { key: "hubplus.isic.d.technology", Icon: FaLaptop },
+  { key: "hubplus.isic.d.mobile", Icon: FaMobileAlt },
+  { key: "hubplus.isic.d.culture", Icon: FaLandmark },
+  { key: "hubplus.isic.d.sport", Icon: FaDumbbell },
+  { key: "hubplus.isic.d.books", Icon: FaBook },
+  { key: "hubplus.isic.d.courses", Icon: FaGraduationCap },
+  { key: "hubplus.isic.d.insurance", Icon: FaShieldAlt },
+  { key: "hubplus.isic.d.wellbeing", Icon: FaSpa },
 ];
 
 export default function HubPlusPage() {
@@ -56,6 +98,76 @@ export default function HubPlusPage() {
           </div>
         </div>
 
+        <div className="mt-12 max-w-3xl">
+          <h2
+            className="text-[clamp(1.5rem,3vw,2.25rem)] font-extrabold leading-tight tracking-tight"
+            style={{ color: NAVY }}
+          >
+            {t("hubplus.everything.title")}
+          </h2>
+          <p className="mt-5 text-base leading-relaxed" style={{ color: `${NAVY}B3` }}>
+            {t("hubplus.everything.p1")}
+          </p>
+          <p className="mt-4 text-base leading-relaxed" style={{ color: `${NAVY}B3` }}>
+            {t("hubplus.everything.p2")}
+          </p>
+        </div>
+
+        <div className="mt-10 rounded-3xl bg-[#f6f8fb] p-8 sm:p-10">
+          <Eyebrow>{t("hubplus.frat.eyebrow")}</Eyebrow>
+          <h2 className="mt-4 max-w-2xl text-2xl font-extrabold leading-tight tracking-tight sm:text-3xl" style={{ color: NAVY }}>
+            {t("hubplus.frat.title")}
+          </h2>
+          <div className="mt-5 flex max-w-3xl flex-col gap-4 text-sm leading-relaxed sm:text-base" style={{ color: `${NAVY}B3` }}>
+            <p>{t("hubplus.frat.p1")}</p>
+            <p>{t("hubplus.frat.p2")}</p>
+            <p>{t("hubplus.frat.p3")}</p>
+          </div>
+        </div>
+
+        <div className="mt-6 rounded-3xl bg-[#f6f8fb] p-8 sm:p-10">
+          <Eyebrow>{t("hubplus.isic.eyebrow")}</Eyebrow>
+          <h2 className="mt-4 max-w-2xl text-2xl font-extrabold leading-tight tracking-tight sm:text-3xl" style={{ color: NAVY }}>
+            {t("hubplus.isic.title")}
+          </h2>
+          <p className="mt-5 max-w-3xl text-sm leading-relaxed sm:text-base" style={{ color: `${NAVY}B3` }}>
+            {t("hubplus.isic.p1")}
+          </p>
+
+          <h3 className="mt-8 text-sm font-bold uppercase tracking-wide" style={{ color: NAVY }}>
+            {t("hubplus.isic.discountsTitle")}
+          </h3>
+          <ul className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+            {ISIC_CATEGORIES.map(({ key, Icon }) => (
+              <li key={key}>
+                <a
+                  href={ISIC_DISCOUNTS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-full items-center gap-2 rounded-xl bg-white px-3 py-2.5 text-xs font-semibold ring-1 ring-[#092A4D]/8 transition-shadow hover:ring-[#fd7933]/40 hover:shadow-[0_2px_10px_rgba(9,42,77,0.08)]"
+                  style={{ color: NAVY }}
+                >
+                  <Icon size={14} className="shrink-0" style={{ color: ORANGE }} aria-hidden="true" />
+                  <span className="leading-snug">{t(key)}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-4 text-xs leading-relaxed" style={{ color: `${NAVY}80` }}>
+            {t("hubplus.isic.discountsNote")}
+          </p>
+          <a
+            href={ISIC_DISCOUNTS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold underline decoration-2 underline-offset-4"
+            style={{ color: ORANGE }}
+          >
+            {t("hubplus.isic.browse")}
+            <ExternalIcon />
+          </a>
+        </div>
+
         <div className="mt-8 rounded-2xl bg-[#f6f8fb] p-8 text-center sm:p-10">
           <h2 className="text-xl font-bold" style={{ color: NAVY }}>
             {t("hubplus.cta.title")}
@@ -73,6 +185,27 @@ export default function HubPlusPage() {
         </div>
       </div>
     </section>
+  );
+}
+
+function Eyebrow({ children }: { children: React.ReactNode }) {
+  return (
+    <span
+      className="inline-flex w-fit items-center rounded-full bg-white px-3 py-1 text-[11px] font-bold uppercase tracking-wide ring-1 ring-[#092A4D]/10"
+      style={{ color: ORANGE }}
+    >
+      {children}
+    </span>
+  );
+}
+
+function ExternalIcon() {
+  return (
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+      <path d="M15 3h6v6" />
+      <path d="M10 14 21 3" />
+    </svg>
   );
 }
 
