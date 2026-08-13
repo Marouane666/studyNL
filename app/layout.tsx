@@ -1,12 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Footer } from "./components/Footer";
-import { Navbar } from "./components/Navbar";
 import { I18nProvider } from "./i18n/I18nProvider";
 import { AuthProvider } from "./auth/AuthProvider";
 import { PwaBoot } from "./components/PwaBoot";
-import { NewsletterPopup } from "./components/NewsletterPopup";
+import { SiteChrome } from "./components/SiteChrome";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -54,10 +52,7 @@ export default function RootLayout({
         <I18nProvider>
           <AuthProvider>
             <PwaBoot />
-            <NewsletterPopup />
-            <Navbar />
-            <main className="flex-1">{children}</main>
-            <Footer />
+            <SiteChrome>{children}</SiteChrome>
           </AuthProvider>
         </I18nProvider>
       </body>

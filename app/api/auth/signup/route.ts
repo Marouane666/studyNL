@@ -57,6 +57,13 @@ export async function POST(request: Request) {
   await setSessionCookies(signIn.session);
 
   return Response.json({
-    user: { id: created.user.id, email, displayName: name, role: "member" },
+    user: {
+      id: created.user.id,
+      email,
+      displayName: name,
+      role: "member",
+      plan: "free",
+      planExpiresAt: null,
+    },
   });
 }

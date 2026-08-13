@@ -24,7 +24,7 @@ export async function POST(request: Request) {
 
   const { data: profile } = await supabaseAdmin
     .from("profiles")
-    .select("display_name, role, status")
+    .select("display_name, role, status, plan, plan_expires_at")
     .eq("id", data.user.id)
     .maybeSingle();
 
@@ -41,6 +41,8 @@ export async function POST(request: Request) {
       email: data.user.email ?? email,
       displayName: profile?.display_name || email,
       role: profile?.role ?? "member",
+      plan: profile?.plan ?? "free",
+      planExpiresAt: profile?.plan_expires_at ?? null,
     },
   });
 }

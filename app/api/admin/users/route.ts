@@ -8,7 +8,7 @@ export async function GET() {
 
   const { data, error } = await supabaseAdmin
     .from("profiles")
-    .select("id, display_name, email, role, status, created_at")
+    .select("id, display_name, email, role, status, plan, plan_expires_at, created_at")
     .order("created_at", { ascending: true });
 
   if (error) return jsonError("Couldn't load users.", 500);
@@ -20,6 +20,8 @@ export async function GET() {
       email: u.email,
       role: u.role,
       status: u.status,
+      plan: u.plan ?? "free",
+      planExpiresAt: u.plan_expires_at ?? null,
       joinedAt: u.created_at,
     })),
   });

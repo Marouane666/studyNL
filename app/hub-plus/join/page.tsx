@@ -1,12 +1,18 @@
 "use client";
 
-// DESIGN MOCKUP ONLY — Hub Plus easy sign-up + checkout.
-// Non-functional: no real account creation, no payment processing.
-// Text is hardcoded English for review; i18n + a real payment provider
-// (Mollie / Stripe / Adyen) and billing model are wired up after sign-off.
+// Hub Plus sign-up + checkout.
+//
+// The account and the membership are real (app/api/hub-plus/checkout), the
+// PAYMENT IS NOT: no provider is connected, so nothing is ever charged and the
+// payment method picked below is presentational. A real provider (Mollie /
+// Stripe / Adyen) and the billing model are wired up after sign-off, at which
+// point premium is granted from that provider's webhook instead.
+//
+// Text is hardcoded English for review; i18n follows with the final copy.
 
 import Link from "next/link";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
+import { useAuth } from "../../auth/AuthProvider";
 
 const NAVY = "#092A4D";
 const ORANGE = "#fd7933";
@@ -26,18 +32,55 @@ const INCLUDED = [
 ];
 
 export default function HubPlusJoinPage() {
+  const { user, loading, login, refresh } = useAuth();
   const [method, setMethod] = useState<Method>("applepay");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [done, setDone] = useState(false);
+
+  async function onSubmit(e: FormEvent) {
+    e.preventDefault();
+    setError(null);
+    setSubmitting(true);
+
+    const res = await fetch("/api/hub-plus/checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      // A signed-in visitor is upgraded in place, so the details are only sent
+      // when the form actually collected them.
+      body: JSON.stringify(user ? {} : { name, email, password }),
+    });
+    const data = await res.json().catch(() => null);
+
+    if (!res.ok) {
+      setError(data?.error ?? "Something went wrong. Please try again.");
+      setSubmitting(false);
+      return;
+    }
+
+    // The account and membership exist either way; requiresLogin only means the
+    // automatic sign-in right after didn't complete.
+    if (data?.requiresLogin) await login(email, password);
+    await refresh();
+
+    setSubmitting(false);
+    setDone(true);
+  }
 
   return (
     <section className="bg-white">
       <div className="mx-auto max-w-5xl px-6 pb-16 pt-10">
+        {/* Home, not /hub-plus: that page belongs to members and would bounce a
+            visitor straight back here. */}
         <Link
-          href="/hub-plus"
+          href="/"
           className="flex w-fit items-center gap-1.5 text-sm font-bold text-[#092A4D]/60 transition-colors hover:text-[#092A4D]"
         >
           <BackIcon />
-          Hub Plus
+          StudyNL
         </Link>
 
         <div className="mt-6 grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
@@ -79,22 +122,49 @@ export default function HubPlusJoinPage() {
           {/* Sign-up + payment */}
           <div className="rounded-3xl border border-[#092A4D]/10 bg-white p-8 shadow-[0_2px_14px_rgba(9,42,77,0.06)] sm:p-10">
             {done ? (
-              <SuccessMock onReset={() => setDone(false)} />
-            ) : (
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  setDone(true);
-                }}
-              >
+              <Success />
+            ) : loading ? null : (
+              <form onSubmit={onSubmit}>
                 <h2 className="text-lg font-bold" style={{ color: NAVY }}>
                   Your details
                 </h2>
-                <div className="mt-4 flex flex-col gap-3">
-                  <Field label="Name" type="text" placeholder="Your name" autoComplete="name" />
-                  <Field label="Email" type="email" placeholder="you@email.com" autoComplete="email" />
-                  <Field label="Password" type="password" placeholder="Create a password" autoComplete="new-password" />
-                </div>
+                {user ? (
+                  <p className="mt-4 rounded-xl bg-[#f6f8fb] px-4 py-3 text-sm" style={{ color: `${NAVY}A6` }}>
+                    Signed in as <span className="font-bold" style={{ color: NAVY }}>{user.email}</span>. Hub Plus is
+                    added to this account.
+                  </p>
+                ) : (
+                  <div className="mt-4 flex flex-col gap-3">
+                    <Field
+                      label="Name"
+                      type="text"
+                      placeholder="Your name"
+                      autoComplete="name"
+                      required
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                    <Field
+                      label="Email"
+                      type="email"
+                      placeholder="you@email.com"
+                      autoComplete="email"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <Field
+                      label="Password"
+                      type="password"
+                      placeholder="Create a password"
+                      autoComplete="new-password"
+                      required
+                      minLength={6}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </div>
+                )}
 
                 <h2 className="mt-8 text-lg font-bold" style={{ color: NAVY }}>
                   Payment method
@@ -134,15 +204,25 @@ export default function HubPlusJoinPage() {
                   </p>
                 )}
 
+                {error && (
+                  <p className="mt-4 text-sm font-semibold text-red-600" role="alert">
+                    {error}
+                  </p>
+                )}
+
                 <button
                   type="submit"
-                  className="mt-8 flex w-full items-center justify-center rounded-full py-4 text-base font-semibold text-white shadow-sm transition-opacity hover:opacity-90"
+                  disabled={submitting}
+                  className="mt-8 flex w-full items-center justify-center rounded-full py-4 text-base font-semibold text-white shadow-sm transition-opacity hover:opacity-90 disabled:opacity-60"
                   style={{ backgroundColor: ORANGE }}
                 >
-                  Get instant access
+                  {submitting ? "Setting up your access…" : "Get instant access"}
                 </button>
                 <p className="mt-3 text-center text-xs text-[#092A4D]/50">
                   By continuing you agree to our Terms and Privacy Policy.
+                </p>
+                <p className="mt-2 text-center text-xs font-semibold text-[#092A4D]/40">
+                  Preview: no payment is taken.
                 </p>
               </form>
             )}
@@ -192,7 +272,7 @@ function MethodButton({
   );
 }
 
-function SuccessMock({ onReset }: { onReset: () => void }) {
+function Success() {
   return (
     <div className="flex flex-col items-center py-8 text-center">
       <span
@@ -202,20 +282,19 @@ function SuccessMock({ onReset }: { onReset: () => void }) {
         <BigCheckIcon />
       </span>
       <h2 className="mt-5 text-xl font-bold" style={{ color: NAVY }}>
-        You're in. Welcome to Hub Plus.
+        You&apos;re in. Welcome to Hub Plus.
       </h2>
       <p className="mt-2 max-w-sm text-sm leading-relaxed" style={{ color: `${NAVY}A6` }}>
-        Your premium access is active. (This is a design preview, no account was
-        created and no payment was taken.)
+        Your membership is active on this account. No payment was taken — checkout
+        is still a preview.
       </p>
-      <button
-        type="button"
-        onClick={onReset}
-        className="mt-6 text-sm font-semibold underline"
-        style={{ color: ORANGE }}
+      <Link
+        href="/hub-plus/dashboard"
+        className="mt-6 inline-flex items-center rounded-full px-6 py-3 text-sm font-semibold text-white shadow-sm transition-opacity hover:opacity-90"
+        style={{ backgroundColor: ORANGE }}
       >
-        Back to the sign-up preview
-      </button>
+        Open your dashboard
+      </Link>
     </div>
   );
 }

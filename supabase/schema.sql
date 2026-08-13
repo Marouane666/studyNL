@@ -109,6 +109,22 @@ do $$ begin
   end if;
 end $$;
 
+-- Hub Plus membership (paid premium access to /hub-plus/dashboard). Deliberately
+-- a separate column from `role`, not a fourth role value: role answers "what may
+-- this user do in the forum" (member/moderator/admin) while plan answers "has
+-- this user paid", and the two are independent — an admin or moderator can hold
+-- a paid membership, and only a plan needs an expiry date.
+alter table public.profiles add column if not exists plan text not null default 'free';
+alter table public.profiles add column if not exists plan_started_at timestamptz;
+-- null = no end date (open-ended/lifetime grant); a past timestamp = lapsed.
+alter table public.profiles add column if not exists plan_expires_at timestamptz;
+
+do $$ begin
+  if not exists (select 1 from pg_constraint where conname = 'profiles_plan_check') then
+    alter table public.profiles add constraint profiles_plan_check check (plan in ('free', 'premium'));
+  end if;
+end $$;
+
 -- 'hidden' = removed from the public feed by a moderator/admin, but kept
 -- (not deleted) so it can be restored ("approved") instead of losing it for good.
 alter table public.forum_posts add column if not exists status text not null default 'visible';

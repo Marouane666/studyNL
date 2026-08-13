@@ -7,6 +7,8 @@ import { LANGUAGES } from "../i18n/dictionary";
 import { useI18n } from "../i18n/I18nProvider";
 import { useAuth } from "../auth/AuthProvider";
 import { isAdminRole } from "@/lib/roles";
+import { isPremium } from "@/lib/plan";
+import { AccountMenu } from "./AccountMenu";
 import { GlobalSearch } from "./GlobalSearch";
 
 type NavItem = { href: string; tKey: string };
@@ -45,6 +47,14 @@ export function Navbar() {
     return pathname === href || pathname.startsWith(`${href}/`);
   }
 
+  // Hub Plus is the members' own space, so only a member lands on it: everyone
+  // else goes straight to checkout, which is where the offer is presented.
+  const items = NAV_ITEMS.map((item) =>
+    item.href === "/hub-plus" && !isPremium(user)
+      ? { ...item, href: "/hub-plus/join" }
+      : item,
+  );
+
   return (
     <header className="sticky top-0 z-30 w-full">
       {/* Top utility strip */}
@@ -80,7 +90,7 @@ export function Navbar() {
           </Link>
 
           <nav className="hidden flex-1 items-center justify-center gap-1 lg:flex">
-            {NAV_ITEMS.map((item) => {
+            {items.map((item) => {
               const active = isActive(item.href);
               return (
                 <Link
@@ -101,6 +111,8 @@ export function Navbar() {
 
           <div className="flex shrink-0 items-center gap-2">
             <GlobalSearch />
+
+            <AccountMenu />
 
             <Link
               href="/start"
@@ -125,7 +137,7 @@ export function Navbar() {
       <MobileDrawer
         open={mobileOpen}
         onClose={() => setMobileOpen(false)}
-        items={NAV_ITEMS}
+        items={items}
         isActive={isActive}
       />
     </header>

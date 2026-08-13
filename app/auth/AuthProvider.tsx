@@ -2,9 +2,15 @@
 
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import type { Role } from "@/lib/roles";
+import type { Membership } from "@/lib/plan";
 
 export type { Role };
-export type AuthUser = { id: string; email: string; displayName: string; role: Role };
+export type AuthUser = {
+  id: string;
+  email: string;
+  displayName: string;
+  role: Role;
+} & Membership;
 
 type AuthResult = { error?: string };
 
@@ -14,6 +20,8 @@ type Ctx = {
   signup: (name: string, email: string, password: string) => Promise<AuthResult>;
   login: (email: string, password: string) => Promise<AuthResult>;
   logout: () => Promise<void>;
+  /** Re-reads the session, e.g. after a membership changes server-side. */
+  refresh: () => Promise<void>;
 };
 
 const AuthContext = createContext<Ctx | null>(null);
@@ -85,8 +93,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(null);
   }, []);
 
+  const refresh = useCallback(async () => {
+    const res = await fetch("/api/auth/me");
+    const data = await parseJson(res);
+    setUser(data?.user ?? null);
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ user, loading, signup, login, logout }}>
+    <AuthContext.Provider value={{ user, loading, signup, login, logout, refresh }}>
       {children}
     </AuthContext.Provider>
   );

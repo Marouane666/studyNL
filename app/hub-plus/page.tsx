@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import type { IconType } from "react-icons";
 import {
   FaBed,
@@ -20,6 +22,8 @@ import {
   FaUtensils,
 } from "react-icons/fa";
 import { useT } from "../i18n/I18nProvider";
+import { useAuth } from "../auth/AuthProvider";
+import { isPremium } from "@/lib/plan";
 
 const NAVY = "#092A4D";
 const ORANGE = "#fd7933";
@@ -61,6 +65,21 @@ const ISIC_CATEGORIES: { key: string; Icon: IconType }[] = [
 
 export default function HubPlusPage() {
   const t = useT();
+  const router = useRouter();
+  const { user, loading } = useAuth();
+  const premium = isPremium(user);
+
+  // Hub Plus is the members' page. Anyone without a live membership is sent to
+  // checkout rather than shown the member content, so the nav item is a direct
+  // route to the offer for everyone who hasn't joined yet.
+  useEffect(() => {
+    if (!loading && !premium) router.replace("/hub-plus/join");
+  }, [loading, premium, router]);
+
+  if (loading || !premium) return null;
+
+  const firstName = user?.displayName?.trim().split(/\s+/)[0] ?? "";
+
   return (
     <section className="bg-white">
       <div className="mx-auto max-w-7xl px-6 py-10">
@@ -70,6 +89,27 @@ export default function HubPlusPage() {
         >
           {t("hubplus.badge")}
         </span>
+
+        <div className="mt-6 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <h2
+              className="break-words text-[clamp(1.5rem,3.5vw,2.25rem)] font-extrabold leading-tight tracking-tight"
+              style={{ color: NAVY }}
+            >
+              {t("hubplus.hi")} {firstName} 👋
+            </h2>
+            <p className="mt-2 max-w-xl text-sm leading-relaxed" style={{ color: `${NAVY}99` }}>
+              {t("hubplus.memberSubtitle")}
+            </p>
+          </div>
+          <Link
+            href="/hub-plus/dashboard"
+            className="inline-flex items-center rounded-full px-6 py-3 text-sm font-semibold text-white shadow-sm transition-opacity hover:opacity-90"
+            style={{ backgroundColor: ORANGE }}
+          >
+            {t("hubplus.openDashboard")}
+          </Link>
+        </div>
 
         <div
           className="mt-8 rounded-3xl px-10 py-10 sm:px-16 sm:py-12"
@@ -84,11 +124,11 @@ export default function HubPlusPage() {
           </p>
 
           <Link
-            href="/hub-plus/join"
+            href="/hub-plus/dashboard"
             className="mt-8 inline-flex items-center rounded-full px-7 py-3.5 text-sm font-semibold text-white shadow-sm transition-opacity hover:opacity-90"
             style={{ backgroundColor: ORANGE }}
           >
-            {t("hubplus.getStarted")}
+            {t("hubplus.openDashboard")}
           </Link>
 
           <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">

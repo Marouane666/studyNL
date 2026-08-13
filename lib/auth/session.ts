@@ -2,8 +2,9 @@ import "server-only";
 import { cookies } from "next/headers";
 import { supabaseAdmin, createEphemeralAuthClient } from "@/lib/supabase/admin";
 import { type Role, isAdminRole, isModeratorRole } from "@/lib/roles";
+import { type Plan, type Membership, isPremium } from "@/lib/plan";
 
-export type { Role };
+export type { Role, Plan };
 
 const ACCESS_COOKIE = "sb_at";
 const REFRESH_COOKIE = "sb_rt";
@@ -64,7 +65,7 @@ export type CurrentUser = {
   email: string;
   displayName: string;
   role: Role;
-};
+} & Membership;
 
 export function isModerator(user: CurrentUser | null): boolean {
   return isModeratorRole(user?.role);
@@ -74,13 +75,18 @@ export function isAdmin(user: CurrentUser | null): boolean {
   return isAdminRole(user?.role);
 }
 
+/** Gate for Hub Plus benefits (dashboard, member-only APIs). */
+export function isPremiumUser(user: CurrentUser | null): boolean {
+  return isPremium(user);
+}
+
 async function loadUser(accessToken: string): Promise<CurrentUser | null> {
   const { data, error } = await supabaseAdmin.auth.getUser(accessToken);
   if (error || !data.user) return null;
 
   const { data: profile } = await supabaseAdmin
     .from("profiles")
-    .select("display_name, role, status")
+    .select("display_name, role, status, plan, plan_expires_at")
     .eq("id", data.user.id)
     .maybeSingle();
 
@@ -93,6 +99,8 @@ async function loadUser(accessToken: string): Promise<CurrentUser | null> {
     email: data.user.email ?? "",
     displayName: profile?.display_name || data.user.email || "Member",
     role: (profile?.role as Role) ?? "member",
+    plan: (profile?.plan as Plan) ?? "free",
+    planExpiresAt: profile?.plan_expires_at ?? null,
   };
 }
 

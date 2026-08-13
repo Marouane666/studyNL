@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../auth/AuthProvider";
 import { useT } from "../../i18n/I18nProvider";
 import { formatDate } from "@/lib/format";
+import { type Plan, isLapsed, isPremium } from "@/lib/plan";
 import { Avatar } from "./Avatar";
 import { PushNotificationsPanel } from "./PushNotificationsPanel";
 
 const NAVY = "#092A4D";
+const ORANGE = "#fd7933";
 
 type AdminUser = {
   id: string;
@@ -15,6 +17,8 @@ type AdminUser = {
   email: string | null;
   role: "member" | "moderator" | "admin";
   status: "active" | "suspended";
+  plan: Plan;
+  planExpiresAt: string | null;
   joinedAt: string;
 };
 
@@ -53,6 +57,23 @@ export function AdminTab() {
     });
     if (res.ok) {
       setUsers((prev) => prev?.map((u) => (u.id === id ? { ...u, role } : u)) ?? null);
+    }
+    setBusyId(null);
+  }
+
+  async function changePlan(id: string, plan: Plan) {
+    setBusyId(id);
+    const res = await fetch(`/api/admin/users/${id}/plan`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ plan }),
+    });
+    if (res.ok) {
+      // Granting from here is always open-ended: a paid subscription sets its own
+      // end date through checkout, an admin grant has no billing period to end.
+      setUsers(
+        (prev) => prev?.map((u) => (u.id === id ? { ...u, plan, planExpiresAt: null } : u)) ?? null,
+      );
     }
     setBusyId(null);
   }
@@ -99,7 +120,7 @@ export function AdminTab() {
     <>
       <PushNotificationsPanel />
       <div className="overflow-x-auto rounded-2xl bg-white shadow-[0_1px_2px_rgba(9,42,77,0.04)]">
-      <table className="w-full min-w-[680px] text-left text-sm">
+      <table className="w-full min-w-[820px] text-left text-sm">
         <thead>
           <tr
             className="border-b border-[#092A4D]/10 text-xs font-bold uppercase tracking-wide"
@@ -107,6 +128,7 @@ export function AdminTab() {
           >
             <th className="px-5 py-3">{t("auth.field.name")}</th>
             <th className="px-5 py-3">{t("admin.users.role")}</th>
+            <th className="px-5 py-3">{t("admin.users.membership")}</th>
             <th className="px-5 py-3">{t("admin.users.status")}</th>
             <th className="px-5 py-3">{t("admin.users.joined")}</th>
             <th className="px-5 py-3" />
@@ -150,6 +172,38 @@ export function AdminTab() {
                     <option value="moderator">{t("forum.role.moderator")}</option>
                     <option value="admin">{t("forum.role.admin")}</option>
                   </select>
+                </td>
+                <td className="px-5 py-3">
+                  <div className="flex flex-col items-start gap-1">
+                    <span
+                      className="inline-flex items-center rounded-full px-2.5 py-1 text-xs font-bold"
+                      style={
+                        isPremium(u)
+                          ? { color: ORANGE, backgroundColor: `${ORANGE}1a` }
+                          : { color: `${NAVY}99`, backgroundColor: `${NAVY}0f` }
+                      }
+                    >
+                      {isPremium(u)
+                        ? t("admin.users.planPremium")
+                        : isLapsed(u)
+                          ? t("admin.users.planExpired")
+                          : t("admin.users.planFree")}
+                    </span>
+                    {u.planExpiresAt && (
+                      <span className="text-[11px]" style={{ color: `${NAVY}80` }}>
+                        {t("admin.users.planUntil")} {formatDate(u.planExpiresAt)}
+                      </span>
+                    )}
+                    <button
+                      type="button"
+                      disabled={busy}
+                      onClick={() => changePlan(u.id, isPremium(u) ? "free" : "premium")}
+                      className="text-xs font-bold underline-offset-2 hover:underline disabled:opacity-40"
+                      style={{ color: `${NAVY}80` }}
+                    >
+                      {isPremium(u) ? t("admin.users.planRevoke") : t("admin.users.planGrant")}
+                    </button>
+                  </div>
                 </td>
                 <td className="px-5 py-3">
                   <div className="flex items-center gap-2">

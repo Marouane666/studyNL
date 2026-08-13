@@ -5,13 +5,20 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../auth/AuthProvider";
 import { useT } from "../i18n/I18nProvider";
 import { AuthPanel } from "../forum/components/AuthPanel";
+import {
+  type Stage,
+  type TaskId,
+  TASKS_BY_STAGE,
+  TASK_HREFS,
+  taskDescKey,
+  taskTitleKey,
+} from "./tasks";
 
 const BG = "#EAF6FF";
 const NAVY = "#092A4D";
 const ORANGE = "#fd7933";
 const STORAGE_KEY = "studynl.plan";
 
-type Stage = "exploring" | "applying" | "accepted" | "here";
 type Status = "eu" | "nonEu" | "unsure";
 type Level = "bachelor" | "master" | "exchange" | "other";
 type CityChoice = "chosen" | "shortlist" | "open";
@@ -24,24 +31,6 @@ type Answers = {
 };
 
 const EMPTY_ANSWERS: Answers = { stage: null, status: null, level: null, city: null };
-
-type TaskId = "study-route" | "visa" | "funding" | "housing" | "cities" | "arrival";
-
-const TASK_HREFS: Record<TaskId, string> = {
-  "study-route": "/guides/study-route",
-  visa: "/guides/visa-residency",
-  funding: "/guides/scholarships",
-  housing: "/guides/accommodation",
-  cities: "/cities",
-  arrival: "/guides/arrival-checklist",
-};
-
-const TASKS_BY_STAGE: Record<Stage, TaskId[]> = {
-  exploring: ["study-route", "cities", "funding"],
-  applying: ["study-route", "visa", "funding"],
-  accepted: ["housing", "visa", "arrival"],
-  here: ["arrival", "housing", "cities"],
-};
 
 const STAGE_OPTIONS: { id: Stage; labelKey: string; descKey: string }[] = [
   { id: "exploring", labelKey: "startPlan.q1.exploring.label", descKey: "startPlan.q1.exploring.desc" },
@@ -304,10 +293,10 @@ export default function StartPage() {
                       className="text-base font-bold hover:underline"
                       style={{ color: NAVY }}
                     >
-                      {t(`startPlan.task.${id}.title`)}
+                      {t(taskTitleKey(id))}
                     </Link>
                     <p className="mt-1 text-sm leading-relaxed" style={{ color: `${NAVY}99` }}>
-                      {t(`startPlan.task.${id}.desc`)}
+                      {t(taskDescKey(id))}
                     </p>
                     <button
                       type="button"
