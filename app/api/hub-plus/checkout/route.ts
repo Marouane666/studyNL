@@ -13,12 +13,49 @@ import { supabaseAdmin, createEphemeralAuthClient } from "@/lib/supabase/admin";
 import { getCurrentUser, setSessionCookies } from "@/lib/auth/session";
 import { grantPremium } from "@/lib/membership";
 import { isValidEmail, jsonError } from "@/lib/http";
+import { POLICY_VERSION, WITHDRAWAL_CONSENT_TEXT } from "@/lib/legal";
+import { DEFAULT_LANG } from "@/lib/languages";
 
 const MOCK_CHECKOUT_ENABLED = process.env.HUB_PLUS_MOCK_CHECKOUT !== "off";
+
+const CONSENT_REQUIRED_MESSAGE =
+  "Please confirm you consent to immediate access before continuing.";
+
+/**
+ * Files the withdrawal-right waiver for a purchase.
+ *
+ * Stores the sentence itself rather than a boolean: a consent record is only
+ * evidence if it reproduces what the member was actually shown, and the wording
+ * changes over time. Deliberately not fatal — a member who has paid must not be
+ * refused their access because an audit row failed to insert, so a failure here
+ * is logged loudly and left for follow-up instead of thrown.
+ */
+async function recordConsent(userId: string, request: Request) {
+  const { error } = await supabaseAdmin.from("hub_plus_consents").insert({
+    user_id: userId,
+    policy_version: POLICY_VERSION,
+    consent_text: WITHDRAWAL_CONSENT_TEXT,
+    user_agent: request.headers.get("user-agent")?.slice(0, 500) ?? null,
+  });
+
+  if (error) {
+    console.error("hub-plus consent record failed for", userId, error);
+  }
+}
 
 export async function POST(request: Request) {
   if (!MOCK_CHECKOUT_ENABLED) {
     return jsonError("Hub Plus checkout isn't available yet.", 503);
+  }
+
+  const body = await request.json().catch(() => null);
+
+  // Checked before anything else: the waiver has to be given before delivery
+  // begins, so there is no path that creates an account or grants access first
+  // and collects the consent afterwards. `=== true` and not a truthy check —
+  // only an explicit tick counts as express consent.
+  if (body?.consent !== true) {
+    return jsonError(CONSENT_REQUIRED_MESSAGE, 400);
   }
 
   // Already signed in: upgrade the account in place, no details needed.
@@ -29,13 +66,13 @@ export async function POST(request: Request) {
       console.error("hub-plus checkout upgrade failed:", error);
       return jsonError("Something went wrong. Please try again.", 500);
     }
+    await recordConsent(current.id, request);
     return Response.json({
       mock: true,
       user: { ...current, plan: "premium", planExpiresAt: null },
     });
   }
 
-  const body = await request.json().catch(() => null);
   const name = typeof body?.name === "string" ? body.name.trim() : "";
   const email = typeof body?.email === "string" ? body.email.trim().toLowerCase() : "";
   const password = typeof body?.password === "string" ? body.password : "";
@@ -77,6 +114,8 @@ export async function POST(request: Request) {
     return jsonError("Something went wrong. Please try again.", 500);
   }
 
+  await recordConsent(created.user.id, request);
+
   // A fresh client, not supabaseAdmin: signInWithPassword establishes an
   // in-memory session on whichever client calls it, and every later query on
   // that same client would then run as this user instead of the service role.
@@ -102,6 +141,7 @@ export async function POST(request: Request) {
       role: "member",
       plan: "premium",
       planExpiresAt: null,
+      language: DEFAULT_LANG,
     },
   });
 }

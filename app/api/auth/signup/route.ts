@@ -1,6 +1,7 @@
 import { supabaseAdmin, createEphemeralAuthClient } from "@/lib/supabase/admin";
 import { setSessionCookies } from "@/lib/auth/session";
 import { isValidEmail, jsonError } from "@/lib/http";
+import { DEFAULT_LANG } from "@/lib/languages";
 
 export async function POST(request: Request) {
   const body = await request.json().catch(() => null);
@@ -64,6 +65,7 @@ export async function POST(request: Request) {
       role: "member",
       plan: "free",
       planExpiresAt: null,
+      language: DEFAULT_LANG,
     },
   });
 }

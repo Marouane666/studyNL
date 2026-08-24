@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
-import { LANGUAGES, LangCode, RTL_LANGS, translate } from "./dictionary";
+import { DEFAULT_LANG, LANGUAGES, LangCode, RTL_LANGS, translate } from "./dictionary";
 
 type Ctx = {
   lang: LangCode;
@@ -11,8 +11,8 @@ type Ctx = {
 
 const I18nContext = createContext<Ctx | null>(null);
 
-const STORAGE_KEY = "lang";
-const DEFAULT_LANG: LangCode = "en";
+/** Exported so LanguageSync can tell "never chose" from "chose English". */
+export const LANG_STORAGE_KEY = "lang";
 
 function isValidLang(value: string | null): value is LangCode {
   return !!value && LANGUAGES.some((l) => l.code === value);
@@ -22,7 +22,7 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
   const [lang, setLangState] = useState<LangCode>(DEFAULT_LANG);
 
   useEffect(() => {
-    const stored = window.localStorage.getItem(STORAGE_KEY);
+    const stored = window.localStorage.getItem(LANG_STORAGE_KEY);
     if (isValidLang(stored)) setLangState(stored);
   }, []);
 
@@ -33,7 +33,7 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
 
   const setLang = useCallback((next: LangCode) => {
     setLangState(next);
-    window.localStorage.setItem(STORAGE_KEY, next);
+    window.localStorage.setItem(LANG_STORAGE_KEY, next);
   }, []);
 
   const t = useCallback((key: string) => translate(lang, key), [lang]);

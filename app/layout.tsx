@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { I18nProvider } from "./i18n/I18nProvider";
 import { AuthProvider } from "./auth/AuthProvider";
+import { LanguageSync } from "./i18n/LanguageSync";
 import { PwaBoot } from "./components/PwaBoot";
 import { SiteChrome } from "./components/SiteChrome";
 
@@ -51,6 +52,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <I18nProvider>
           <AuthProvider>
+            <LanguageSync />
             <PwaBoot />
             <SiteChrome>{children}</SiteChrome>
           </AuthProvider>

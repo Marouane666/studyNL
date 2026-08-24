@@ -3,6 +3,7 @@
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import type { Role } from "@/lib/roles";
 import type { Membership } from "@/lib/plan";
+import type { LangCode } from "@/lib/languages";
 
 export type { Role };
 export type AuthUser = {
@@ -10,6 +11,7 @@ export type AuthUser = {
   email: string;
   displayName: string;
   role: Role;
+  language: LangCode;
 } & Membership;
 
 type AuthResult = { error?: string };

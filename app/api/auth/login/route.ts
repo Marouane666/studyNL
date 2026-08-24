@@ -1,6 +1,7 @@
 import { supabaseAdmin, createEphemeralAuthClient } from "@/lib/supabase/admin";
 import { setSessionCookies } from "@/lib/auth/session";
 import { isValidEmail, jsonError } from "@/lib/http";
+import { DEFAULT_LANG, isLangCode } from "@/lib/languages";
 
 export async function POST(request: Request) {
   const body = await request.json().catch(() => null);
@@ -24,7 +25,7 @@ export async function POST(request: Request) {
 
   const { data: profile } = await supabaseAdmin
     .from("profiles")
-    .select("display_name, role, status, plan, plan_expires_at")
+    .select("display_name, role, status, plan, plan_expires_at, language")
     .eq("id", data.user.id)
     .maybeSingle();
 
@@ -43,6 +44,7 @@ export async function POST(request: Request) {
       role: profile?.role ?? "member",
       plan: profile?.plan ?? "free",
       planExpiresAt: profile?.plan_expires_at ?? null,
+      language: isLangCode(profile?.language) ? profile.language : DEFAULT_LANG,
     },
   });
 }

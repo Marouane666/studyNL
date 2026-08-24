@@ -206,3 +206,37 @@ create table if not exists public.newsletter_subscribers (
 create index if not exists newsletter_subscribers_created_at_idx on public.newsletter_subscribers (created_at desc);
 
 alter table public.newsletter_subscribers enable row level security;
+
+-- Checkout consent records (app/hub-plus/join → app/api/hub-plus/checkout).
+--
+-- EU distance-selling rules only let a member waive their 14-day withdrawal
+-- right if they expressly consented to immediate delivery of the digital
+-- content, so this is the durable record of that: the verbatim sentence the
+-- member was shown, not just a boolean, because "they ticked a box" is worth
+-- nothing without proof of what the box said. Rows are append-only and are
+-- deliberately never updated — a later purchase writes a new row.
+create table if not exists public.hub_plus_consents (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references auth.users (id) on delete cascade,
+  -- The policy revision in force at the time (lib/legal.ts POLICY_VERSION).
+  policy_version text not null,
+  consent_text text not null,
+  user_agent text,
+  created_at timestamptz not null default now()
+);
+
+create index if not exists hub_plus_consents_user_id_idx
+  on public.hub_plus_consents (user_id, created_at desc);
+
+alter table public.hub_plus_consents enable row level security;
+
+-- Preferred site language, held on the account rather than only in the
+-- visitor's localStorage (app/i18n/I18nProvider.tsx). Two reasons: the choice
+-- follows a member across devices, and anything sent from the server — email
+-- above all — has no access to localStorage and would otherwise have no way of
+-- knowing whether to write to someone in English or Dutch.
+--
+-- No check constraint on purpose: the supported set lives in
+-- app/i18n/dictionary.ts (LANGUAGES) and route handlers validate against it, so
+-- adding a language doesn't need a migration to go with it.
+alter table public.profiles add column if not exists language text not null default 'en';

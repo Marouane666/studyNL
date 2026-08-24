@@ -2,12 +2,11 @@
 
 import Link from "next/link";
 import { useT } from "../i18n/I18nProvider";
+import { CONTACT_EMAIL, POLICY_LAST_UPDATED as LAST_UPDATED } from "@/lib/legal";
 
 const BG = "#EAF6FF";
 const NAVY = "#092A4D";
 const ORANGE = "#fd7933";
-const LAST_UPDATED = "16 July 2026";
-const CONTACT_EMAIL = "contact@study-nl.com";
 
 export default function LegalPage() {
   const t = useT();

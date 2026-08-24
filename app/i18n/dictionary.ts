@@ -1,31 +1,16 @@
-export type LangCode =
-  | "en"
-  | "es"
-  | "de"
-  | "fr"
-  | "it"
-  | "nl"
-  | "ro"
-  | "tr"
-  | "zh"
-  | "ar";
+// The language set itself lives in lib/languages.ts so route handlers can
+// validate a code without pulling this file's ten dictionaries in with it.
+// Re-exported here because every existing import reads it from this module.
+export {
+  DEFAULT_LANG,
+  LANGUAGES,
+  RTL_LANGS,
+  isLangCode,
+  type LangCode,
+  type Language,
+} from "@/lib/languages";
 
-export type Language = { code: LangCode; label: string; short: string };
-
-export const LANGUAGES: Language[] = [
-  { code: "en", label: "English", short: "EN" },
-  { code: "es", label: "Español", short: "ES" },
-  { code: "de", label: "Deutsch", short: "DE" },
-  { code: "fr", label: "Français", short: "FR" },
-  { code: "it", label: "Italiano", short: "IT" },
-  { code: "nl", label: "Nederlands", short: "NL" },
-  { code: "ro", label: "Română", short: "RO" },
-  { code: "tr", label: "Türkçe", short: "TR" },
-  { code: "zh", label: "中文", short: "ZH" },
-  { code: "ar", label: "العربية", short: "AR" },
-];
-
-export const RTL_LANGS: LangCode[] = ["ar"];
+import type { LangCode } from "@/lib/languages";
 
 type Dict = Record<string, string>;
 

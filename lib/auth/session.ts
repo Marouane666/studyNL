@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import { supabaseAdmin, createEphemeralAuthClient } from "@/lib/supabase/admin";
 import { type Role, isAdminRole, isModeratorRole } from "@/lib/roles";
 import { type Plan, type Membership, isPremium } from "@/lib/plan";
+import { type LangCode, DEFAULT_LANG, isLangCode } from "@/lib/languages";
 
 export type { Role, Plan };
 
@@ -65,6 +66,8 @@ export type CurrentUser = {
   email: string;
   displayName: string;
   role: Role;
+  /** Preferred site language, so server-sent mail knows which one to write in. */
+  language: LangCode;
 } & Membership;
 
 export function isModerator(user: CurrentUser | null): boolean {
@@ -86,7 +89,7 @@ async function loadUser(accessToken: string): Promise<CurrentUser | null> {
 
   const { data: profile } = await supabaseAdmin
     .from("profiles")
-    .select("display_name, role, status, plan, plan_expires_at")
+    .select("display_name, role, status, plan, plan_expires_at, language")
     .eq("id", data.user.id)
     .maybeSingle();
 
@@ -101,6 +104,7 @@ async function loadUser(accessToken: string): Promise<CurrentUser | null> {
     role: (profile?.role as Role) ?? "member",
     plan: (profile?.plan as Plan) ?? "free",
     planExpiresAt: profile?.plan_expires_at ?? null,
+    language: isLangCode(profile?.language) ? profile.language : DEFAULT_LANG,
   };
 }
 
