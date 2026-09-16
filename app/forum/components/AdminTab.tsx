@@ -85,8 +85,17 @@ export function AdminTab() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status: nextStatus }),
     });
+    const data = await res.json().catch(() => null);
+
     if (res.ok) {
       setUsers((prev) => prev?.map((u) => (u.id === id ? { ...u, status: nextStatus } : u)) ?? null);
+
+      // Suspension succeeds even when cancelling their Stripe subscription
+      // doesn't. That combination has to be visible: the member is locked out
+      // but may still be charged, and only a person can put that right.
+      if (data?.billingStopped === false && data?.warning) {
+        window.alert(data.warning);
+      }
     }
     setBusyId(null);
   }

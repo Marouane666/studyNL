@@ -240,3 +240,22 @@ alter table public.hub_plus_consents enable row level security;
 -- app/i18n/dictionary.ts (LANGUAGES) and route handlers validate against it, so
 -- adding a language doesn't need a migration to go with it.
 alter table public.profiles add column if not exists language text not null default 'en';
+
+-- Stripe linkage for Hub Plus subscriptions.
+--
+-- The customer id is kept so a returning member reuses their Stripe customer
+-- record instead of accumulating a new one per checkout attempt — duplicates
+-- would split their billing history and break the customer portal.
+--
+-- subscription_status mirrors Stripe's own status ('active', 'past_due',
+-- 'canceled', ...) and exists for support and display only: access is still
+-- decided by plan + plan_expires_at (lib/plan.ts), so a webhook that never
+-- arrives can't silently hand out or revoke access on its own.
+alter table public.profiles add column if not exists stripe_customer_id text;
+alter table public.profiles add column if not exists stripe_subscription_id text;
+alter table public.profiles add column if not exists subscription_status text;
+
+-- Partial, so the many rows with no Stripe customer yet don't collide on null.
+create unique index if not exists profiles_stripe_customer_id_key
+  on public.profiles (stripe_customer_id)
+  where stripe_customer_id is not null;

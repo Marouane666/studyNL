@@ -40,6 +40,16 @@ const COLUMNS: LinkItem[][] = [
   ],
 ];
 
+// Kept out of the columns above and given their own row beside the copyright:
+// that's where people look for policies, it stays reachable from every page as
+// consumer rules expect, and it leaves the five topic columns evenly balanced.
+const LEGAL_LINKS: LinkItem[] = [
+  { href: "/legal/terms", tKey: "footer.legal.terms" },
+  { href: "/legal/hub-plus-terms", tKey: "footer.legal.hubPlusTerms" },
+  { href: "/legal/hub-plus-cancellation", tKey: "footer.legal.cancellation" },
+  { href: "/legal#privacy", tKey: "footer.legal.privacy" },
+];
+
 export function Footer() {
   const t = useT();
   return (
@@ -83,12 +93,30 @@ export function Footer() {
           ))}
         </div>
 
-        <p
-          className="mt-14 text-xs"
-          style={{ color: `${NAVY}A6` }}
+        <div
+          className="mt-14 flex flex-col gap-4 border-t pt-6 sm:flex-row sm:items-center sm:justify-between"
+          style={{ borderColor: `${NAVY}1f` }}
         >
-          {t("footer.copyright")}
-        </p>
+          <p className="text-xs" style={{ color: `${NAVY}A6` }}>
+            {t("footer.copyright")}
+          </p>
+
+          <nav aria-label={t("footer.l.legal")}>
+            <ul className="flex flex-wrap items-center gap-x-5 gap-y-2">
+              {LEGAL_LINKS.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="text-xs font-semibold transition-opacity hover:opacity-70"
+                    style={{ color: `${NAVY}CC` }}
+                  >
+                    {t(item.tKey)}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
       </div>
     </footer>
   );

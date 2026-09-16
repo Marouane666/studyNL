@@ -1,5 +1,6 @@
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { getCurrentUser, isAdmin } from "@/lib/auth/session";
+import { cancelStripeSubscription } from "@/lib/membership";
 import { jsonError } from "@/lib/http";
 
 export async function PATCH(
@@ -19,5 +20,25 @@ export async function PATCH(
   const { error } = await supabaseAdmin.from("profiles").update({ status }).eq("id", id);
   if (error) return jsonError("Couldn't update that user's status.", 500);
 
-  return Response.json({ ok: true, status });
+  // Suspension happens first and is never blocked: locking a bad actor out is
+  // the urgent half, and it must not wait on a payment provider being reachable.
+  //
+  // Billing is then stopped, because charging someone monthly for a product
+  // they've been locked out of is indefensible — and it is the line that reads
+  // worst of all in a chargeback dispute. A failure here is reported rather
+  // than hidden, so an admin knows to retry, with the suspension already done.
+  if (status === "suspended") {
+    const billing = await cancelStripeSubscription(id);
+    if (!billing.stopped) {
+      return Response.json({
+        ok: true,
+        status,
+        billingStopped: false,
+        warning:
+          "This member is suspended, but their Stripe subscription could not be cancelled — they may still be charged. Please retry or cancel it in Stripe.",
+      });
+    }
+  }
+
+  return Response.json({ ok: true, status, billingStopped: true });
 }

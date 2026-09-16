@@ -2,11 +2,11 @@
 
 // Hub Plus sign-up + checkout.
 //
-// The account and the membership are real (app/api/hub-plus/checkout), the
-// PAYMENT IS NOT: no provider is connected, so nothing is ever charged and the
-// payment method picked below is presentational. A real provider (Mollie /
-// Stripe / Adyen) and the billing model are wired up after sign-off, at which
-// point premium is granted from that provider's webhook instead.
+// Payment runs through Stripe Checkout: this form collects the account details
+// and the withdrawal consent, then hands off to Stripe's hosted page, which
+// collects the card and shows Apple Pay / Google Pay where the device supports
+// them. No card details reach this site. Membership is granted by the Stripe
+// webhook, never here.
 //
 // Text is hardcoded English for review; i18n follows with the final copy.
 
@@ -53,7 +53,7 @@ const COMING_SOON = [
 ];
 
 export default function HubPlusJoinPage() {
-  const { user, loading, login, refresh } = useAuth();
+  const { user, loading } = useAuth();
   const [method, setMethod] = useState<Method>("applepay");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -61,7 +61,6 @@ export default function HubPlusJoinPage() {
   const [consented, setConsented] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [done, setDone] = useState(false);
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
@@ -80,19 +79,16 @@ export default function HubPlusJoinPage() {
     });
     const data = await res.json().catch(() => null);
 
-    if (!res.ok) {
+    if (!res.ok || !data?.url) {
       setError(data?.error ?? "Something went wrong. Please try again.");
       setSubmitting(false);
       return;
     }
 
-    // The account and membership exist either way; requiresLogin only means the
-    // automatic sign-in right after didn't complete.
-    if (data?.requiresLogin) await login(email, password);
-    await refresh();
-
-    setSubmitting(false);
-    setDone(true);
+    // Hand off to Stripe's hosted checkout. `submitting` is intentionally left
+    // true: the redirect takes a moment, and re-enabling the button would let
+    // an impatient click start a second checkout session.
+    window.location.assign(data.url);
   }
 
   return (
@@ -152,17 +148,16 @@ export default function HubPlusJoinPage() {
 
             <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-1 pt-8 text-xs text-white/55">
               <span className="inline-flex items-center gap-1.5"><LockIcon /> Secure checkout</span>
-              {/* Says what the terms say. "Cancel anytime" would not: the
-                  membership runs monthly with one month's notice to cancel. */}
-              <span>Monthly · one month&rsquo;s notice to cancel</span>
+              {/* Matches the Cancellation & Refund Policy (September 2026):
+                  cancel whenever you like, keep access to the end of the month
+                  already paid for, and nothing further is charged. */}
+              <span>Monthly · cancel anytime</span>
             </div>
           </div>
 
           {/* Sign-up + payment */}
           <div className="rounded-3xl border border-[#092A4D]/10 bg-white p-8 shadow-[0_2px_14px_rgba(9,42,77,0.06)] sm:p-10">
-            {done ? (
-              <Success />
-            ) : loading ? null : (
+            {loading ? null : (
               <form onSubmit={onSubmit}>
                 <h2 className="text-lg font-bold" style={{ color: NAVY }}>
                   Your details
@@ -274,10 +269,17 @@ export default function HubPlusJoinPage() {
                 >
                   {submitting ? "Setting up your access…" : "Get instant access"}
                 </button>
-                <p className="mt-3 text-center text-xs text-[#092A4D]/50">
-                  By continuing you agree to our{" "}
-                  <Link href="/legal#terms" className="underline">
-                    Terms
+                {/* Pre-contract information: EU rules expect the cancellation
+                    and withdrawal terms to be reachable before paying, not only
+                    afterwards, so the refund policy is linked here too. */}
+                <p className="mt-3 text-center text-xs leading-relaxed text-[#092A4D]/50">
+                  By continuing you agree to the{" "}
+                  <Link href="/legal/hub-plus-terms" className="underline">
+                    Hub Plus Terms
+                  </Link>
+                  ,{" "}
+                  <Link href="/legal/hub-plus-cancellation" className="underline">
+                    Cancellation &amp; Refund Policy
                   </Link>{" "}
                   and{" "}
                   <Link href="/legal#privacy" className="underline">
@@ -336,33 +338,6 @@ function MethodButton({
   );
 }
 
-function Success() {
-  return (
-    <div className="flex flex-col items-center py-8 text-center">
-      <span
-        className="flex size-14 items-center justify-center rounded-full text-white"
-        style={{ backgroundColor: ORANGE }}
-      >
-        <BigCheckIcon />
-      </span>
-      <h2 className="mt-5 text-xl font-bold" style={{ color: NAVY }}>
-        You&apos;re in. Welcome to Hub Plus.
-      </h2>
-      <p className="mt-2 max-w-sm text-sm leading-relaxed" style={{ color: `${NAVY}A6` }}>
-        Your membership is active on this account. No payment was taken — checkout
-        is still a preview.
-      </p>
-      <Link
-        href="/hub-plus/dashboard"
-        className="mt-6 inline-flex items-center rounded-full px-6 py-3 text-sm font-semibold text-white shadow-sm transition-opacity hover:opacity-90"
-        style={{ backgroundColor: ORANGE }}
-      >
-        Open your dashboard
-      </Link>
-    </div>
-  );
-}
-
 function BackIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -385,14 +360,6 @@ function SoonIcon() {
     <svg className="mt-0.5 shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <circle cx="12" cy="12" r="9" />
       <path d="M12 7v5l3 2" />
-    </svg>
-  );
-}
-
-function BigCheckIcon() {
-  return (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="m5 12 5 5L20 7" />
     </svg>
   );
 }

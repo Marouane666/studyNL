@@ -153,6 +153,15 @@ const en: Dict = {
   "footer.l.legal": "Legal",
   "footer.l.help": "Help centre",
 
+  // Policy links in the footer's bottom bar. English only for now, like the
+  // policy documents they point at — translating a label while the document
+  // behind it stays English would suggest a Dutch version exists. Add the other
+  // nine languages together with the rest of the translation work.
+  "footer.legal.terms": "Terms & Conditions",
+  "footer.legal.hubPlusTerms": "Hub Plus Terms",
+  "footer.legal.cancellation": "Cancellation & Refunds",
+  "footer.legal.privacy": "Privacy Policy",
+
   "hero.badge": "Your guide to studying in NL",
   "hero.title": "Your clear route to studying in the Netherlands.",
   "hero.subtitle":

@@ -1,10 +1,14 @@
 "use client";
 
-// Membership — status, end date and the policy links. Billing management is a
-// contact link until a payment provider is connected; there's no subscription to
-// manage yet, so this doesn't pretend otherwise.
+// Membership — status, end date, and the way in to billing.
+//
+// "Manage billing" opens Stripe's billing portal, which is where a member
+// cancels, updates their card and downloads invoices. Cancelling there takes
+// effect at the end of the paid period, matching the Cancellation & Refund
+// Policy; the change reaches us through the Stripe webhook, not from this page.
 
 import Link from "next/link";
+import { useState } from "react";
 import { useAuth } from "../../../auth/AuthProvider";
 import { useT } from "../../../i18n/I18nProvider";
 import { formatDate } from "@/lib/format";
@@ -13,6 +17,26 @@ import { NAVY, NAVY_DEEP, ORANGE, PageIntro, Panel } from "../ui";
 export default function DashboardMembershipPage() {
   const t = useT();
   const { user } = useAuth();
+  const [opening, setOpening] = useState(false);
+  const [portalError, setPortalError] = useState<string | null>(null);
+
+  async function openBilling() {
+    setPortalError(null);
+    setOpening(true);
+
+    const res = await fetch("/api/hub-plus/portal", { method: "POST" });
+    const data = await res.json().catch(() => null);
+
+    if (!res.ok || !data?.url) {
+      setPortalError(data?.error ?? "Could not open billing. Please try again.");
+      setOpening(false);
+      return;
+    }
+
+    // Left disabled through the redirect so a second click can't open a
+    // second portal session.
+    window.location.assign(data.url);
+  }
 
   const rows: { labelKey: string; value: string }[] = [
     { labelKey: "hubDash.membership.planLabel", value: "Hub Plus" },
@@ -27,7 +51,6 @@ export default function DashboardMembershipPage() {
   ];
 
   const links = [
-    { href: "/contact", labelKey: "hubDash.membership.billing" },
     { href: "/legal", labelKey: "hubDash.membership.legal" },
     { href: "/help-centre", labelKey: "hubDash.membership.support" },
   ];
@@ -68,6 +91,16 @@ export default function DashboardMembershipPage() {
             {t("hubDash.membership.manageBody")}
           </p>
           <div className="mt-5 grid gap-2">
+            <button
+              type="button"
+              onClick={openBilling}
+              disabled={opening}
+              className="flex items-center justify-between rounded-xl border border-white/12 bg-white/8 px-3.5 py-3 text-[10px] font-semibold transition-colors hover:bg-white/15 disabled:opacity-60"
+            >
+              <span>{opening ? "…" : t("hubDash.membership.billing")}</span>
+              <span aria-hidden="true">→</span>
+            </button>
+
             {links.map((l) => (
               <Link
                 key={l.href}
@@ -79,6 +112,12 @@ export default function DashboardMembershipPage() {
               </Link>
             ))}
           </div>
+          {portalError && (
+            <p className="mt-3 text-[11px] font-semibold text-red-300" role="alert">
+              {portalError}
+            </p>
+          )}
+
           <Link
             href="/hub-plus"
             className="mt-4 inline-flex items-center text-[11px] font-extrabold"

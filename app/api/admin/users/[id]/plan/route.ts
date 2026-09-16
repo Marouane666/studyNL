@@ -1,5 +1,5 @@
 import { getCurrentUser, isAdmin } from "@/lib/auth/session";
-import { grantPremium, revokePremium } from "@/lib/membership";
+import { cancelStripeSubscription, grantPremium, revokePremium } from "@/lib/membership";
 import { isPlan } from "@/lib/plan";
 import { jsonError } from "@/lib/http";
 
@@ -28,6 +28,19 @@ export async function PATCH(
 
   const expiry = readExpiry(body?.expiresAt);
   if (!expiry.ok) return jsonError("Invalid membership end date.", 400);
+
+  if (plan === "free") {
+    // Without this the member keeps being charged, and worse: the next renewal
+    // arrives as customer.subscription.updated with status 'active', so the
+    // webhook puts them straight back on premium and the revoke undoes itself.
+    const billing = await cancelStripeSubscription(id);
+    if (!billing.stopped) {
+      return jsonError(
+        "Couldn't stop this member's billing, so their membership was left unchanged. Try again in a moment.",
+        502,
+      );
+    }
+  }
 
   const { error } =
     plan === "premium" ? await grantPremium(id, expiry.value) : await revokePremium(id);
