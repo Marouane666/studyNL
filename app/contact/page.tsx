@@ -1,7 +1,8 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { useT } from "../i18n/I18nProvider";
+import { useZukoForm } from "../analytics/zuko";
 
 const BG = "#EAF6FF";
 const NAVY = "#092A4D";
@@ -16,6 +17,8 @@ export default function ContactPage() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [sent, setSent] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
+  const trackCompletion = useZukoForm("contact", formRef);
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
@@ -32,6 +35,7 @@ export default function ContactPage() {
         setError(data?.error ?? t("contactPage.error"));
         return;
       }
+      trackCompletion();
       setSent(true);
       setName("");
       setEmail("");
@@ -92,7 +96,7 @@ export default function ContactPage() {
               </button>
             </div>
           ) : (
-            <form onSubmit={onSubmit} className="flex flex-col gap-4">
+            <form ref={formRef} onSubmit={onSubmit} className="flex flex-col gap-4">
               <Field label={t("auth.field.name")}>
                 <input
                   type="text"

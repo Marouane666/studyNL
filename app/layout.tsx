@@ -6,6 +6,8 @@ import { AuthProvider } from "./auth/AuthProvider";
 import { LanguageSync } from "./i18n/LanguageSync";
 import { PwaBoot } from "./components/PwaBoot";
 import { SiteChrome } from "./components/SiteChrome";
+import { Analytics } from "./analytics/Analytics";
+import { CookieBanner } from "./analytics/CookieBanner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -55,6 +57,8 @@ export default function RootLayout({
             <LanguageSync />
             <PwaBoot />
             <SiteChrome>{children}</SiteChrome>
+            <CookieBanner />
+            <Analytics />
           </AuthProvider>
         </I18nProvider>
       </body>

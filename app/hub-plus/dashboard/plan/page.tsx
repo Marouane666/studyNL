@@ -7,7 +7,7 @@
 import Link from "next/link";
 import { useT } from "../../../i18n/I18nProvider";
 import { TASK_HREFS, taskDescKey, taskTitleKey } from "../../../start/tasks";
-import { NAVY, ORANGE, PageIntro, Panel } from "../ui";
+import { GOLD, GOLD_LIGHT, NAVY, NAVY_DEEP, PageIntro, Panel } from "../ui";
 import { usePlanProgress } from "../usePlanProgress";
 
 export default function DashboardPlanPage() {
@@ -32,8 +32,8 @@ export default function DashboardPlanPage() {
           </div>
           <Link
             href="/start"
-            className="inline-flex items-center rounded-full px-5 py-2.5 text-xs font-extrabold text-white transition-opacity hover:opacity-90"
-            style={{ backgroundColor: ORANGE }}
+            className="inline-flex items-center rounded-full px-5 py-2.5 text-xs font-extrabold transition-opacity hover:opacity-90"
+            style={{ backgroundColor: GOLD, color: NAVY_DEEP }}
           >
             {t("hubDash.progress.build")}
           </Link>
@@ -50,12 +50,12 @@ export default function DashboardPlanPage() {
               </p>
             </div>
             <div className="flex min-w-[210px] items-center gap-3.5">
-              <div className="h-2 flex-1 overflow-hidden rounded-full bg-[#e8eef5]">
+              <div className="h-2 flex-1 overflow-hidden rounded-full bg-[#eee6d6]">
                 <div
                   className="h-full rounded-full transition-[width] duration-500"
                   style={{
                     width: `${Math.round((progress.doneCount / progress.tasks.length) * 100)}%`,
-                    background: `linear-gradient(90deg, ${ORANGE}, #ffb37d)`,
+                    background: `linear-gradient(90deg, ${GOLD}, ${GOLD_LIGHT})`,
                   }}
                 />
               </div>
@@ -72,8 +72,8 @@ export default function DashboardPlanPage() {
                 <li key={id}>
                   <Panel className="flex items-start gap-4 p-5">
                     <span
-                      className="mt-0.5 grid size-8 shrink-0 place-items-center rounded-full text-sm font-bold text-white"
-                      style={{ backgroundColor: done ? "#15803d" : ORANGE }}
+                      className="mt-0.5 grid size-8 shrink-0 place-items-center rounded-full text-sm font-bold"
+                      style={done ? { backgroundColor: "#15803d", color: "#fff" } : { backgroundColor: GOLD, color: NAVY_DEEP }}
                       aria-hidden="true"
                     >
                       {done ? "✓" : i + 1}

@@ -12,7 +12,7 @@ import { useState } from "react";
 import { useAuth } from "../../../auth/AuthProvider";
 import { useT } from "../../../i18n/I18nProvider";
 import { formatDate } from "@/lib/format";
-import { NAVY, NAVY_DEEP, ORANGE, PageIntro, Panel } from "../ui";
+import { GOLD_LIGHT, NAVY, NAVY_DEEP, PageIntro, Panel } from "../ui";
 
 export default function DashboardMembershipPage() {
   const t = useT();
@@ -121,7 +121,7 @@ export default function DashboardMembershipPage() {
           <Link
             href="/hub-plus"
             className="mt-4 inline-flex items-center text-[11px] font-extrabold"
-            style={{ color: ORANGE }}
+            style={{ color: GOLD_LIGHT }}
           >
             {t("hubDash.benefits.viewAll")} →
           </Link>

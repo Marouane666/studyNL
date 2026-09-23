@@ -60,9 +60,12 @@ export function Navbar() {
       {/* Top utility strip */}
       <div className="bg-[#03294f] text-white">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-2 sm:px-6">
-          <p className="truncate text-[10px] font-medium uppercase tracking-[0.18em] text-white/75 sm:text-[11px]">
-            <span className="hidden sm:inline">POWERED BY GRADUATES </span>
-            <span className="font-bold text-white">FOR STUDENTS</span>
+          {/* Tighter tracking on phones so the full line fits beside the
+              language picker; on the narrowest screens it breaks between the
+              two phrases instead of cutting either one off. */}
+          <p className="min-w-0 text-[10px] font-medium uppercase leading-snug tracking-[0.08em] text-white/75 min-[400px]:tracking-[0.12em] sm:text-[11px] sm:tracking-[0.18em]">
+            <span className="whitespace-nowrap">POWERED BY GRADUATES</span>{" "}
+            <span className="whitespace-nowrap font-bold text-white">FOR STUDENTS</span>
           </p>
           <div className="flex shrink-0 items-center gap-2">
             {isAdminRole(user?.role) && (

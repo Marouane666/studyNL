@@ -8,53 +8,58 @@
 // them. No card details reach this site. Membership is granted by the Stripe
 // webhook, never here.
 //
-// Text is hardcoded English for review; i18n follows with the final copy.
+// Text comes from the "hubJoin.*" keys in app/i18n/dictionary.ts, with one
+// exception: the withdrawal consent sentence stays in English. The checkout
+// route stores that exact sentence as the record of consent, and its wording
+// is still awaiting legal sign-off (see lib/legal.ts), so it is translated only
+// once the wording is final and each translation has been checked.
 
 import Link from "next/link";
-import { FormEvent, useState } from "react";
+import { FormEvent, Fragment, useRef, useState } from "react";
 import { useAuth } from "../../auth/AuthProvider";
+import { useT } from "../../i18n/I18nProvider";
+import { useZukoForm } from "../../analytics/zuko";
 import { WITHDRAWAL_CONSENT_TEXT } from "@/lib/legal";
 
 const NAVY = "#092A4D";
 const ORANGE = "#fd7933";
 
-type Method = "applepay" | "wero" | "card";
-
-// What the member can actually use the moment checkout finishes. Everything on
-// this list is either already live in the dashboard or a file that ships with
-// it — nothing here waits on a partner agreement.
+// Every Hub Plus benefit, all shown as included — matching section 1 of the
+// Hub Plus Terms (app/legal/policies/hubPlusTerms.ts), as StudyNL requested.
 //
-// Advertising a benefit that isn't ready is the expensive kind of mistake: it's
-// what a refund request, and a misleading-advertising complaint, is built on.
-// So anything not yet deliverable belongs in COMING_SOON below, never here.
-//
-// BEFORE LAUNCH: the six templates are the only entries whose files don't exist
-// in the repo yet. They must be in place before this page goes live, or they
-// move down to COMING_SOON.
+// BEFORE LAUNCH: the six templates don't exist in the repo yet, and the Q&A,
+// housing, partner, association and ISIC card benefits depend on work and
+// partnerships outside this codebase. All of it must be deliverable when this
+// page goes live.
 const INCLUDED = [
-  "Over 150,000 student discounts through the ISIC network",
-  "Ready-made arrival checklist",
-  "Planning tools that follow you across devices",
-  "Downloadable guides",
-  "3 ready-made CV templates",
-  "3 application and motivation letter templates",
+  "hubJoin.inc.discounts",
+  "hubJoin.inc.checklist",
+  "hubJoin.inc.planning",
+  "hubJoin.inc.guides",
+  "hubJoin.inc.cv",
+  "hubJoin.inc.letters",
+  "hubJoin.inc.qa",
+  "hubJoin.inc.housing",
+  "hubJoin.inc.partners",
+  "hubJoin.inc.associations",
+  "hubJoin.inc.isic",
 ];
 
-// Named honestly as not-yet-available, so the offer still shows where the
-// membership is going without promising it for today. Q&A is out at launch by
-// choice; the housing, partner and association benefits depend on partnerships
-// that aren't signed, and the free ISIC card isn't confirmed with ISIC yet.
-const COMING_SOON = [
-  "Priority Q&A with guided support",
-  "Verified housing route and premium property listings",
-  "Partner guidance in one place",
-  "Early application and introductions to student associations",
-  "Your own ISIC card, included",
-];
+/**
+ * Renders a translated sentence with {placeholders} swapped for elements, so
+ * each language can put the links (or the email) wherever its grammar needs.
+ */
+function fill(text: string, parts: Record<string, React.ReactNode>) {
+  return text.split(/\{(\w+)\}/).map((piece, i) =>
+    i % 2 === 1 ? <Fragment key={i}>{parts[piece]}</Fragment> : piece,
+  );
+}
 
 export default function HubPlusJoinPage() {
   const { user, loading } = useAuth();
-  const [method, setMethod] = useState<Method>("applepay");
+  const t = useT();
+  const formRef = useRef<HTMLFormElement>(null);
+  const trackCompletion = useZukoForm("hubPlusCheckout", formRef);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -80,7 +85,7 @@ export default function HubPlusJoinPage() {
     const data = await res.json().catch(() => null);
 
     if (!res.ok || !data?.url) {
-      setError(data?.error ?? "Something went wrong. Please try again.");
+      setError(data?.error ?? t("hubJoin.error"));
       setSubmitting(false);
       return;
     }
@@ -88,6 +93,7 @@ export default function HubPlusJoinPage() {
     // Hand off to Stripe's hosted checkout. `submitting` is intentionally left
     // true: the redirect takes a moment, and re-enabling the button would let
     // an impatient click start a second checkout session.
+    trackCompletion();
     window.location.assign(data.url);
   }
 
@@ -114,72 +120,65 @@ export default function HubPlusJoinPage() {
               Hub Plus
             </span>
             <h1 className="mt-5 text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl">
-              Go premium in under a minute.
+              {t("hubJoin.title")}
             </h1>
             <p className="mt-3 text-sm leading-relaxed text-white/70">
-              Instant access after checkout. No long forms, just the essentials.
+              {t("hubJoin.subtitle")}
             </p>
 
             <div className="mt-7 flex items-end gap-2">
               <span className="text-4xl font-extrabold">€9,99</span>
-              <span className="mb-1 text-sm text-white/60">/ month · VAT included</span>
+              <span className="mb-1 text-sm text-white/60">{t("hubJoin.perMonth")}</span>
             </div>
 
             <ul className="mt-7 flex flex-col gap-3">
-              {INCLUDED.map((item) => (
-                <li key={item} className="flex items-start gap-2.5 text-sm text-white/85">
+              {INCLUDED.map((key) => (
+                <li key={key} className="flex items-start gap-2.5 text-sm text-white/85">
                   <CheckIcon />
-                  {item}
-                </li>
-              ))}
-            </ul>
-
-            <p className="mt-7 text-[11px] font-bold uppercase tracking-wide text-white/45">
-              Coming soon
-            </p>
-            <ul className="mt-3 flex flex-col gap-2.5">
-              {COMING_SOON.map((item) => (
-                <li key={item} className="flex items-start gap-2.5 text-sm text-white/50">
-                  <SoonIcon />
-                  {item}
+                  {t(key)}
                 </li>
               ))}
             </ul>
 
             <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-1 pt-8 text-xs text-white/55">
-              <span className="inline-flex items-center gap-1.5"><LockIcon /> Secure checkout</span>
+              <span className="inline-flex items-center gap-1.5"><LockIcon /> {t("hubJoin.secure")}</span>
               {/* Matches the Cancellation & Refund Policy (September 2026):
                   cancel whenever you like, keep access to the end of the month
                   already paid for, and nothing further is charged. */}
-              <span>Monthly · cancel anytime</span>
+              <span>{t("hubJoin.monthly")}</span>
             </div>
           </div>
 
           {/* Sign-up + payment */}
           <div className="rounded-3xl border border-[#092A4D]/10 bg-white p-8 shadow-[0_2px_14px_rgba(9,42,77,0.06)] sm:p-10">
             {loading ? null : (
-              <form onSubmit={onSubmit}>
+              <form ref={formRef} onSubmit={onSubmit}>
                 <h2 className="text-lg font-bold" style={{ color: NAVY }}>
-                  Your details
+                  {t("hubJoin.details")}
                 </h2>
                 {user ? (
                   <p className="mt-4 rounded-xl bg-[#f6f8fb] px-4 py-3 text-sm" style={{ color: `${NAVY}A6` }}>
-                    Signed in as <span className="font-bold" style={{ color: NAVY }}>{user.email}</span>. Hub Plus is
-                    added to this account.
+                    {fill(t("hubJoin.signedIn"), {
+                      email: (
+                        <span className="font-bold" style={{ color: NAVY }}>
+                          {user.email}
+                        </span>
+                      ),
+                    })}
                   </p>
                 ) : (
                   <div className="mt-4 flex flex-col gap-3">
                     <Field
-                      label="Name"
+                      label={t("hubJoin.name")}
                       type="text"
-                      placeholder="Your name"
+                      placeholder={t("hubJoin.namePh")}
                       autoComplete="name"
                       required
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                     />
                     <Field
-                      label="Email"
+                      label={t("hubJoin.email")}
                       type="email"
                       placeholder="you@email.com"
                       autoComplete="email"
@@ -188,9 +187,9 @@ export default function HubPlusJoinPage() {
                       onChange={(e) => setEmail(e.target.value)}
                     />
                     <Field
-                      label="Password"
+                      label={t("hubJoin.password")}
                       type="password"
-                      placeholder="Create a password"
+                      placeholder={t("hubJoin.passwordPh")}
                       autoComplete="new-password"
                       required
                       minLength={6}
@@ -201,42 +200,22 @@ export default function HubPlusJoinPage() {
                 )}
 
                 <h2 className="mt-8 text-lg font-bold" style={{ color: NAVY }}>
-                  Payment method
+                  {t("hubJoin.payment")}
                 </h2>
-                <div className="mt-4 grid grid-cols-3 gap-3">
-                  <MethodButton selected={method === "applepay"} onClick={() => setMethod("applepay")}>
-                    <ApplePayMark />
-                  </MethodButton>
-                  <MethodButton selected={method === "wero"} onClick={() => setMethod("wero")}>
-                    <WeroMark />
-                  </MethodButton>
-                  <MethodButton selected={method === "card"} onClick={() => setMethod("card")}>
-                    <span className="flex items-center gap-1.5 text-sm font-bold" style={{ color: NAVY }}>
-                      <CardIcon /> Card
-                    </span>
-                  </MethodButton>
+
+                {/* No card fields and no payment-method picker here on purpose.
+                    Stripe's hosted page collects the payment, which is what
+                    keeps card details off this server entirely — and it decides
+                    which wallets to offer based on the visitor's device, so a
+                    picker on this page could only ever disagree with it. */}
+                <div className="mt-4 rounded-xl bg-[#f6f8fb] px-4 py-3.5">
+                  <p className="text-sm font-semibold" style={{ color: NAVY }}>
+                    {t("hubJoin.payMethods")}
+                  </p>
+                  <p className="mt-1.5 text-xs leading-relaxed" style={{ color: `${NAVY}99` }}>
+                    {t("hubJoin.payNote")}
+                  </p>
                 </div>
-
-                {method === "card" && (
-                  <div className="mt-4 flex flex-col gap-3">
-                    <Field label="Card number" type="text" placeholder="1234 1234 1234 1234" inputMode="numeric" />
-                    <div className="grid grid-cols-2 gap-3">
-                      <Field label="Expiry" type="text" placeholder="MM / YY" inputMode="numeric" />
-                      <Field label="CVC" type="text" placeholder="123" inputMode="numeric" />
-                    </div>
-                  </div>
-                )}
-
-                {method === "applepay" && (
-                  <p className="mt-4 rounded-xl bg-[#f6f8fb] px-4 py-3 text-xs leading-relaxed text-[#092A4D]/60">
-                    You&rsquo;ll confirm with Face ID / Touch ID on your device. No card details to type.
-                  </p>
-                )}
-                {method === "wero" && (
-                  <p className="mt-4 rounded-xl bg-[#f6f8fb] px-4 py-3 text-xs leading-relaxed text-[#092A4D]/60">
-                    You&rsquo;ll approve the payment in your bank&rsquo;s Wero wallet. No card details to type.
-                  </p>
-                )}
 
                 {/* Unticked by default and required to submit: the withdrawal
                     waiver only holds if the member actively gave it. Kept on its
@@ -267,28 +246,29 @@ export default function HubPlusJoinPage() {
                   className="mt-6 flex w-full items-center justify-center rounded-full py-4 text-base font-semibold text-white shadow-sm transition-opacity hover:opacity-90 disabled:opacity-60"
                   style={{ backgroundColor: ORANGE }}
                 >
-                  {submitting ? "Setting up your access…" : "Get instant access"}
+                  {submitting ? t("hubJoin.submitting") : t("hubJoin.submit")}
                 </button>
                 {/* Pre-contract information: EU rules expect the cancellation
                     and withdrawal terms to be reachable before paying, not only
                     afterwards, so the refund policy is linked here too. */}
                 <p className="mt-3 text-center text-xs leading-relaxed text-[#092A4D]/50">
-                  By continuing you agree to the{" "}
-                  <Link href="/legal/hub-plus-terms" className="underline">
-                    Hub Plus Terms
-                  </Link>
-                  ,{" "}
-                  <Link href="/legal/hub-plus-cancellation" className="underline">
-                    Cancellation &amp; Refund Policy
-                  </Link>{" "}
-                  and{" "}
-                  <Link href="/legal#privacy" className="underline">
-                    Privacy Policy
-                  </Link>
-                  .
-                </p>
-                <p className="mt-2 text-center text-xs font-semibold text-[#092A4D]/40">
-                  Preview: no payment is taken.
+                  {fill(t("hubJoin.agree"), {
+                    terms: (
+                      <Link href="/legal/hub-plus-terms" className="underline">
+                        {t("hubJoin.terms")}
+                      </Link>
+                    ),
+                    refund: (
+                      <Link href="/legal/hub-plus-cancellation" className="underline">
+                        {t("hubJoin.refund")}
+                      </Link>
+                    ),
+                    privacy: (
+                      <Link href="/legal#privacy" className="underline">
+                        {t("hubJoin.privacy")}
+                      </Link>
+                    ),
+                  })}
                 </p>
               </form>
             )}
@@ -316,28 +296,6 @@ function Field({
   );
 }
 
-function MethodButton({
-  selected,
-  onClick,
-  children,
-}: {
-  selected: boolean;
-  onClick: () => void;
-  children: React.ReactNode;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`flex h-14 items-center justify-center rounded-xl border-2 bg-white transition-colors ${
-        selected ? "border-[#fd7933] bg-[#fff4ec]" : "border-[#092A4D]/12 hover:border-[#092A4D]/25"
-      }`}
-    >
-      {children}
-    </button>
-  );
-}
-
 function BackIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -354,16 +312,6 @@ function CheckIcon() {
   );
 }
 
-/** Deliberately not a tick: a clock reads as "later", a tick reads as "yours". */
-function SoonIcon() {
-  return (
-    <svg className="mt-0.5 shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <circle cx="12" cy="12" r="9" />
-      <path d="M12 7v5l3 2" />
-    </svg>
-  );
-}
-
 function LockIcon() {
   return (
     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -373,30 +321,3 @@ function LockIcon() {
   );
 }
 
-function CardIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <rect x="2" y="5" width="20" height="14" rx="2" />
-      <path d="M2 10h20" />
-    </svg>
-  );
-}
-
-function ApplePayMark() {
-  return (
-    <span className="flex items-center gap-1 text-sm font-bold" style={{ color: NAVY }}>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        <path d="M16.4 12.9c0-2 1.6-2.9 1.7-3-.9-1.4-2.4-1.5-2.9-1.6-1.2-.1-2.4.7-3 .7-.6 0-1.6-.7-2.6-.7-1.3 0-2.6.8-3.3 2-1.4 2.4-.4 6 1 8 .7 1 1.4 2 2.4 2 1 0 1.3-.6 2.5-.6 1.1 0 1.5.6 2.5.6 1 0 1.7-.9 2.3-1.9.7-1.1 1-2.1 1-2.2 0 0-2-.8-2.1-3.3zM14.6 6.9c.5-.7.9-1.6.8-2.6-.8 0-1.8.5-2.4 1.2-.5.6-1 1.5-.8 2.5.9.1 1.8-.5 2.4-1.1z" />
-      </svg>
-      Pay
-    </span>
-  );
-}
-
-function WeroMark() {
-  return (
-    <span className="text-base font-extrabold lowercase tracking-tight" style={{ color: "#e5007d" }}>
-      wero
-    </span>
-  );
-}

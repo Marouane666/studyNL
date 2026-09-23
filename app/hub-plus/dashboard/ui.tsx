@@ -5,8 +5,20 @@
 
 export const NAVY = "#092A4D";
 export const NAVY_DEEP = "#061b33";
+/** Brand orange. In the member area it's kept for the StudyNL wordmark only. */
 export const ORANGE = "#fd7933";
-export const PAGE = "#f4f7fb";
+
+// Hub Plus has its own colourway, navy with gold on warm ivory, so the member
+// area feels premium next to the public site while showing the same content.
+/** Fills, icons and accents; on light backgrounds pair it with navy text. */
+export const GOLD = "#c9a45c";
+/** Highlights on navy and the light end of gradients. */
+export const GOLD_LIGHT = "#e6cf9a";
+/** Gold for text and links on light backgrounds (4.5:1 on white and ivory). */
+export const GOLD_TEXT = "#8a6a2b";
+/** Tinted background for icon chips and tags. */
+export const GOLD_SOFT = "#f5ecd9";
+export const PAGE = "#f7f4ee";
 
 export type DashPage = {
   href: string;
@@ -76,7 +88,7 @@ export function Panel({
 }) {
   return (
     <article
-      className={`rounded-3xl border border-[#dfe8f1] bg-white shadow-[0_10px_30px_rgba(6,27,51,0.05)] ${className}`}
+      className={`rounded-3xl border border-[#ebe3d3] bg-white shadow-[0_10px_30px_rgba(6,27,51,0.05)] ${className}`}
     >
       {children}
     </article>

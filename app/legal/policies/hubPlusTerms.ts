@@ -2,12 +2,8 @@ import type { Policy } from "./types";
 
 // Supplied by StudyNL, September 2026. Reproduced verbatim — do not reword.
 //
-// NOTE FOR THE TEAM: section 1 lists every Hub Plus benefit as included,
-// including Priority Q&A, the housing route, premium listings, partner
-// guidance, association introductions and the ISIC card. The checkout page
-// (app/hub-plus/join) currently shows those six as "Coming soon", because they
-// are not deliverable yet. Section 2 is written to cover that gap, but the two
-// pages still say different things to the same customer — see the launch notes.
+// Section 1 lists every Hub Plus benefit as included; the checkout page
+// (app/hub-plus/join) shows the same list, all as included.
 
 export const hubPlusTerms: Policy = {
   slug: "hub-plus-terms",

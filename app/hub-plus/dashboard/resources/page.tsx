@@ -6,7 +6,7 @@
 import Link from "next/link";
 import { useT } from "../../../i18n/I18nProvider";
 import { GUIDES } from "../../../guides/guides";
-import { NAVY, ORANGE, PageIntro, Panel } from "../ui";
+import { GOLD_SOFT, GOLD_TEXT, NAVY, PageIntro, Panel } from "../ui";
 
 export default function DashboardResourcesPage() {
   const t = useT();
@@ -23,12 +23,12 @@ export default function DashboardResourcesPage() {
                 <div className="flex items-center justify-between gap-3">
                   <span
                     className="grid size-9 place-items-center rounded-xl text-[10px] font-extrabold"
-                    style={{ color: ORANGE, backgroundColor: "#ffe6da" }}
+                    style={{ color: GOLD_TEXT, backgroundColor: GOLD_SOFT }}
                     aria-hidden="true"
                   >
                     {t("hubDash.library.tag")}
                   </span>
-                  <span className="rounded-full bg-[#eef5fb] px-2.5 py-1.5 text-[9px] font-extrabold uppercase tracking-wide text-[#54718c]">
+                  <span className="rounded-full bg-[#f5ecd9] px-2.5 py-1.5 text-[9px] font-extrabold uppercase tracking-wide text-[#7a5f2a]">
                     {t(guide.catKey)}
                   </span>
                 </div>
@@ -43,7 +43,7 @@ export default function DashboardResourcesPage() {
                   style={{ color: NAVY }}
                 >
                   {t("hubDash.library.open")}
-                  <span style={{ color: ORANGE }} aria-hidden="true">
+                  <span style={{ color: GOLD_TEXT }} aria-hidden="true">
                     →
                   </span>
                 </span>

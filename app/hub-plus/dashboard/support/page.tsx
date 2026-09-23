@@ -7,7 +7,7 @@
 
 import Link from "next/link";
 import { useT } from "../../../i18n/I18nProvider";
-import { NAVY, ORANGE, PageIntro, Panel } from "../ui";
+import { GOLD, GOLD_LIGHT, GOLD_TEXT, NAVY, NAVY_DEEP, PageIntro, Panel } from "../ui";
 
 export default function DashboardSupportPage() {
   const t = useT();
@@ -19,8 +19,8 @@ export default function DashboardSupportPage() {
       <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
         <Panel className="flex flex-col p-6 sm:p-8">
           <span
-            className="grid size-11 place-items-center rounded-2xl text-lg text-white"
-            style={{ background: "linear-gradient(145deg, #0d3a68, #1d5d91)" }}
+            className="grid size-11 place-items-center rounded-2xl text-lg"
+            style={{ background: `linear-gradient(145deg, ${NAVY_DEEP}, #0d3a68)`, color: GOLD_LIGHT }}
             aria-hidden="true"
           >
             ?
@@ -33,8 +33,8 @@ export default function DashboardSupportPage() {
           </p>
           <Link
             href="/contact"
-            className="mt-6 inline-flex w-fit items-center rounded-full px-6 py-3 text-sm font-semibold text-white shadow-sm transition-opacity hover:opacity-90"
-            style={{ backgroundColor: ORANGE }}
+            className="mt-6 inline-flex w-fit items-center rounded-full px-6 py-3 text-sm font-semibold shadow-sm transition-opacity hover:opacity-90"
+            style={{ backgroundColor: GOLD, color: NAVY_DEEP }}
           >
             {t("hubDash.benefit.qa.cta")}
           </Link>
@@ -53,21 +53,21 @@ export default function DashboardSupportPage() {
           <div className="mt-5 grid gap-2">
             <Link
               href="/help-centre"
-              className="flex items-center justify-between rounded-2xl bg-[#f6f9fc] px-4 py-3 text-xs font-extrabold transition-colors hover:bg-[#eef4fa]"
+              className="flex items-center justify-between rounded-2xl bg-[#faf7f1] px-4 py-3 text-xs font-extrabold transition-colors hover:bg-[#f3ecdf]"
               style={{ color: NAVY }}
             >
               {t("hubDash.support.helpCentre")}
-              <span style={{ color: ORANGE }} aria-hidden="true">
+              <span style={{ color: GOLD_TEXT }} aria-hidden="true">
                 →
               </span>
             </Link>
             <Link
               href="/hub-plus/dashboard/community"
-              className="flex items-center justify-between rounded-2xl bg-[#f6f9fc] px-4 py-3 text-xs font-extrabold transition-colors hover:bg-[#eef4fa]"
+              className="flex items-center justify-between rounded-2xl bg-[#faf7f1] px-4 py-3 text-xs font-extrabold transition-colors hover:bg-[#f3ecdf]"
               style={{ color: NAVY }}
             >
               {t("hubDash.nav.community")}
-              <span style={{ color: ORANGE }} aria-hidden="true">
+              <span style={{ color: GOLD_TEXT }} aria-hidden="true">
                 →
               </span>
             </Link>

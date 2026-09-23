@@ -8,7 +8,7 @@ import { useAuth } from "../../auth/AuthProvider";
 import { useT } from "../../i18n/I18nProvider";
 import { GUIDES } from "../../guides/guides";
 import { TASK_HREFS, taskTitleKey } from "../../start/tasks";
-import { NAVY, NAVY_DEEP, ORANGE, Panel } from "./ui";
+import { GOLD, GOLD_LIGHT, GOLD_SOFT, GOLD_TEXT, NAVY, NAVY_DEEP, Panel } from "./ui";
 import { type PlanProgress, usePlanProgress } from "./usePlanProgress";
 
 // Slugs, not indexes, so reordering the guide catalogue can't silently change
@@ -62,11 +62,11 @@ export default function DashboardOverviewPage() {
       <section
         className="overflow-hidden rounded-3xl px-7 py-9 text-white shadow-[0_18px_55px_rgba(6,27,51,0.13)] sm:px-10 sm:py-11"
         style={{
-          background: `radial-gradient(circle at 88% 20%, rgba(157,230,223,.16), transparent 45%), linear-gradient(115deg, ${NAVY_DEEP} 30%, #0d3a68 100%)`,
+          background: `radial-gradient(circle at 88% 20%, rgba(201,164,92,.18), transparent 45%), linear-gradient(115deg, ${NAVY_DEEP} 30%, #0d3a68 100%)`,
         }}
       >
-        <span className="inline-flex items-center gap-2 rounded-full border border-[#9de6df]/25 bg-[#9de6df]/10 px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.09em] text-[#9de6df]">
-          <span style={{ color: ORANGE }} aria-hidden="true">
+        <span className="inline-flex items-center gap-2 rounded-full border border-[#c9a45c]/35 bg-[#c9a45c]/10 px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.09em] text-[#e6cf9a]">
+          <span style={{ color: GOLD }} aria-hidden="true">
             ✦
           </span>
           {t("hubDash.chip.member")}
@@ -82,8 +82,8 @@ export default function DashboardOverviewPage() {
         <div className="mt-7 flex flex-wrap gap-3">
           <Link
             href="/hub-plus/dashboard/plan"
-            className="inline-flex min-h-11 items-center rounded-2xl px-5 text-xs font-extrabold text-white shadow-[0_10px_22px_rgba(255,113,55,0.25)] transition-opacity hover:opacity-90"
-            style={{ backgroundColor: ORANGE }}
+            className="inline-flex min-h-11 items-center rounded-2xl px-5 text-xs font-extrabold shadow-[0_10px_22px_rgba(201,164,92,0.3)] transition-opacity hover:opacity-90"
+            style={{ backgroundColor: GOLD, color: NAVY_DEEP }}
           >
             {t("hubDash.hero.ctaPlan")} →
           </Link>
@@ -113,7 +113,7 @@ export default function DashboardOverviewPage() {
         <Link
           href="/hub-plus"
           className="text-[11px] font-extrabold hover:underline"
-          style={{ color: ORANGE }}
+          style={{ color: GOLD_TEXT }}
         >
           {t("hubDash.benefits.viewAll")} →
         </Link>
@@ -152,8 +152,8 @@ function ProgressCard({ progress }: { progress: PlanProgress | null }) {
         </div>
         <Link
           href="/start"
-          className="inline-flex items-center rounded-full px-5 py-2.5 text-xs font-extrabold text-white transition-opacity hover:opacity-90"
-          style={{ backgroundColor: ORANGE }}
+          className="inline-flex items-center rounded-full px-5 py-2.5 text-xs font-extrabold transition-opacity hover:opacity-90"
+          style={{ backgroundColor: GOLD, color: NAVY_DEEP }}
         >
           {t("hubDash.progress.build")}
         </Link>
@@ -175,12 +175,12 @@ function ProgressCard({ progress }: { progress: PlanProgress | null }) {
         </p>
       </div>
       <div className="flex min-w-[210px] items-center gap-3.5">
-        <div className="h-2 flex-1 overflow-hidden rounded-full bg-[#e8eef5]">
+        <div className="h-2 flex-1 overflow-hidden rounded-full bg-[#eee6d6]">
           <div
             className="h-full rounded-full transition-[width] duration-500"
             style={{
               width: `${percent}%`,
-              background: `linear-gradient(90deg, ${ORANGE}, #ffb37d)`,
+              background: `linear-gradient(90deg, ${GOLD}, ${GOLD_LIGHT})`,
             }}
           />
         </div>
@@ -203,7 +203,7 @@ function NextStepCard({ progress }: { progress: PlanProgress | null }) {
     <Panel className="flex items-center justify-between gap-4 p-6">
       <span
         className="grid size-11 shrink-0 place-items-center rounded-2xl text-lg"
-        style={{ color: ORANGE, backgroundColor: "#ffe6da" }}
+        style={{ color: GOLD_TEXT, backgroundColor: GOLD_SOFT }}
         aria-hidden="true"
       >
         ↗
@@ -223,7 +223,7 @@ function NextStepCard({ progress }: { progress: PlanProgress | null }) {
       <Link
         href={nextTask ? TASK_HREFS[nextTask] : "/hub-plus/dashboard/plan"}
         className="shrink-0 whitespace-nowrap text-[11px] font-extrabold hover:underline"
-        style={{ color: ORANGE }}
+        style={{ color: GOLD_TEXT }}
       >
         {nextTask ? t("hubDash.next.open") : t("hubDash.next.openPlan")}
       </Link>
@@ -237,13 +237,13 @@ function BenefitCard({ benefit }: { benefit: Benefit }) {
     <Panel className="flex flex-col p-5">
       <div className="flex items-center justify-between gap-3">
         <span
-          className="grid size-10 place-items-center rounded-2xl text-base text-white"
-          style={{ background: "linear-gradient(145deg, #0d3a68, #1d5d91)" }}
+          className="grid size-10 place-items-center rounded-2xl text-base"
+          style={{ background: `linear-gradient(145deg, ${NAVY_DEEP}, #0d3a68)`, color: GOLD_LIGHT }}
           aria-hidden="true"
         >
           {benefit.icon}
         </span>
-        <span className="rounded-full bg-[#eef5fb] px-2.5 py-1.5 text-[9px] font-extrabold uppercase tracking-wide text-[#54718c]">
+        <span className="rounded-full bg-[#f5ecd9] px-2.5 py-1.5 text-[9px] font-extrabold uppercase tracking-wide text-[#7a5f2a]">
           {t(benefit.deliveryKey)}
         </span>
       </div>
@@ -259,7 +259,7 @@ function BenefitCard({ benefit }: { benefit: Benefit }) {
         style={{ color: NAVY }}
       >
         <span>{t(benefit.ctaKey)}</span>
-        <span style={{ color: ORANGE }}>→</span>
+        <span style={{ color: GOLD_TEXT }}>→</span>
       </Link>
     </Panel>
   );
@@ -280,7 +280,7 @@ function LibraryPreview() {
         <Link
           href="/hub-plus/dashboard/resources"
           className="text-[11px] font-extrabold hover:underline"
-          style={{ color: ORANGE }}
+          style={{ color: GOLD_TEXT }}
         >
           {t("hubDash.nav.resources")} →
         </Link>
@@ -292,11 +292,11 @@ function LibraryPreview() {
             <li key={g.slug}>
               <Link
                 href={`/guides/${g.slug}`}
-                className="flex items-center gap-3 rounded-2xl bg-[#f6f9fc] p-3 transition-colors hover:bg-[#eef4fa]"
+                className="flex items-center gap-3 rounded-2xl bg-[#faf7f1] p-3 transition-colors hover:bg-[#f3ecdf]"
               >
                 <span
                   className="grid size-9 shrink-0 place-items-center rounded-xl text-[10px] font-extrabold"
-                  style={{ color: ORANGE, backgroundColor: "#ffe6da" }}
+                  style={{ color: GOLD_TEXT, backgroundColor: GOLD_SOFT }}
                   aria-hidden="true"
                 >
                   {t("hubDash.library.tag")}

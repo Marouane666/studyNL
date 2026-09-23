@@ -2,6 +2,9 @@
 
 import Link from "next/link";
 import { useT } from "../i18n/I18nProvider";
+import { COMPANY } from "@/lib/legal";
+import { hasAnalytics } from "@/lib/siteConfig";
+import { openConsentSettings } from "../analytics/consent";
 
 const NAVY = "#03294f";
 
@@ -97,8 +100,14 @@ export function Footer() {
           className="mt-14 flex flex-col gap-4 border-t pt-6 sm:flex-row sm:items-center sm:justify-between"
           style={{ borderColor: `${NAVY}1f` }}
         >
-          <p className="text-xs" style={{ color: `${NAVY}A6` }}>
-            {t("footer.copyright")}
+          {/* Not translated, and deliberately so: a company name, a KVK number
+              and a year read the same in every language, and this doubles as the
+              trader identification EU rules expect a seller to publish.
+              The year is computed rather than written down — the old string said
+              2035, which is the failure mode of hardcoding it. */}
+          <p className="text-xs" style={{ color: `${NAVY}A6` }} suppressHydrationWarning>
+            © {new Date().getFullYear()} {COMPANY.legalName} · KVK{" "}
+            {COMPANY.registrationNumber} · {COMPANY.registeredAddress}
           </p>
 
           <nav aria-label={t("footer.l.legal")}>
@@ -114,6 +123,19 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
+              {/* Withdrawing consent has to be as easy as giving it. */}
+              {hasAnalytics() && (
+                <li>
+                  <button
+                    type="button"
+                    onClick={openConsentSettings}
+                    className="text-xs font-semibold transition-opacity hover:opacity-70"
+                    style={{ color: `${NAVY}CC` }}
+                  >
+                    {t("cookies.settings")}
+                  </button>
+                </li>
+              )}
             </ul>
           </nav>
         </div>

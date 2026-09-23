@@ -19,6 +19,10 @@ import {
   DASH_PAGES,
   NAVY,
   NAVY_DEEP,
+  GOLD,
+  GOLD_LIGHT,
+  GOLD_SOFT,
+  GOLD_TEXT,
   ORANGE,
   PAGE,
   type DashPage,
@@ -76,7 +80,7 @@ function Gate() {
     <div className="mt-6 rounded-3xl bg-white p-8 shadow-[0_2px_14px_rgba(9,42,77,0.06)] sm:p-10">
       <span
         className="inline-flex items-center rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wide"
-        style={{ color: ORANGE, backgroundColor: `${ORANGE}1a` }}
+        style={{ color: GOLD_TEXT, backgroundColor: GOLD_SOFT }}
       >
         {t("hubplus.badge")}
       </span>
@@ -94,8 +98,8 @@ function Gate() {
         <div className="mt-6">
           <Link
             href="/hub-plus/join"
-            className="inline-flex items-center rounded-full px-6 py-3 text-sm font-semibold text-white shadow-sm transition-opacity hover:opacity-90"
-            style={{ backgroundColor: ORANGE }}
+            className="inline-flex items-center rounded-full px-6 py-3 text-sm font-semibold shadow-sm transition-opacity hover:opacity-90"
+            style={{ backgroundColor: GOLD, color: NAVY_DEEP }}
           >
             {lapsed ? t("hubDash.lapsed.cta") : t("hubDash.locked.join")}
           </Link>
@@ -117,14 +121,14 @@ function Sidebar() {
     <aside
       className="sticky top-0 hidden h-screen flex-col overflow-y-auto p-6 text-white lg:flex"
       style={{
-        background: `radial-gradient(circle at 0 15%, rgba(157,230,223,.15), transparent 35%), linear-gradient(180deg, ${NAVY_DEEP} 0%, #092f56 100%)`,
+        background: `radial-gradient(circle at 0 15%, rgba(201,164,92,.16), transparent 35%), linear-gradient(180deg, ${NAVY_DEEP} 0%, #092f56 100%)`,
       }}
     >
       <div className="flex items-center justify-between gap-2">
         <Link href="/hub-plus/dashboard" className="text-[25px] font-extrabold tracking-tight">
           Study<span style={{ color: ORANGE }}>NL</span>
         </Link>
-        <span className="rounded-full border border-white/20 px-2 py-1.5 text-[10px] font-extrabold tracking-[0.12em] text-[#9de6df]">
+        <span className="rounded-full border border-[#c9a45c]/45 px-2 py-1.5 text-[10px] font-extrabold tracking-[0.12em] text-[#e6cf9a]">
           HUB PLUS
         </span>
       </div>
@@ -153,8 +157,8 @@ function Sidebar() {
           <p className="mt-1.5 text-[11px] leading-relaxed text-white/60">{t("hubDash.help.body")}</p>
           <Link
             href="/contact"
-            className="mt-3 flex w-full items-center justify-center rounded-xl bg-white px-3 py-2.5 text-[11px] font-extrabold transition-opacity hover:opacity-90"
-            style={{ color: NAVY }}
+            className="mt-3 flex w-full items-center justify-center rounded-xl px-3 py-2.5 text-[11px] font-extrabold transition-opacity hover:opacity-90"
+            style={{ backgroundColor: GOLD, color: NAVY_DEEP }}
           >
             {t("hubDash.help.cta")}
           </Link>
@@ -186,7 +190,9 @@ function SideLink({ page, active }: { page: DashPage; active: boolean }) {
       }`}
     >
       <span
-        className="grid size-6 shrink-0 place-items-center rounded-lg bg-white/10 text-[11px]"
+        className={`grid size-6 shrink-0 place-items-center rounded-lg text-[11px] ${
+          active ? "bg-[#c9a45c]/20 text-[#e6cf9a]" : "bg-white/10"
+        }`}
         aria-hidden="true"
       >
         {page.icon}
@@ -203,7 +209,7 @@ function Topbar({ name }: { name: string }) {
   const current = ALL_PAGES.find((p) => isCurrent(pathname, p.href));
 
   return (
-    <header className="sticky top-0 z-20 flex h-16 items-center justify-between gap-3 border-b border-[#0a2847]/8 bg-white/85 px-4 backdrop-blur-xl sm:h-[78px] sm:px-8">
+    <header className="sticky top-0 z-20 flex h-16 items-center justify-between gap-3 border-b border-[#c9a45c]/20 bg-white/85 px-4 backdrop-blur-xl sm:h-[78px] sm:px-8">
       {/* On phones the sidebar is gone, so the wordmark doubles as the way back
           to the public site; the eyebrow + page title take over from sm up. */}
       <Link href="/" className="text-xl font-bold tracking-tight sm:hidden">
@@ -238,7 +244,7 @@ function Topbar({ name }: { name: string }) {
         </button>
         <span
           className="grid size-9 shrink-0 place-items-center rounded-xl text-sm font-extrabold text-white sm:size-[38px]"
-          style={{ background: `linear-gradient(135deg, #0d3a68, ${ORANGE})` }}
+          style={{ background: `linear-gradient(135deg, ${NAVY_DEEP}, ${GOLD})` }}
           aria-hidden="true"
         >
           {name.trim().charAt(0).toUpperCase() || "?"}
@@ -270,7 +276,7 @@ function BottomNav() {
               active ? "text-white" : "text-white/60"
             }`}
           >
-            <span className="text-[15px]" style={active ? { color: ORANGE } : undefined} aria-hidden="true">
+            <span className="text-[15px]" style={active ? { color: GOLD_LIGHT } : undefined} aria-hidden="true">
               {page.icon}
             </span>
             <span className="w-full truncate text-center">{t(page.shortKey ?? page.labelKey)}</span>
