@@ -15,11 +15,14 @@ export function AuthPanel({
   signupSubtitle,
   hideSignup,
   initialMode = "login",
+  onSuccess,
 }: {
   loginSubtitle?: string;
   signupSubtitle?: string;
   hideSignup?: boolean;
   initialMode?: Mode;
+  /** Called after a successful log-in or sign-up. */
+  onSuccess?: () => void;
 }) {
   const t = useT();
   const { login, signup } = useAuth();
@@ -65,8 +68,12 @@ export function AuthPanel({
 
     const result = isLogin ? await login(email, password) : await signup(name, email, password);
     setSubmitting(false);
-    if (result.error) setError(result.error);
-    else if (isSignup) trackSignup();
+    if (result.error) {
+      setError(result.error);
+      return;
+    }
+    if (isSignup) trackSignup();
+    onSuccess?.();
   }
 
   return (
