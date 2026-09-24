@@ -208,6 +208,10 @@ export default function HubPlusPage() {
           </a>
         </div>
 
+        {/* Copy supplied by StudyNL, September 2026. */}
+        <BenefitSection prefix="hubplus.listings" />
+        <BenefitSection prefix="hubplus.assoc" />
+
         <div className="mt-8 rounded-2xl bg-[#f6f8fb] p-8 text-center sm:p-10">
           <h2 className="text-xl font-bold" style={{ color: NAVY }}>
             {t("hubplus.cta.title")}
@@ -225,6 +229,31 @@ export default function HubPlusPage() {
         </div>
       </div>
     </section>
+  );
+}
+
+/**
+ * A benefit told in full: eyebrow, headline, three paragraphs and a closing
+ * line, all read from `${prefix}.*` dictionary keys. Styled like the
+ * fraternity and ISIC sections above so the page reads as one list.
+ */
+function BenefitSection({ prefix }: { prefix: string }) {
+  const t = useT();
+  return (
+    <div className="mt-6 rounded-3xl bg-[#f6f8fb] p-8 sm:p-10">
+      <Eyebrow>{t(`${prefix}.eyebrow`)}</Eyebrow>
+      <h2 className="mt-4 max-w-2xl text-2xl font-extrabold leading-tight tracking-tight sm:text-3xl" style={{ color: NAVY }}>
+        {t(`${prefix}.title`)}
+      </h2>
+      <div className="mt-5 flex max-w-3xl flex-col gap-4 text-sm leading-relaxed sm:text-base" style={{ color: `${NAVY}B3` }}>
+        <p>{t(`${prefix}.p1`)}</p>
+        <p>{t(`${prefix}.p2`)}</p>
+        <p>{t(`${prefix}.p3`)}</p>
+      </div>
+      <p className="mt-6 max-w-3xl text-sm font-bold leading-relaxed sm:text-base" style={{ color: NAVY }}>
+        {t(`${prefix}.closing`)}
+      </p>
+    </div>
   );
 }
 

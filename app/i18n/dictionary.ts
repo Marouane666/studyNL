@@ -1041,6 +1041,20 @@ const en: Dict = {
   "cookies.accept": "Accept",
   "cookies.decline": "Decline",
   "cookies.settings": "Cookie settings",
+
+  // Hub Plus page: premium listings + association introductions
+  "hubplus.listings.eyebrow": "Premium property listings",
+  "hubplus.listings.title": "Find your next home before everyone else.",
+  "hubplus.listings.p1": "As a Hub Plus member you receive access to a more exclusive property search experience, designed to make finding quality student accommodation simpler, faster and more reassuring.",
+  "hubplus.listings.p2": "Through our network of selected accommodation partners, members can discover premium and featured property listings, including opportunities that may be highlighted to the Hub Plus community before being promoted more widely.",
+  "hubplus.listings.p3": "Whether you’re looking for a private studio, modern apartment, shared accommodation or something closer to campus, Hub Plus gives you a more considered route to finding the right home.",
+  "hubplus.listings.closing": "Your new home shouldn’t be left to chance. Hub Plus gives you a better place to start.",
+  "hubplus.assoc.eyebrow": "Priority introductions to student associations",
+  "hubplus.assoc.title": "Your university network starts before your first day.",
+  "hubplus.assoc.p1": "Moving to a new university and potentially a new country is about far more than where you study. The people you meet, communities you join and connections you build can shape your entire experience.",
+  "hubplus.assoc.p2": "Hub Plus members receive priority introductions to relevant student associations (fraternities) and communities within our network, helping you discover organisations aligned with your university, city, interests and background.",
+  "hubplus.assoc.p3": "From academic and international student associations to social, cultural, professional and special-interest communities, we’ll help make those first connections easier, giving you opportunities to meet people, expand your network and become part of student life from the outset.",
+  "hubplus.assoc.closing": "Arrive with more than a university place. Arrive with a network waiting for you.",
 };
 
 const es: Dict = {
@@ -2007,6 +2021,20 @@ const es: Dict = {
   "cookies.accept": "Aceptar",
   "cookies.decline": "Rechazar",
   "cookies.settings": "Configuración de cookies",
+
+  // Hub Plus page: premium listings + association introductions
+  "hubplus.listings.eyebrow": "Anuncios de alojamiento premium",
+  "hubplus.listings.title": "Encuentra tu próximo hogar antes que nadie.",
+  "hubplus.listings.p1": "Como miembro de Hub Plus accedes a una búsqueda de alojamiento más exclusiva, pensada para que encontrar un alojamiento de calidad para estudiantes sea más sencillo, rápido y tranquilo.",
+  "hubplus.listings.p2": "A través de nuestra red de socios de alojamiento seleccionados, los miembros pueden descubrir anuncios premium y destacados, incluidas oportunidades que pueden mostrarse a la comunidad Hub Plus antes de promocionarse de forma más amplia.",
+  "hubplus.listings.p3": "Tanto si buscas un estudio privado, un apartamento moderno, un piso compartido o algo más cerca del campus, Hub Plus te ofrece un camino más cuidado para encontrar el hogar adecuado.",
+  "hubplus.listings.closing": "Tu nuevo hogar no debería dejarse al azar. Hub Plus te da un mejor punto de partida.",
+  "hubplus.assoc.eyebrow": "Presentaciones prioritarias a asociaciones de estudiantes",
+  "hubplus.assoc.title": "Tu red universitaria empieza antes de tu primer día.",
+  "hubplus.assoc.p1": "Mudarse a una nueva universidad, y quizá a un nuevo país, es mucho más que el lugar donde estudias. Las personas que conoces, las comunidades a las que te unes y los contactos que haces pueden marcar toda tu experiencia.",
+  "hubplus.assoc.p2": "Los miembros de Hub Plus reciben presentaciones prioritarias a asociaciones de estudiantes (fraternidades) y comunidades relevantes de nuestra red, para ayudarte a descubrir organizaciones afines a tu universidad, ciudad, intereses y origen.",
+  "hubplus.assoc.p3": "Desde asociaciones académicas e internacionales hasta comunidades sociales, culturales, profesionales y de intereses específicos, te ayudaremos a dar esos primeros pasos, con oportunidades para conocer gente, ampliar tu red y formar parte de la vida estudiantil desde el principio.",
+  "hubplus.assoc.closing": "Llega con algo más que una plaza en la universidad. Llega con una red esperándote.",
 };
 
 const de: Dict = {
@@ -2871,6 +2899,20 @@ const de: Dict = {
   "cookies.accept": "Akzeptieren",
   "cookies.decline": "Ablehnen",
   "cookies.settings": "Cookie-Einstellungen",
+
+  // Hub Plus page: premium listings + association introductions
+  "hubplus.listings.eyebrow": "Premium-Wohnungsangebote",
+  "hubplus.listings.title": "Finde dein nächstes Zuhause vor allen anderen.",
+  "hubplus.listings.p1": "Als Hub-Plus-Mitglied erhältst du Zugang zu einer exklusiveren Wohnungssuche, die es einfacher, schneller und sicherer macht, eine gute Studentenunterkunft zu finden.",
+  "hubplus.listings.p2": "Über unser Netzwerk ausgewählter Unterkunftspartner entdecken Mitglieder Premium- und hervorgehobene Angebote, darunter auch Möglichkeiten, die der Hub-Plus-Community gezeigt werden können, bevor sie breiter beworben werden.",
+  "hubplus.listings.p3": "Ob du ein eigenes Studio, eine moderne Wohnung, eine WG oder etwas näher am Campus suchst: Hub Plus bietet dir einen durchdachteren Weg zum passenden Zuhause.",
+  "hubplus.listings.closing": "Dein neues Zuhause sollte nicht dem Zufall überlassen bleiben. Hub Plus gibt dir einen besseren Ausgangspunkt.",
+  "hubplus.assoc.eyebrow": "Bevorzugte Kontakte zu Studentenvereinigungen",
+  "hubplus.assoc.title": "Dein Uni-Netzwerk beginnt vor deinem ersten Tag.",
+  "hubplus.assoc.p1": "Der Umzug an eine neue Universität, vielleicht sogar in ein neues Land, ist weit mehr als die Frage, wo du studierst. Die Menschen, die du triffst, die Gemeinschaften, denen du beitrittst, und die Kontakte, die du knüpfst, können deine ganze Studienzeit prägen.",
+  "hubplus.assoc.p2": "Hub-Plus-Mitglieder werden bevorzugt mit passenden Studentenvereinigungen (Studentenverbindungen) und Gemeinschaften in unserem Netzwerk bekannt gemacht, damit du Organisationen findest, die zu deiner Universität, deiner Stadt, deinen Interessen und deinem Hintergrund passen.",
+  "hubplus.assoc.p3": "Von akademischen und internationalen Studentenvereinigungen bis zu sozialen, kulturellen, beruflichen und themenbezogenen Gemeinschaften: Wir erleichtern dir die ersten Kontakte, damit du Leute kennenlernst, dein Netzwerk ausbaust und von Anfang an Teil des Studentenlebens bist.",
+  "hubplus.assoc.closing": "Komm mit mehr als einem Studienplatz an. Komm mit einem Netzwerk an, das auf dich wartet.",
 };
 
 const fr: Dict = {
@@ -3738,6 +3780,20 @@ const fr: Dict = {
   "cookies.accept": "Accepter",
   "cookies.decline": "Refuser",
   "cookies.settings": "Paramètres des cookies",
+
+  // Hub Plus page: premium listings + association introductions
+  "hubplus.listings.eyebrow": "Annonces de logement premium",
+  "hubplus.listings.title": "Trouvez votre prochain logement avant tout le monde.",
+  "hubplus.listings.p1": "En tant que membre Hub Plus, vous accédez à une recherche de logement plus exclusive, pensée pour rendre la recherche d’un logement étudiant de qualité plus simple, plus rapide et plus rassurante.",
+  "hubplus.listings.p2": "Grâce à notre réseau de partenaires de logement sélectionnés, les membres découvrent des annonces premium et mises en avant, y compris des opportunités qui peuvent être présentées à la communauté Hub Plus avant d’être diffusées plus largement.",
+  "hubplus.listings.p3": "Que vous cherchiez un studio privé, un appartement moderne, une colocation ou un logement plus proche du campus, Hub Plus vous offre une manière plus réfléchie de trouver le bon logement.",
+  "hubplus.listings.closing": "Votre nouveau logement ne devrait pas être laissé au hasard. Hub Plus vous offre un meilleur point de départ.",
+  "hubplus.assoc.eyebrow": "Mises en relation prioritaires avec des associations étudiantes",
+  "hubplus.assoc.title": "Votre réseau universitaire commence avant votre premier jour.",
+  "hubplus.assoc.p1": "S’installer dans une nouvelle université, et parfois dans un nouveau pays, va bien au-delà du lieu où vous étudiez. Les personnes que vous rencontrez, les communautés que vous rejoignez et les liens que vous créez peuvent façonner toute votre expérience.",
+  "hubplus.assoc.p2": "Les membres Hub Plus bénéficient de mises en relation prioritaires avec des associations étudiantes (fraternités) et des communautés de notre réseau, pour découvrir des organisations en phase avec votre université, votre ville, vos centres d’intérêt et votre parcours.",
+  "hubplus.assoc.p3": "Des associations académiques et internationales aux communautés sociales, culturelles, professionnelles ou thématiques, nous facilitons ces premiers contacts pour vous permettre de rencontrer du monde, d’élargir votre réseau et de faire partie de la vie étudiante dès le départ.",
+  "hubplus.assoc.closing": "Arrivez avec plus qu’une place à l’université. Arrivez avec un réseau qui vous attend.",
 };
 
 const it: Dict = {
@@ -4606,6 +4662,20 @@ const it: Dict = {
   "cookies.accept": "Accetta",
   "cookies.decline": "Rifiuta",
   "cookies.settings": "Impostazioni cookie",
+
+  // Hub Plus page: premium listings + association introductions
+  "hubplus.listings.eyebrow": "Annunci immobiliari premium",
+  "hubplus.listings.title": "Trova la tua prossima casa prima di tutti.",
+  "hubplus.listings.p1": "Come membro Hub Plus accedi a una ricerca di alloggi più esclusiva, pensata per rendere la ricerca di un alloggio per studenti di qualità più semplice, rapida e rassicurante.",
+  "hubplus.listings.p2": "Grazie alla nostra rete di partner selezionati, i membri possono scoprire annunci premium e in evidenza, comprese opportunità che possono essere segnalate alla community Hub Plus prima di essere promosse più ampiamente.",
+  "hubplus.listings.p3": "Che tu cerchi un monolocale privato, un appartamento moderno, una stanza condivisa o qualcosa di più vicino al campus, Hub Plus ti offre un percorso più mirato per trovare la casa giusta.",
+  "hubplus.listings.closing": "La tua nuova casa non dovrebbe essere lasciata al caso. Hub Plus ti dà un punto di partenza migliore.",
+  "hubplus.assoc.eyebrow": "Presentazioni prioritarie alle associazioni studentesche",
+  "hubplus.assoc.title": "La tua rete universitaria inizia prima del primo giorno.",
+  "hubplus.assoc.p1": "Trasferirsi in una nuova università, e magari in un nuovo paese, significa molto più del luogo in cui studi. Le persone che incontri, le comunità a cui ti unisci e i legami che crei possono segnare tutta la tua esperienza.",
+  "hubplus.assoc.p2": "I membri Hub Plus ricevono presentazioni prioritarie alle associazioni studentesche (confraternite) e alle comunità della nostra rete, per aiutarti a scoprire realtà in linea con la tua università, la tua città, i tuoi interessi e il tuo percorso.",
+  "hubplus.assoc.p3": "Dalle associazioni accademiche e internazionali alle comunità sociali, culturali, professionali e tematiche, ti aiuteremo a creare i primi contatti, con occasioni per conoscere persone, ampliare la tua rete e far parte della vita studentesca fin dall’inizio.",
+  "hubplus.assoc.closing": "Arriva con qualcosa in più di un posto all’università. Arriva con una rete che ti aspetta.",
 };
 
 const nl: Dict = {
@@ -5471,6 +5541,20 @@ const nl: Dict = {
   "cookies.accept": "Accepteren",
   "cookies.decline": "Weigeren",
   "cookies.settings": "Cookie-instellingen",
+
+  // Hub Plus page: premium listings + association introductions
+  "hubplus.listings.eyebrow": "Premium woningaanbod",
+  "hubplus.listings.title": "Vind je volgende huis vóór alle anderen.",
+  "hubplus.listings.p1": "Als Hub Plus-lid krijg je toegang tot een exclusievere manier van woning zoeken, bedoeld om het vinden van goede studentenhuisvesting eenvoudiger, sneller en geruster te maken.",
+  "hubplus.listings.p2": "Via ons netwerk van geselecteerde huisvestingspartners ontdekken leden premium en uitgelichte woningen, waaronder kansen die mogelijk eerst aan de Hub Plus-community worden getoond voordat ze breder worden aangeboden.",
+  "hubplus.listings.p3": "Of je nu zoekt naar een eigen studio, een modern appartement, een gedeelde woning of iets dichter bij de campus: Hub Plus biedt je een doordachtere route naar het juiste huis.",
+  "hubplus.listings.closing": "Je nieuwe huis hoort niet van toeval af te hangen. Hub Plus geeft je een beter vertrekpunt.",
+  "hubplus.assoc.eyebrow": "Voorrang bij introducties aan studentenverenigingen",
+  "hubplus.assoc.title": "Je studentennetwerk begint al vóór je eerste dag.",
+  "hubplus.assoc.p1": "Verhuizen naar een nieuwe universiteit, en misschien een nieuw land, gaat om veel meer dan waar je studeert. De mensen die je ontmoet, de gemeenschappen waar je bij hoort en de contacten die je legt, kunnen je hele studietijd bepalen.",
+  "hubplus.assoc.p2": "Hub Plus-leden krijgen voorrang bij introducties aan relevante studentenverenigingen (studentencorpsen) en gemeenschappen in ons netwerk, zodat je organisaties vindt die passen bij je universiteit, stad, interesses en achtergrond.",
+  "hubplus.assoc.p3": "Van studie- en internationale studentenverenigingen tot sociale, culturele, professionele en thematische gemeenschappen: we maken die eerste contacten makkelijker, zodat je mensen leert kennen, je netwerk uitbreidt en vanaf het begin deel bent van het studentenleven.",
+  "hubplus.assoc.closing": "Kom aan met meer dan een studieplek. Kom aan met een netwerk dat al op je wacht.",
 };
 
 const ro: Dict = {
@@ -6337,6 +6421,20 @@ const ro: Dict = {
   "cookies.accept": "Accept",
   "cookies.decline": "Refuz",
   "cookies.settings": "Setări cookie-uri",
+
+  // Hub Plus page: premium listings + association introductions
+  "hubplus.listings.eyebrow": "Anunțuri imobiliare premium",
+  "hubplus.listings.title": "Găsește-ți următoarea locuință înaintea tuturor.",
+  "hubplus.listings.p1": "Ca membru Hub Plus ai acces la o experiență de căutare a locuinței mai exclusivă, gândită să facă găsirea unei locuințe studențești de calitate mai simplă, mai rapidă și mai liniștitoare.",
+  "hubplus.listings.p2": "Prin rețeaua noastră de parteneri de cazare selectați, membrii pot descoperi anunțuri premium și recomandate, inclusiv oportunități care pot fi prezentate comunității Hub Plus înainte de a fi promovate pe scară largă.",
+  "hubplus.listings.p3": "Fie că îți dorești o garsonieră privată, un apartament modern, o locuință în comun sau ceva mai aproape de campus, Hub Plus îți oferă o cale mai bine gândită spre locuința potrivită.",
+  "hubplus.listings.closing": "Noua ta locuință nu ar trebui lăsată la voia întâmplării. Hub Plus îți oferă un punct de plecare mai bun.",
+  "hubplus.assoc.eyebrow": "Prezentări prioritare către asociațiile studențești",
+  "hubplus.assoc.title": "Rețeaua ta universitară începe înainte de prima zi.",
+  "hubplus.assoc.p1": "Mutarea la o nouă universitate, și poate într-o nouă țară, înseamnă mult mai mult decât locul în care studiezi. Oamenii pe care îi cunoști, comunitățile în care intri și legăturile pe care le construiești îți pot contura întreaga experiență.",
+  "hubplus.assoc.p2": "Membrii Hub Plus primesc prezentări prioritare către asociații studențești (frății) și comunități relevante din rețeaua noastră, ca să descoperi organizații potrivite universității, orașului, intereselor și parcursului tău.",
+  "hubplus.assoc.p3": "De la asociații academice și internaționale până la comunități sociale, culturale, profesionale și de interes specific, te ajutăm să faci mai ușor primele conexiuni, cu ocazii să cunoști oameni, să-ți extinzi rețeaua și să faci parte din viața studențească de la început.",
+  "hubplus.assoc.closing": "Ajungi cu mai mult decât un loc la universitate. Ajungi cu o rețea care te așteaptă.",
 };
 
 const tr: Dict = {
@@ -7198,6 +7296,20 @@ const tr: Dict = {
   "cookies.accept": "Kabul et",
   "cookies.decline": "Reddet",
   "cookies.settings": "Çerez ayarları",
+
+  // Hub Plus page: premium listings + association introductions
+  "hubplus.listings.eyebrow": "Premium konut ilanları",
+  "hubplus.listings.title": "Bir sonraki evini herkesten önce bul.",
+  "hubplus.listings.p1": "Hub Plus üyesi olarak, kaliteli öğrenci konutu bulmayı daha kolay, daha hızlı ve daha güven verici hale getirmek için tasarlanmış daha ayrıcalıklı bir ev arama deneyimine erişirsin.",
+  "hubplus.listings.p2": "Seçkin konut iş ortaklarımızdan oluşan ağımız sayesinde üyeler premium ve öne çıkan ilanları keşfedebilir; bunlar arasında daha geniş kitlelere duyurulmadan önce Hub Plus topluluğuna gösterilebilecek fırsatlar da bulunur.",
+  "hubplus.listings.p3": "İster özel bir stüdyo, ister modern bir daire, ister paylaşımlı bir ev ya da kampüse daha yakın bir yer ara; Hub Plus doğru evi bulman için daha özenli bir yol sunar.",
+  "hubplus.listings.closing": "Yeni evin şansa bırakılmamalı. Hub Plus sana daha iyi bir başlangıç noktası sunar.",
+  "hubplus.assoc.eyebrow": "Öğrenci derneklerine öncelikli tanıştırma",
+  "hubplus.assoc.title": "Üniversite ağın ilk gününden önce başlar.",
+  "hubplus.assoc.p1": "Yeni bir üniversiteye, belki de yeni bir ülkeye taşınmak, nerede okuduğundan çok daha fazlasıdır. Tanıştığın insanlar, katıldığın topluluklar ve kurduğun bağlantılar tüm deneyimini şekillendirebilir.",
+  "hubplus.assoc.p2": "Hub Plus üyeleri, ağımızdaki ilgili öğrenci derneklerine (kardeşlik birliklerine) ve topluluklara öncelikli olarak tanıştırılır; böylece üniversitene, şehrine, ilgi alanlarına ve geçmişine uygun kuruluşları keşfedersin.",
+  "hubplus.assoc.p3": "Akademik ve uluslararası öğrenci derneklerinden sosyal, kültürel, profesyonel ve özel ilgi topluluklarına kadar ilk bağlantıları kolaylaştırıyoruz; insanlarla tanışman, ağını genişletmen ve en başından öğrenci hayatının bir parçası olman için fırsatlar sunuyoruz.",
+  "hubplus.assoc.closing": "Üniversitede bir yerden fazlasıyla gel. Seni bekleyen bir ağla gel.",
 };
 
 const zh: Dict = {
@@ -8022,6 +8134,20 @@ const zh: Dict = {
   "cookies.accept": "接受",
   "cookies.decline": "拒绝",
   "cookies.settings": "Cookie 设置",
+
+  // Hub Plus page: premium listings + association introductions
+  "hubplus.listings.eyebrow": "优质房源",
+  "hubplus.listings.title": "比别人更早找到你的新家。",
+  "hubplus.listings.p1": "作为 Hub Plus 会员，你可以使用更专属的找房服务，让寻找优质学生住宿变得更简单、更快捷、更安心。",
+  "hubplus.listings.p2": "通过我们精选的住宿合作伙伴网络，会员可以发现优质和精选房源，其中包括可能先向 Hub Plus 社区推荐、再广泛推广的机会。",
+  "hubplus.listings.p3": "无论你想找独立单间、现代公寓、合租房，还是离校园更近的住处，Hub Plus 都能为你提供更周到的找房途径。",
+  "hubplus.listings.closing": "你的新家不应听天由命。Hub Plus 为你提供更好的起点。",
+  "hubplus.assoc.eyebrow": "优先引荐学生社团",
+  "hubplus.assoc.title": "你的大学人脉，从入学前就开始建立。",
+  "hubplus.assoc.p1": "来到一所新大学，甚至一个新国家，远不只是换个地方读书。你遇到的人、加入的社群和建立的联系，都可能塑造你的整个留学经历。",
+  "hubplus.assoc.p2": "Hub Plus 会员可优先获得我们网络中相关学生社团（兄弟会）和社群的引荐，帮助你找到与你的大学、城市、兴趣和背景相契合的组织。",
+  "hubplus.assoc.p3": "从学术类和国际学生社团，到社交、文化、职业及兴趣类社群，我们会帮你更轻松地迈出第一步，让你从一开始就结识朋友、拓展人脉，融入学生生活。",
+  "hubplus.assoc.closing": "带着的不只是一个大学名额，还有一张正在等你的人脉网络。",
 };
 
 const ar: Dict = {
@@ -8877,6 +9003,20 @@ const ar: Dict = {
   "cookies.accept": "قبول",
   "cookies.decline": "رفض",
   "cookies.settings": "إعدادات ملفات تعريف الارتباط",
+
+  // Hub Plus page: premium listings + association introductions
+  "hubplus.listings.eyebrow": "عروض سكنية مميزة",
+  "hubplus.listings.title": "اعثر على منزلك القادم قبل الجميع.",
+  "hubplus.listings.p1": "بصفتك عضوًا في Hub Plus، تحصل على تجربة بحث عن سكن أكثر تميزًا، مصممة لتجعل العثور على سكن طلابي جيد أسهل وأسرع وأكثر طمأنينة.",
+  "hubplus.listings.p2": "من خلال شبكتنا من شركاء السكن المختارين، يمكن للأعضاء اكتشاف عروض سكنية مميزة ومختارة، بما في ذلك فرص قد تُعرض على مجتمع Hub Plus قبل الترويج لها على نطاق أوسع.",
+  "hubplus.listings.p3": "سواء كنت تبحث عن استوديو خاص أو شقة حديثة أو سكن مشترك أو شيء أقرب إلى الحرم الجامعي، يمنحك Hub Plus طريقًا أكثر عناية للعثور على المنزل المناسب.",
+  "hubplus.listings.closing": "لا ينبغي أن يُترك منزلك الجديد للصدفة. يمنحك Hub Plus نقطة انطلاق أفضل.",
+  "hubplus.assoc.eyebrow": "تعارف ذو أولوية مع الجمعيات الطلابية",
+  "hubplus.assoc.title": "تبدأ شبكة علاقاتك الجامعية قبل يومك الأول.",
+  "hubplus.assoc.p1": "الانتقال إلى جامعة جديدة، وربما إلى بلد جديد، يتعلق بأكثر بكثير من مكان دراستك. فالأشخاص الذين تقابلهم والمجتمعات التي تنضم إليها والعلاقات التي تبنيها قد تشكّل تجربتك بأكملها.",
+  "hubplus.assoc.p2": "يحصل أعضاء Hub Plus على تعارف ذي أولوية مع الجمعيات الطلابية (الأخويات) والمجتمعات ذات الصلة ضمن شبكتنا، لمساعدتك على اكتشاف منظمات تناسب جامعتك ومدينتك واهتماماتك وخلفيتك.",
+  "hubplus.assoc.p3": "من الجمعيات الأكاديمية والطلابية الدولية إلى المجتمعات الاجتماعية والثقافية والمهنية وذات الاهتمامات الخاصة، سنساعدك على تسهيل تلك الروابط الأولى، لتتاح لك فرص التعرف على الناس وتوسيع شبكتك والاندماج في الحياة الطلابية منذ البداية.",
+  "hubplus.assoc.closing": "لا تصل بمقعد جامعي فقط. بل صِل وشبكة علاقات بانتظارك.",
 };
 
 export const TRANSLATIONS: Record<LangCode, Dict> = {
