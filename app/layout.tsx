@@ -8,6 +8,7 @@ import { PwaBoot } from "./components/PwaBoot";
 import { SiteChrome } from "./components/SiteChrome";
 import { Analytics } from "./analytics/Analytics";
 import { CookieBanner } from "./analytics/CookieBanner";
+import { RecoveryRedirect } from "./auth/RecoveryRedirect";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -55,6 +56,7 @@ export default function RootLayout({
         <I18nProvider>
           <AuthProvider>
             <LanguageSync />
+            <RecoveryRedirect />
             <PwaBoot />
             <SiteChrome>{children}</SiteChrome>
             <CookieBanner />

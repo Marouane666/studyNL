@@ -5,7 +5,8 @@ import { notFound } from "next/navigation";
 import { use } from "react";
 import { useT } from "../../i18n/I18nProvider";
 import { getGuide, GUIDES } from "../guides";
-import type { GuideSection, GuideSource } from "../guides";
+import type { GuideCta, GuideSection, GuideSource } from "../guides";
+import { GOLD_LIGHT, NAVY_DEEP } from "../../hub-plus/dashboard/ui";
 
 const BG = "#EAF6FF";
 const NAVY = "#092A4D";
@@ -23,6 +24,7 @@ export default function GuideDetailPage({
   if (!guide) notFound();
 
   const related = GUIDES.filter((g) => g.slug !== guide.slug).slice(0, 3);
+  const ctas = (guide.ctas ?? []).filter((c): c is GuideCta & { href: string } => c.href !== null);
 
   return (
     <section style={{ backgroundColor: BG, color: NAVY }}>
@@ -84,6 +86,14 @@ export default function GuideDetailPage({
                 <SourceLink key={source.href} source={source} />
               ))}
             </ul>
+          </div>
+        )}
+
+        {ctas.length > 0 && (
+          <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            {ctas.map((cta) => (
+              <CtaButton key={cta.labelKey} cta={cta} />
+            ))}
           </div>
         )}
 
@@ -152,6 +162,35 @@ function GuideSectionBlock({ section }: { section: GuideSection }) {
         </ul>
       )}
     </div>
+  );
+}
+
+function CtaButton({ cta }: { cta: GuideCta & { href: string } }) {
+  const t = useT();
+  const external = /^https?:\/\//.test(cta.href);
+  const className =
+    "inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 py-3 text-center text-sm font-semibold shadow-sm transition-opacity hover:opacity-90";
+  const style = cta.hubPlus
+    ? { backgroundColor: NAVY_DEEP, color: GOLD_LIGHT }
+    : { backgroundColor: NAVY, color: "#fff" };
+  const label = (
+    <>
+      {cta.hubPlus && <span aria-hidden="true">✦</span>}
+      {t(cta.labelKey)}
+      {external && <ExternalIcon />}
+    </>
+  );
+
+  // Official sites (DUO, Belastingdienst, Studielink) open in a new tab so the
+  // guide is still there to come back to.
+  return external ? (
+    <a href={cta.href} target="_blank" rel="noopener noreferrer" className={className} style={style}>
+      {label}
+    </a>
+  ) : (
+    <Link href={cta.href} className={className} style={style}>
+      {label}
+    </Link>
   );
 }
 

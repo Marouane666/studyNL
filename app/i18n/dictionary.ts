@@ -1115,6 +1115,25 @@ const en: Dict = {
   "aboutPage.home.l8": "Arrive prepared.",
   "aboutPage.home.closing": "One country. One move. One place to start.",
   "aboutPage.home.cta": "Start your move",
+
+  // Guide call-to-action buttons (app/guides/guides.ts → ctas)
+  "guide.cta.courses": "View Available Courses",
+  "guide.cta.duoLoan": "Apply for a DUO Loan",
+  "guide.cta.furniture": "View Furniture Rental Packages",
+  "guide.cta.freelancing": "View Freelancing Jobs",
+  "guide.cta.tax": "Check Your Tax Obligations",
+  "guide.cta.bank": "Create Your Student Bank Account",
+  "guide.cta.sim": "Get Your Local SIM Card or Mobile Plan",
+  "guide.cta.transport": "Get Your Public Transport Card",
+  "guide.cta.insurance": "Get Health Insurance",
+  "guide.cta.studielink": "Apply via Studielink",
+  "guide.cta.verifiedAccommodation": "View Verified Accommodation",
+  "guide.cta.premiumListings": "Unlock Premium Listings with Hub Plus",
+  "guide.cta.visaConsultation": "Book a Visa Consultation",
+  "guide.cta.fraternities": "Join Hub Plus for Priority Access to Fraternities",
+  "guide.cta.duoFinance": "Apply for DUO Student Finance",
+  "guide.cta.financeHelp": "Get Help with Your Finances",
+  "guide.cta.prioritySupport": "Get Priority Support with Hub Plus",
 };
 
 const es: Dict = {
@@ -2155,6 +2174,25 @@ const es: Dict = {
   "aboutPage.home.l8": "Llega preparado.",
   "aboutPage.home.closing": "Un país. Una mudanza. Un lugar donde empezar.",
   "aboutPage.home.cta": "Empieza tu mudanza",
+
+  // Guide call-to-action buttons (app/guides/guides.ts → ctas)
+  "guide.cta.courses": "Ver cursos disponibles",
+  "guide.cta.duoLoan": "Solicitar un préstamo de DUO",
+  "guide.cta.furniture": "Ver packs de alquiler de muebles",
+  "guide.cta.freelancing": "Ver trabajos freelance",
+  "guide.cta.tax": "Consulta tus obligaciones fiscales",
+  "guide.cta.bank": "Abre tu cuenta bancaria de estudiante",
+  "guide.cta.sim": "Consigue tu SIM o plan móvil local",
+  "guide.cta.transport": "Consigue tu tarjeta de transporte público",
+  "guide.cta.insurance": "Contrata un seguro médico",
+  "guide.cta.studielink": "Solicitar a través de Studielink",
+  "guide.cta.verifiedAccommodation": "Ver alojamiento verificado",
+  "guide.cta.premiumListings": "Desbloquea anuncios premium con Hub Plus",
+  "guide.cta.visaConsultation": "Reservar una consulta de visado",
+  "guide.cta.fraternities": "Únete a Hub Plus para acceso prioritario a fraternidades",
+  "guide.cta.duoFinance": "Solicitar la financiación de DUO",
+  "guide.cta.financeHelp": "Recibe ayuda con tus finanzas",
+  "guide.cta.prioritySupport": "Obtén soporte prioritario con Hub Plus",
 };
 
 const de: Dict = {
@@ -3092,6 +3130,25 @@ const de: Dict = {
   "aboutPage.home.l8": "Komm gut vorbereitet an.",
   "aboutPage.home.closing": "Ein Land. Ein Umzug. Ein Ort, um anzufangen.",
   "aboutPage.home.cta": "Starte deinen Umzug",
+
+  // Guide call-to-action buttons (app/guides/guides.ts → ctas)
+  "guide.cta.courses": "Verfügbare Studiengänge ansehen",
+  "guide.cta.duoLoan": "DUO-Darlehen beantragen",
+  "guide.cta.furniture": "Möbelmiet-Pakete ansehen",
+  "guide.cta.freelancing": "Freelance-Jobs ansehen",
+  "guide.cta.tax": "Deine Steuerpflichten prüfen",
+  "guide.cta.bank": "Studentenkonto eröffnen",
+  "guide.cta.sim": "Lokale SIM-Karte oder Handytarif holen",
+  "guide.cta.transport": "Deine ÖV-Karte holen",
+  "guide.cta.insurance": "Krankenversicherung abschließen",
+  "guide.cta.studielink": "Über Studielink bewerben",
+  "guide.cta.verifiedAccommodation": "Verifizierte Unterkünfte ansehen",
+  "guide.cta.premiumListings": "Premium-Angebote mit Hub Plus freischalten",
+  "guide.cta.visaConsultation": "Visumberatung buchen",
+  "guide.cta.fraternities": "Mit Hub Plus bevorzugt zu Studentenverbindungen",
+  "guide.cta.duoFinance": "DUO-Studienfinanzierung beantragen",
+  "guide.cta.financeHelp": "Hilfe bei deinen Finanzen erhalten",
+  "guide.cta.prioritySupport": "Bevorzugten Support mit Hub Plus erhalten",
 };
 
 const fr: Dict = {
@@ -4030,6 +4087,25 @@ const fr: Dict = {
   "aboutPage.home.l8": "Arrivez préparé.",
   "aboutPage.home.closing": "Un pays. Un départ. Un seul point de départ.",
   "aboutPage.home.cta": "Commencer votre départ",
+
+  // Guide call-to-action buttons (app/guides/guides.ts → ctas)
+  "guide.cta.courses": "Voir les formations disponibles",
+  "guide.cta.duoLoan": "Demander un prêt DUO",
+  "guide.cta.furniture": "Voir les formules de location de meubles",
+  "guide.cta.freelancing": "Voir les missions freelance",
+  "guide.cta.tax": "Vérifier vos obligations fiscales",
+  "guide.cta.bank": "Ouvrir votre compte bancaire étudiant",
+  "guide.cta.sim": "Obtenir votre carte SIM ou forfait local",
+  "guide.cta.transport": "Obtenir votre carte de transport",
+  "guide.cta.insurance": "Souscrire une assurance santé",
+  "guide.cta.studielink": "Postuler via Studielink",
+  "guide.cta.verifiedAccommodation": "Voir les logements vérifiés",
+  "guide.cta.premiumListings": "Débloquer les annonces premium avec Hub Plus",
+  "guide.cta.visaConsultation": "Réserver une consultation visa",
+  "guide.cta.fraternities": "Rejoindre Hub Plus pour un accès prioritaire aux fraternités",
+  "guide.cta.duoFinance": "Demander le financement étudiant DUO",
+  "guide.cta.financeHelp": "Obtenir de l’aide pour vos finances",
+  "guide.cta.prioritySupport": "Bénéficier d’un support prioritaire avec Hub Plus",
 };
 
 const it: Dict = {
@@ -4970,6 +5046,25 @@ const it: Dict = {
   "aboutPage.home.l8": "Arriva preparato.",
   "aboutPage.home.closing": "Un paese. Un trasferimento. Un unico posto da cui partire.",
   "aboutPage.home.cta": "Inizia il tuo trasferimento",
+
+  // Guide call-to-action buttons (app/guides/guides.ts → ctas)
+  "guide.cta.courses": "Vedi i corsi disponibili",
+  "guide.cta.duoLoan": "Richiedi un prestito DUO",
+  "guide.cta.furniture": "Vedi i pacchetti di noleggio mobili",
+  "guide.cta.freelancing": "Vedi i lavori freelance",
+  "guide.cta.tax": "Verifica i tuoi obblighi fiscali",
+  "guide.cta.bank": "Apri il tuo conto bancario per studenti",
+  "guide.cta.sim": "Ottieni la tua SIM o un piano mobile locale",
+  "guide.cta.transport": "Ottieni la tua tessera dei trasporti",
+  "guide.cta.insurance": "Sottoscrivi l’assicurazione sanitaria",
+  "guide.cta.studielink": "Candidati tramite Studielink",
+  "guide.cta.verifiedAccommodation": "Vedi gli alloggi verificati",
+  "guide.cta.premiumListings": "Sblocca gli annunci premium con Hub Plus",
+  "guide.cta.visaConsultation": "Prenota una consulenza sul visto",
+  "guide.cta.fraternities": "Unisciti a Hub Plus per l’accesso prioritario alle confraternite",
+  "guide.cta.duoFinance": "Richiedi il finanziamento DUO",
+  "guide.cta.financeHelp": "Ricevi aiuto con le tue finanze",
+  "guide.cta.prioritySupport": "Ottieni supporto prioritario con Hub Plus",
 };
 
 const nl: Dict = {
@@ -5908,6 +6003,25 @@ const nl: Dict = {
   "aboutPage.home.l8": "Kom goed voorbereid aan.",
   "aboutPage.home.closing": "Eén land. Eén verhuizing. Eén plek om te beginnen.",
   "aboutPage.home.cta": "Begin je verhuizing",
+
+  // Guide call-to-action buttons (app/guides/guides.ts → ctas)
+  "guide.cta.courses": "Bekijk beschikbare opleidingen",
+  "guide.cta.duoLoan": "Vraag een DUO-lening aan",
+  "guide.cta.furniture": "Bekijk meubelhuurpakketten",
+  "guide.cta.freelancing": "Bekijk freelanceklussen",
+  "guide.cta.tax": "Check je belastingverplichtingen",
+  "guide.cta.bank": "Open je studentenrekening",
+  "guide.cta.sim": "Regel je lokale simkaart of abonnement",
+  "guide.cta.transport": "Regel je ov-kaart",
+  "guide.cta.insurance": "Sluit een zorgverzekering af",
+  "guide.cta.studielink": "Aanmelden via Studielink",
+  "guide.cta.verifiedAccommodation": "Bekijk geverifieerde woningen",
+  "guide.cta.premiumListings": "Ontgrendel premium woningen met Hub Plus",
+  "guide.cta.visaConsultation": "Boek een visumconsult",
+  "guide.cta.fraternities": "Word lid van Hub Plus voor voorrang bij studentenverenigingen",
+  "guide.cta.duoFinance": "Vraag DUO-studiefinanciering aan",
+  "guide.cta.financeHelp": "Krijg hulp met je financiën",
+  "guide.cta.prioritySupport": "Krijg voorrang bij support met Hub Plus",
 };
 
 const ro: Dict = {
@@ -6847,6 +6961,25 @@ const ro: Dict = {
   "aboutPage.home.l8": "Ajungi pregătit.",
   "aboutPage.home.closing": "O țară. O mutare. Un singur loc de unde să începi.",
   "aboutPage.home.cta": "Începe-ți mutarea",
+
+  // Guide call-to-action buttons (app/guides/guides.ts → ctas)
+  "guide.cta.courses": "Vezi cursurile disponibile",
+  "guide.cta.duoLoan": "Solicită un împrumut DUO",
+  "guide.cta.furniture": "Vezi pachetele de închiriere mobilier",
+  "guide.cta.freelancing": "Vezi joburi freelance",
+  "guide.cta.tax": "Verifică-ți obligațiile fiscale",
+  "guide.cta.bank": "Deschide-ți contul bancar de student",
+  "guide.cta.sim": "Obține o cartelă SIM sau un abonament local",
+  "guide.cta.transport": "Obține cardul de transport public",
+  "guide.cta.insurance": "Încheie o asigurare de sănătate",
+  "guide.cta.studielink": "Aplică prin Studielink",
+  "guide.cta.verifiedAccommodation": "Vezi locuințele verificate",
+  "guide.cta.premiumListings": "Deblochează anunțurile premium cu Hub Plus",
+  "guide.cta.visaConsultation": "Programează o consultanță pentru viză",
+  "guide.cta.fraternities": "Alătură-te Hub Plus pentru acces prioritar la frății",
+  "guide.cta.duoFinance": "Solicită finanțarea DUO",
+  "guide.cta.financeHelp": "Primește ajutor cu finanțele",
+  "guide.cta.prioritySupport": "Obține suport prioritar cu Hub Plus",
 };
 
 const tr: Dict = {
@@ -7780,6 +7913,25 @@ const tr: Dict = {
   "aboutPage.home.l8": "Hazırlıklı gel.",
   "aboutPage.home.closing": "Tek ülke. Tek taşınma. Başlamak için tek yer.",
   "aboutPage.home.cta": "Taşınmana başla",
+
+  // Guide call-to-action buttons (app/guides/guides.ts → ctas)
+  "guide.cta.courses": "Mevcut programları gör",
+  "guide.cta.duoLoan": "DUO kredisine başvur",
+  "guide.cta.furniture": "Mobilya kiralama paketlerini gör",
+  "guide.cta.freelancing": "Serbest çalışma işlerini gör",
+  "guide.cta.tax": "Vergi yükümlülüklerini kontrol et",
+  "guide.cta.bank": "Öğrenci banka hesabını aç",
+  "guide.cta.sim": "Yerel SIM kartını veya hat paketini al",
+  "guide.cta.transport": "Toplu taşıma kartını al",
+  "guide.cta.insurance": "Sağlık sigortası yaptır",
+  "guide.cta.studielink": "Studielink üzerinden başvur",
+  "guide.cta.verifiedAccommodation": "Doğrulanmış konutları gör",
+  "guide.cta.premiumListings": "Hub Plus ile premium ilanların kilidini aç",
+  "guide.cta.visaConsultation": "Vize danışmanlığı randevusu al",
+  "guide.cta.fraternities": "Kardeşlik birliklerine öncelikli erişim için Hub Plus’a katıl",
+  "guide.cta.duoFinance": "DUO öğrenci finansmanına başvur",
+  "guide.cta.financeHelp": "Finansman konusunda yardım al",
+  "guide.cta.prioritySupport": "Hub Plus ile öncelikli destek al",
 };
 
 const zh: Dict = {
@@ -8679,6 +8831,25 @@ const zh: Dict = {
   "aboutPage.home.l8": "做好准备，从容抵达。",
   "aboutPage.home.closing": "一个国家，一次搬迁，从这里开始。",
   "aboutPage.home.cta": "开始你的搬迁",
+
+  // Guide call-to-action buttons (app/guides/guides.ts → ctas)
+  "guide.cta.courses": "查看可选课程",
+  "guide.cta.duoLoan": "申请 DUO 贷款",
+  "guide.cta.furniture": "查看家具租赁套餐",
+  "guide.cta.freelancing": "查看自由职业工作",
+  "guide.cta.tax": "了解你的纳税义务",
+  "guide.cta.bank": "开设学生银行账户",
+  "guide.cta.sim": "办理本地 SIM 卡或手机套餐",
+  "guide.cta.transport": "办理公共交通卡",
+  "guide.cta.insurance": "购买医疗保险",
+  "guide.cta.studielink": "通过 Studielink 申请",
+  "guide.cta.verifiedAccommodation": "查看已认证房源",
+  "guide.cta.premiumListings": "通过 Hub Plus 解锁优质房源",
+  "guide.cta.visaConsultation": "预约签证咨询",
+  "guide.cta.fraternities": "加入 Hub Plus，优先接触兄弟会",
+  "guide.cta.duoFinance": "申请 DUO 学生资助",
+  "guide.cta.financeHelp": "获取理财帮助",
+  "guide.cta.prioritySupport": "通过 Hub Plus 获得优先支持",
 };
 
 const ar: Dict = {
@@ -9608,6 +9779,25 @@ const ar: Dict = {
   "aboutPage.home.l8": "صل وأنت مستعد.",
   "aboutPage.home.closing": "بلد واحد. انتقال واحد. مكان واحد للبدء.",
   "aboutPage.home.cta": "ابدأ انتقالك",
+
+  // Guide call-to-action buttons (app/guides/guides.ts → ctas)
+  "guide.cta.courses": "عرض البرامج المتاحة",
+  "guide.cta.duoLoan": "التقدّم بطلب قرض DUO",
+  "guide.cta.furniture": "عرض باقات تأجير الأثاث",
+  "guide.cta.freelancing": "عرض وظائف العمل الحر",
+  "guide.cta.tax": "تحقّق من التزاماتك الضريبية",
+  "guide.cta.bank": "افتح حسابك البنكي الطلابي",
+  "guide.cta.sim": "احصل على شريحة SIM أو باقة محلية",
+  "guide.cta.transport": "احصل على بطاقة المواصلات العامة",
+  "guide.cta.insurance": "احصل على التأمين الصحي",
+  "guide.cta.studielink": "قدّم عبر Studielink",
+  "guide.cta.verifiedAccommodation": "عرض السكن الموثّق",
+  "guide.cta.premiumListings": "افتح العروض المميزة مع Hub Plus",
+  "guide.cta.visaConsultation": "احجز استشارة تأشيرة",
+  "guide.cta.fraternities": "انضم إلى Hub Plus للوصول ذي الأولوية إلى الأخويات",
+  "guide.cta.duoFinance": "قدّم على تمويل DUO الطلابي",
+  "guide.cta.financeHelp": "احصل على مساعدة في شؤونك المالية",
+  "guide.cta.prioritySupport": "احصل على دعم ذي أولوية مع Hub Plus",
 };
 
 export const TRANSLATIONS: Record<LangCode, Dict> = {

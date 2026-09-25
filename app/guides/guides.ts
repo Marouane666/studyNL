@@ -17,6 +17,21 @@ export type GuideSection = {
   bulletKeys?: string[];
 };
 
+/**
+ * A call-to-action button at the bottom of a guide (brief: "Call to Action
+ * Buttons for Guides", September 2026).
+ *
+ * `href: null` marks a button whose link StudyNL hasn't supplied yet. It is
+ * kept here so the list matches the brief, but not rendered: a button that
+ * goes nowhere is worse than no button. Fill in the href to switch it on.
+ */
+export type GuideCta = {
+  labelKey: string;
+  href: string | null;
+  /** Hub Plus buttons get the member navy + gold styling. */
+  hubPlus?: boolean;
+};
+
 export type Guide = {
   /** URL slug under /guides. */
   slug: string;
@@ -28,6 +43,7 @@ export type Guide = {
   answerKey: string;
   sections: GuideSection[];
   sources: GuideSource[];
+  ctas?: GuideCta[];
 };
 
 export const GUIDES: Guide[] = [
@@ -48,6 +64,9 @@ export const GUIDES: Guide[] = [
         headingKey: "guide.study-route.s3.heading",
         bulletKeys: ["guide.study-route.s3.b1", "guide.study-route.s3.b2", "guide.study-route.s3.b3"],
       },
+    ],
+    ctas: [
+      { labelKey: "guide.cta.courses", href: null },
     ],
     sources: [],
   },
@@ -74,6 +93,9 @@ export const GUIDES: Guide[] = [
         bulletKeys: ["guide.scholarships.s3.b1", "guide.scholarships.s3.b2", "guide.scholarships.s3.b3"],
       },
     ],
+    ctas: [
+      { labelKey: "guide.cta.duoLoan", href: "https://duo.nl/particulier/studiefinanciering/lenen.jsp" },
+    ],
     sources: [
       { label: "Student finance", href: "https://duo.nl/particulier/student-finance/", org: "DUO" },
     ],
@@ -99,6 +121,9 @@ export const GUIDES: Guide[] = [
       { headingKey: "guide.cost-of-living.s2.heading", bodyKey: "guide.cost-of-living.s2.body" },
       { headingKey: "guide.cost-of-living.s3.heading", bodyKey: "guide.cost-of-living.s3.body" },
     ],
+    ctas: [
+      { labelKey: "guide.cta.furniture", href: null },
+    ],
     sources: [],
   },
   {
@@ -118,6 +143,10 @@ export const GUIDES: Guide[] = [
         headingKey: "guide.working-while-studying.s3.heading",
         bulletKeys: ["guide.working-while-studying.s3.b1", "guide.working-while-studying.s3.b2", "guide.working-while-studying.s3.b3"],
       },
+    ],
+    ctas: [
+      { labelKey: "guide.cta.freelancing", href: null },
+      { labelKey: "guide.cta.tax", href: "https://www.belastingdienst.nl/wps/wcm/connect/nl/jongeren/content/ik-werk-in-loondienst" },
     ],
     sources: [
       { label: "Working while studying", href: "https://ind.nl/en/residence-permits/study", org: "IND" },
@@ -146,6 +175,12 @@ export const GUIDES: Guide[] = [
       },
       { headingKey: "guide.arrival-checklist.s3.heading", bodyKey: "guide.arrival-checklist.s3.body" },
     ],
+    ctas: [
+      { labelKey: "guide.cta.bank", href: null },
+      { labelKey: "guide.cta.sim", href: null },
+      { labelKey: "guide.cta.transport", href: "https://www.studentenreisproduct.nl/ik-ben-een-nieuwe-student/stappen/stap-een/" },
+      { labelKey: "guide.cta.insurance", href: null },
+    ],
     sources: [],
   },
   {
@@ -162,6 +197,9 @@ export const GUIDES: Guide[] = [
         bulletKeys: ["guide.enrolment.s2.b1", "guide.enrolment.s2.b2", "guide.enrolment.s2.b3", "guide.enrolment.s2.b4", "guide.enrolment.s2.b5"],
       },
       { headingKey: "guide.enrolment.s3.heading", bodyKey: "guide.enrolment.s3.body" },
+    ],
+    ctas: [
+      { labelKey: "guide.cta.studielink", href: "https://www.studielink.nl" },
     ],
     sources: [
       { label: "Studielink", href: "https://www.studielink.nl/", org: "Studielink" },
@@ -185,6 +223,11 @@ export const GUIDES: Guide[] = [
       },
       { headingKey: "guide.accommodation.s3.heading", bodyKey: "guide.accommodation.s3.body" },
     ],
+    ctas: [
+      // Stays off until Verified Accommodation launches: it's unlisted for now.
+      { labelKey: "guide.cta.verifiedAccommodation", href: null },
+      { labelKey: "guide.cta.premiumListings", href: "/hub-plus", hubPlus: true },
+    ],
     sources: [
       { label: "Renting a house", href: "https://www.government.nl/topics/housing/rented-housing", org: "Government of the Netherlands" },
     ],
@@ -206,6 +249,9 @@ export const GUIDES: Guide[] = [
         headingKey: "guide.visa-residency.s3.heading",
         bulletKeys: ["guide.visa-residency.s3.b1", "guide.visa-residency.s3.b2", "guide.visa-residency.s3.b3"],
       },
+    ],
+    ctas: [
+      { labelKey: "guide.cta.visaConsultation", href: null },
     ],
     sources: [
       { label: "Student residence permits", href: "https://ind.nl/en/residence-permits/study", org: "IND" },
@@ -256,6 +302,9 @@ export const GUIDES: Guide[] = [
         bulletKeys: ["guide.student-associations.s3.b1", "guide.student-associations.s3.b2", "guide.student-associations.s3.b3", "guide.student-associations.s3.b4"],
       },
     ],
+    ctas: [
+      { labelKey: "guide.cta.fraternities", href: "/hub-plus", hubPlus: true },
+    ],
     sources: [],
   },
   {
@@ -275,6 +324,10 @@ export const GUIDES: Guide[] = [
         bulletKeys: ["guide.student-finance.s2.b1", "guide.student-finance.s2.b2", "guide.student-finance.s2.b3"],
       },
       { headingKey: "guide.student-finance.s3.heading", bodyKey: "guide.student-finance.s3.body" },
+    ],
+    ctas: [
+      { labelKey: "guide.cta.duoFinance", href: "https://www.duo.nl/particulier/student-finance/apply.jsp" },
+      { labelKey: "guide.cta.financeHelp", href: "/contact" },
     ],
     sources: [
       { label: "Student finance eligibility", href: "https://duo.nl/particulier/student-finance/", org: "DUO" },
@@ -298,6 +351,9 @@ export const GUIDES: Guide[] = [
         bulletKeys: ["guide.open-days.s2.b1", "guide.open-days.s2.b2", "guide.open-days.s2.b3", "guide.open-days.s2.b4"],
       },
       { headingKey: "guide.open-days.s3.heading", bodyKey: "guide.open-days.s3.body" },
+    ],
+    ctas: [
+      { labelKey: "guide.cta.prioritySupport", href: "/hub-plus", hubPlus: true },
     ],
     sources: [],
   },
