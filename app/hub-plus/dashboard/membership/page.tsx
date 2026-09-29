@@ -28,7 +28,7 @@ export default function DashboardMembershipPage() {
     const data = await res.json().catch(() => null);
 
     if (!res.ok || !data?.url) {
-      setPortalError(data?.error ?? "Could not open billing. Please try again.");
+      setPortalError(data?.error ?? t("hubDash.membership.billingError"));
       setOpening(false);
       return;
     }

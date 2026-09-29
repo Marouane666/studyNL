@@ -11,18 +11,6 @@ export function GlobalSearch() {
   const t = useT();
   const [open, setOpen] = useState(false);
 
-  // Global shortcut: Cmd/Ctrl+K toggles the palette.
-  useEffect(() => {
-    function onKey(e: KeyboardEvent) {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
-        e.preventDefault();
-        setOpen((v) => !v);
-      }
-    }
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
-
   return (
     <>
       <button
@@ -33,9 +21,6 @@ export function GlobalSearch() {
       >
         <SearchIcon />
         <span className="hidden xl:inline">{t("search.trigger")}</span>
-        <kbd className="hidden items-center rounded-md bg-[#eaf2fa] px-1.5 py-0.5 text-[10px] font-bold tracking-wide text-[#03294f]/60 xl:inline-flex">
-          ⌘K
-        </kbd>
       </button>
 
       {/* Mounting fresh on each open keeps query/selection state self-resetting. */}

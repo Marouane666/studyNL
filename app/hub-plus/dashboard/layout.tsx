@@ -12,6 +12,7 @@ import { usePathname } from "next/navigation";
 import { useAuth } from "../../auth/AuthProvider";
 import { useT } from "../../i18n/I18nProvider";
 import { AuthPanel } from "../../forum/components/AuthPanel";
+import { LanguagePicker } from "../../components/LanguagePicker";
 import { isLapsed, isPremium } from "@/lib/plan";
 import {
   ACCOUNT_PAGES,
@@ -38,14 +39,17 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     return (
       <div className="min-h-screen px-4 py-10 sm:px-6" style={{ backgroundColor: PAGE }}>
         <div className="mx-auto max-w-3xl">
-          <Link
-            href="/"
-            className="text-2xl font-bold tracking-tight"
-            aria-label="StudyNL"
-          >
-            <span style={{ color: NAVY }}>Study</span>
-            <span style={{ color: ORANGE }}>NL</span>
-          </Link>
+          <div className="flex items-center justify-between gap-3">
+            <Link
+              href="/"
+              className="text-2xl font-bold tracking-tight"
+              aria-label="StudyNL"
+            >
+              <span style={{ color: NAVY }}>Study</span>
+              <span style={{ color: ORANGE }}>NL</span>
+            </Link>
+            <LanguagePicker tone="light" />
+          </div>
           <Gate />
         </div>
       </div>
@@ -234,6 +238,8 @@ function Topbar({ name }: { name: string }) {
           <span className="size-[7px] rounded-full bg-[#2caa91]" aria-hidden="true" />
           {t("hubDash.status.active")}
         </span>
+        {/* The site navbar (and its language switch) is hidden in here. */}
+        <LanguagePicker tone="light" />
         <button
           type="button"
           onClick={() => logout()}

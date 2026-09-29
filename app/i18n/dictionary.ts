@@ -1134,6 +1134,7 @@ const en: Dict = {
   "guide.cta.duoFinance": "Apply for DUO Student Finance",
   "guide.cta.financeHelp": "Get Help with Your Finances",
   "guide.cta.prioritySupport": "Get Priority Support with Hub Plus",
+  "hubDash.membership.billingError": "Could not open billing. Please try again.",
 };
 
 const es: Dict = {
@@ -2193,6 +2194,7 @@ const es: Dict = {
   "guide.cta.duoFinance": "Solicitar la financiación de DUO",
   "guide.cta.financeHelp": "Recibe ayuda con tus finanzas",
   "guide.cta.prioritySupport": "Obtén soporte prioritario con Hub Plus",
+  "hubDash.membership.billingError": "No se pudo abrir la facturación. Inténtalo de nuevo.",
 };
 
 const de: Dict = {
@@ -3149,6 +3151,7 @@ const de: Dict = {
   "guide.cta.duoFinance": "DUO-Studienfinanzierung beantragen",
   "guide.cta.financeHelp": "Hilfe bei deinen Finanzen erhalten",
   "guide.cta.prioritySupport": "Bevorzugten Support mit Hub Plus erhalten",
+  "hubDash.membership.billingError": "Die Abrechnung konnte nicht geöffnet werden. Bitte versuche es erneut.",
 };
 
 const fr: Dict = {
@@ -4106,6 +4109,7 @@ const fr: Dict = {
   "guide.cta.duoFinance": "Demander le financement étudiant DUO",
   "guide.cta.financeHelp": "Obtenir de l’aide pour vos finances",
   "guide.cta.prioritySupport": "Bénéficier d’un support prioritaire avec Hub Plus",
+  "hubDash.membership.billingError": "Impossible d’ouvrir la facturation. Veuillez réessayer.",
 };
 
 const it: Dict = {
@@ -5065,6 +5069,7 @@ const it: Dict = {
   "guide.cta.duoFinance": "Richiedi il finanziamento DUO",
   "guide.cta.financeHelp": "Ricevi aiuto con le tue finanze",
   "guide.cta.prioritySupport": "Ottieni supporto prioritario con Hub Plus",
+  "hubDash.membership.billingError": "Impossibile aprire la fatturazione. Riprova.",
 };
 
 const nl: Dict = {
@@ -6022,6 +6027,7 @@ const nl: Dict = {
   "guide.cta.duoFinance": "Vraag DUO-studiefinanciering aan",
   "guide.cta.financeHelp": "Krijg hulp met je financiën",
   "guide.cta.prioritySupport": "Krijg voorrang bij support met Hub Plus",
+  "hubDash.membership.billingError": "Facturatie kon niet worden geopend. Probeer het opnieuw.",
 };
 
 const ro: Dict = {
@@ -6980,6 +6986,7 @@ const ro: Dict = {
   "guide.cta.duoFinance": "Solicită finanțarea DUO",
   "guide.cta.financeHelp": "Primește ajutor cu finanțele",
   "guide.cta.prioritySupport": "Obține suport prioritar cu Hub Plus",
+  "hubDash.membership.billingError": "Facturarea nu a putut fi deschisă. Te rugăm să încerci din nou.",
 };
 
 const tr: Dict = {
@@ -7932,6 +7939,7 @@ const tr: Dict = {
   "guide.cta.duoFinance": "DUO öğrenci finansmanına başvur",
   "guide.cta.financeHelp": "Finansman konusunda yardım al",
   "guide.cta.prioritySupport": "Hub Plus ile öncelikli destek al",
+  "hubDash.membership.billingError": "Faturalandırma açılamadı. Lütfen tekrar dene.",
 };
 
 const zh: Dict = {
@@ -8850,6 +8858,7 @@ const zh: Dict = {
   "guide.cta.duoFinance": "申请 DUO 学生资助",
   "guide.cta.financeHelp": "获取理财帮助",
   "guide.cta.prioritySupport": "通过 Hub Plus 获得优先支持",
+  "hubDash.membership.billingError": "无法打开账单页面，请重试。",
 };
 
 const ar: Dict = {
@@ -9798,6 +9807,7 @@ const ar: Dict = {
   "guide.cta.duoFinance": "قدّم على تمويل DUO الطلابي",
   "guide.cta.financeHelp": "احصل على مساعدة في شؤونك المالية",
   "guide.cta.prioritySupport": "احصل على دعم ذي أولوية مع Hub Plus",
+  "hubDash.membership.billingError": "تعذّر فتح صفحة الفوترة. يُرجى المحاولة مرة أخرى.",
 };
 
 export const TRANSLATIONS: Record<LangCode, Dict> = {
