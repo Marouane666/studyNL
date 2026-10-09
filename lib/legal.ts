@@ -63,7 +63,7 @@ export const COMPANY = {
   legalName: "StudyNL" as string | null,
   /** KVK (Dutch Chamber of Commerce) number. */
   registrationNumber: "42001739" as string | null,
-  registeredAddress: "Cereskade 33, 9503 GC Stadskanaal" as string | null,
+  registeredAddress: "StudyNL Head Office, The NORD, Ronnis Mount, Ashton-under-Lyne, OL7 9PE" as string | null,
   countryOfRegistration: "Netherlands" as string | null,
   /**
    * Deliberately its own address rather than CONTACT_EMAIL: this is where
